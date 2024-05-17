@@ -707,8 +707,9 @@ MonoBehaviour:
   acceleration: 100
   groundFriction: 0.95
   onAirReduction: 0.1
-  jumpForce: 10
-  gravityMultiplier: 3
+  jumpForce: 7
+  gravityMultiplier: 4
+  gravityMultiplierDown: 5
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
