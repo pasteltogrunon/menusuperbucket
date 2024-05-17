@@ -6,14 +6,15 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Horizontal")]
-    [SerializeField] float maxSpeed = 10;
-    [SerializeField] float acceleration = 10;
-    [SerializeField] float groundFriction = 0.2f;
-    [SerializeField] float onAirReduction = 0.3f;
+    [SerializeField] [Tooltip("Velocidad máxima.")] float maxSpeed = 10;
+    [SerializeField] [Tooltip("Aceleración del movimiento horizontal.")] float acceleration = 10;
+    [SerializeField] [Tooltip("Lo que tarda en frenarse si no se pulsa ninguna tecla (cuanto más, menos tarda).")] float groundFriction = 0.2f;
+    [SerializeField] [Tooltip("Reducción de movilidad en el aire (0 es nada, 1 es la misma que en el suelo).")] float onAirReduction = 0.3f;
 
     [Header("Verical")]
-    [SerializeField] float jumpForce = 10;
-    [SerializeField] float gravityMultiplier = 3;
+    [SerializeField] [Tooltip("Fuerza de salto, cuanto más, más alto salta.")] float jumpForce = 10;
+    [SerializeField] [Tooltip("Multiplicador de gravedad cuando no se pulsa el espacio.")] float gravityMultiplier = 3;
+    [SerializeField] [Tooltip("Multiplicador de gravedad cuando va hacia abajo.")] float gravityMultiplierDown = 4;
     [SerializeField] LayerMask groundLayer;
 
     Rigidbody2D rb;
@@ -96,7 +97,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            rb.gravityScale = gravityMultiplier;
+            rb.gravityScale = rb.velocity.y >= 0 ? gravityMultiplier : gravityMultiplierDown;
         }
     }
 
