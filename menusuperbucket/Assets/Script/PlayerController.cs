@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
 
     Rigidbody2D rb;
+    Animator animator;
     bool grounded;
 
     float speed
@@ -39,6 +40,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     //Referencias a otros objetos
@@ -80,6 +82,8 @@ public class PlayerController : MonoBehaviour
                 speed += hInput * acceleration * Time.deltaTime * onAirReduction;
             }
         }
+
+        animator.SetFloat("Speed", Mathf.Abs(speed));
     }
 
     void verticalMovement()
