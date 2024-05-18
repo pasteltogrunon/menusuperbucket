@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
         set
         {
             rb.velocity = Mathf.Clamp(value, -maxSpeed, maxSpeed) * Vector2.right + rb.velocity.y * Vector2.up;
+            transform.localScale = new Vector3(value < 0 ? -1 : 1, 1, 1);
         }
     }
 
