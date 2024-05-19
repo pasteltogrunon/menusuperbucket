@@ -8,7 +8,18 @@ public class PlayerHurt : MonoBehaviour
     [SerializeField] Vector2 damageKnockback;
     [SerializeField] LayerMask enemyLayer;
 
-    bool isInvulnerable = false;
+    bool _isInvulnerable = false;
+
+    //Sets the stun also
+    bool IsInvulnerable
+    {
+        get => _isInvulnerable;
+        set
+        {
+            _isInvulnerable = value;
+            GetComponent<PlayerController>().Stunned = value;
+        }
+    }
 
     BoxCollider2D hitbox;
 
@@ -20,7 +31,7 @@ public class PlayerHurt : MonoBehaviour
     void Update()
     {
         //Only compute if not invulnerable
-        if (isInvulnerable) return;
+        if (IsInvulnerable) return;
 
         Collider2D[] hit = Physics2D.OverlapBoxAll(new Vector2(transform.position.x, transform.position.y) + hitbox.offset, hitbox.size, 0, enemyLayer);
 
@@ -41,8 +52,8 @@ public class PlayerHurt : MonoBehaviour
 
     IEnumerator damageCooldown()
     {
-        isInvulnerable = true;
+        IsInvulnerable = true;
         yield return new WaitForSeconds(invulnerableTime);
-        isInvulnerable = false;
+        IsInvulnerable = false;
     }
 }

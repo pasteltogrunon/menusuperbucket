@@ -418,7 +418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0906a93558382d4780a4f53b340a79b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 50
   health: 0
 --- !u!114 &68062118
 MonoBehaviour:
@@ -442,6 +442,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  Stunned: 0
 --- !u!212 &68062119
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -539,7 +540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   invulnerableTime: 0.5
-  damageKnockback: {x: 20, y: 20}
+  damageKnockback: {x: 7, y: 10}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -1510,7 +1511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4151770217cbae947af1df6c64194029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 5
+  maxSpeed: 7
   acceleration: 100
   groundFriction: 0.95
   onAirReduction: 0.1
@@ -1520,6 +1521,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  Stunned: 0
 --- !u!50 &996576688
 Rigidbody2D:
   serializedVersion: 4
@@ -1604,7 +1606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0906a93558382d4780a4f53b340a79b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 50
   health: 0
 --- !u!114 &996576691
 MonoBehaviour:
@@ -1649,7 +1651,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   invulnerableTime: 0.5
-  damageKnockback: {x: 30, y: 10}
+  damageKnockback: {x: 7, y: 10}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128

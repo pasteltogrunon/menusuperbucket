@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     Animator animator;
     bool grounded;
+    public bool Stunned;
 
     float speed
     {
@@ -53,6 +54,8 @@ public class PlayerController : MonoBehaviour
     {
         //To avoid computing it multiple times
         grounded = isGrounded();
+
+        //if (Stunned) return;
 
         horizontalMovement();
 
