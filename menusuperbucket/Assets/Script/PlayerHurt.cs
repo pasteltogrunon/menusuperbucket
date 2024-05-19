@@ -42,7 +42,7 @@ public class PlayerHurt : MonoBehaviour
 
             //Damage knockback
             float enemyDirection = Mathf.Sign(transform.position.x - hit[0].transform.position.x);
-            GetComponent<Rigidbody2D>().velocity = new Vector2(damageKnockback.x * enemyDirection, damageKnockback.y + GetComponent<Rigidbody2D>().velocity.y);
+            GetComponent<Rigidbody2D>().velocity = new Vector2(damageKnockback.x * enemyDirection, damageKnockback.y);
             
             //Invulnerability
             StartCoroutine(damageCooldown());

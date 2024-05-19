@@ -107,6 +107,8 @@ public class PlayerController : MonoBehaviour
         {
             rb.gravityScale = rb.velocity.y >= 0 ? gravityMultiplier : gravityMultiplierDown;
         }
+
+        animator.SetFloat("Vertical Speed", rb.velocity.y);
     }
 
     bool isGrounded()
