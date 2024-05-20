@@ -74,6 +74,9 @@
         },
         {
             "m_Id": "ccc5386b26d64beebe29632dd493064e"
+        },
+        {
+            "m_Id": "e63279b5123b4e87b68ca2ce0dbe133e"
         }
     ],
     "m_GroupDatas": [],
@@ -384,6 +387,18 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.GradientMaterialSlot",
+    "m_ObjectId": "02a9bf33d7cf4a46a4069df33b9f14bb",
+    "m_Id": 0,
+    "m_DisplayName": "Out",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3
 }
 
 {
@@ -1169,9 +1184,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -924.9998779296875,
-            "y": -243.0,
-            "width": 208.0,
+            "x": -876.0000610351563,
+            "y": -221.0,
+            "width": 208.00006103515626,
             "height": 104.0
         }
     },
@@ -2253,6 +2268,73 @@
     },
     "m_Labels": [],
     "m_Channel": 0
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.GradientNode",
+    "m_ObjectId": "e63279b5123b4e87b68ca2ce0dbe133e",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Gradient",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -882.0,
+            "y": -438.0,
+            "width": 208.0,
+            "height": 104.00003051757813
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "02a9bf33d7cf4a46a4069df33b9f14bb"
+        }
+    ],
+    "synonyms": [
+        "ramp"
+    ],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Value": 0.0,
+    "m_SerializableColorKeys": [
+        {
+            "x": 0.04494481533765793,
+            "y": 0.05029710754752159,
+            "z": 0.09433960914611817,
+            "w": 0.4764782190322876
+        },
+        {
+            "x": 0.5144583582878113,
+            "y": 0.3161267340183258,
+            "z": 0.6037735939025879,
+            "w": 0.6058899760246277
+        },
+        {
+            "x": 2.0,
+            "y": 2.0,
+            "z": 2.0,
+            "w": 0.7264667749404907
+        }
+    ],
+    "m_SerializableAlphaKeys": [
+        {
+            "x": 1.0,
+            "y": 0.0
+        },
+        {
+            "x": 1.0,
+            "y": 1.0
+        }
+    ],
+    "m_SerializableMode": 1
 }
 
 {
