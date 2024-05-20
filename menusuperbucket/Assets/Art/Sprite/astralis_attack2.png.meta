@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7dfa3c7a88405024b96554583e54f5d0
+guid: 980b85684e8e8a84bbd71c84eb46e764
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: astralis_attack1_0
+      name: astralis_attack2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dba0c0d09b601cd48b182208a377b42f
-      internalID: -919680894
+      spriteID: d52d32fe6e155bb4bb6270d357bc5fa8
+      internalID: 624360509
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: astralis_attack1_1
+      name: astralis_attack2_1
       rect:
         serializedVersion: 2
         x: 2351
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a4f47ffbd93b03e4c99f38bb0a64753b
-      internalID: 161382307
+      spriteID: b9e5e6c29ce23e145954701cb9cd4561
+      internalID: 2059136660
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: astralis_attack1_2
+      name: astralis_attack2_2
       rect:
         serializedVersion: 2
         x: 4702
@@ -166,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fdc0489a83f96f84b9425a16b797ff08
-      internalID: -1934088929
+      spriteID: 8825295974baf9447854438f9f0c380a
+      internalID: -450538387
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: astralis_attack1_3
+      name: astralis_attack2_3
       rect:
         serializedVersion: 2
         x: 7053
@@ -187,8 +187,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a4e4dc3a70db7a48ba5ae78cdc3807a
-      internalID: 1459507179
+      spriteID: 260c6c005a3b1f84c99a4a9b7239dada
+      internalID: -1881545692
       vertices: []
       indices: 
       edges: []
@@ -196,7 +196,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 47e046436606e8745b0f9416c83b13a7
+    spriteID: dc9846749bf590a42984c6d3fc6144c0
     internalID: 0
     vertices: []
     indices: 
@@ -204,10 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      astralis_attack1_0: -919680894
-      astralis_attack1_1: 161382307
-      astralis_attack1_2: -1934088929
-      astralis_attack1_3: 1459507179
+      astralis_attack2_0: 624360509
+      astralis_attack2_1: 2059136660
+      astralis_attack2_2: -450538387
+      astralis_attack2_3: -1881545692
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
