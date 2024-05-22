@@ -13,6 +13,7 @@ public class PlayerInteract : MonoBehaviour
         {
             interact();
         }
+
     }
 
     void interact()
