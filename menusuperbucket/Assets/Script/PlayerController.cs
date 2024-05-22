@@ -15,23 +15,69 @@ public class PlayerController : MonoBehaviour
     [SerializeField] [Tooltip("Fuerza de salto, cuanto más, más alto salta.")] float jumpForce = 10;
     [SerializeField] [Tooltip("Multiplicador de gravedad cuando no se pulsa el espacio.")] float gravityMultiplier = 3;
     [SerializeField] [Tooltip("Multiplicador de gravedad cuando va hacia abajo.")] float gravityMultiplierDown = 4;
+    [SerializeField] float secondJumpForce = 10;
     [SerializeField] LayerMask groundLayer;
+    public bool canDoubleJump;
+
+    int jumpCount = 1;
+
+    [Header("Dash")]
+    [SerializeField] bool canDash;
+    [SerializeField] float dashTime = 0.5f;
+    [SerializeField] float dashSpeed = 20;
+    [SerializeField] float residualSpeed = 4;
+    [SerializeField] float dashCooldown = 0.5f;
+
+    float dashTimer = 0;
+
+    [Header("Attack")]
+    [SerializeField] bool canAttack = false;
+    [SerializeField] int damage = 5;
+    [SerializeField] float attackMargin = 0.4f;
+    [SerializeField] float secondAttackDelay = 0.1f;
+    [SerializeField] BoxCollider2D attackHitbox;
+
+    int attackCount = 0;
+    float attackTimer = 0;
+
+
+    PlayerState state;
+
 
     Rigidbody2D rb;
     Animator animator;
     bool grounded;
-    public bool Stunned;
+    public bool Stunned
+    {
+        get => state is StunState;
+        set
+        {
+            if(value)
+            {
+                state = new StunState(this);
+            }
+            else
+            {
+                state = new NormalState(this);
+            }
+        }
+    }
 
     float speed
     {
         get => rb.velocity.x;
         set
         {
-            rb.velocity = Mathf.Clamp(value, -maxSpeed, maxSpeed) * Vector2.right + rb.velocity.y * Vector2.up;
-            if(Mathf.Abs(value) > 0.1f)
-            {
-                transform.localScale = new Vector3(value < 0 ? -1 : 1, 1, 1);
-            }
+            rb.velocity = value * Vector2.right + rb.velocity.y * Vector2.up;
+        }
+    }
+
+    float direction
+    {
+        get => Mathf.Sign(transform.localScale.x);
+        set
+        {
+            transform.localScale = new Vector3(value, 1, 1);
         }
     }
 
@@ -45,6 +91,8 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
+        state = new NormalState(this);
     }
 
     //Referencias a otros objetos
@@ -55,16 +103,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //To avoid computing it multiple times
-        grounded = isGrounded();
+        timers();
 
-        //if (Stunned) return;
-
-        horizontalMovement();
-
-        verticalMovement();
+        state.onUpdate();
     }
 
+    #region Movement
     void horizontalMovement()
     {
         if(grounded)
@@ -72,7 +116,11 @@ public class PlayerController : MonoBehaviour
             //If the player is grounded we check the movement normally
             if (hInput != 0)
             {
-                speed += hInput * acceleration * Time.deltaTime;
+                //Not adding to the speed if over the limits
+                if(!(hInput == 1 && speed >= maxSpeed) && !((hInput == -1 && speed <= -maxSpeed)))
+                {
+                    speed += hInput * acceleration * Time.deltaTime;
+                }
             }
             else
             {
@@ -85,8 +133,14 @@ public class PlayerController : MonoBehaviour
             //Reduce the movemnt capacity in the air
             if (hInput != 0)
             {
-                speed += hInput * acceleration * Time.deltaTime * onAirReduction;
+                if (!(hInput == 1 && speed >= maxSpeed *onAirReduction) && !((hInput == -1 && speed <= -maxSpeed * onAirReduction)))
+                    speed += hInput * acceleration * Time.deltaTime ;
             }
+        }
+
+        if(hInput != 0)
+        {
+            direction = Mathf.Sign(hInput);
         }
 
         animator.SetFloat("Speed", Mathf.Abs(speed));
@@ -95,9 +149,17 @@ public class PlayerController : MonoBehaviour
     void verticalMovement()
     {
 
-        if(Input.GetKeyDown(KeyCode.Space) && grounded)
+        if(Input.GetKeyDown(KeyCode.Space))
         {
-            rb.velocity = speed * Vector2.right + jumpForce * Vector2.up;
+            if(grounded)
+            {
+                rb.velocity = speed * Vector2.right + jumpForce * Vector2.up;
+            }
+            else if(jumpCount == 1)
+            {
+                rb.velocity = speed * Vector2.right + secondJumpForce * Vector2.up;
+                jumpCount--;
+            }
         }
 
 
@@ -108,7 +170,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            rb.gravityScale = rb.velocity.y >= 0 ? gravityMultiplier : gravityMultiplierDown;
+            if(!grounded)
+                rb.velocity -= (rb.velocity.y >= 0 ? gravityMultiplier : gravityMultiplierDown) * Time.deltaTime * Vector2.up;
         }
 
         animator.SetFloat("Vertical Speed", rb.velocity.y);
@@ -118,7 +181,170 @@ public class PlayerController : MonoBehaviour
     {
         //Casting a ray downwards
         if (Physics2D.Raycast(transform.position, Vector2.down, GetComponent<BoxCollider2D>().size.y / 2 + 0.2f, groundLayer))
+        {
+            jumpCount = 1;
             return true;
+        }
         return false;
     }
+
+    void tryDash()
+    {
+        if(Input.GetKeyDown(KeyCode.LeftShift) && canDash && dashTimer == 0)
+        {
+            state = new DashState(this);
+        }
+    }
+
+    #endregion
+
+    #region Attack
+    void tryAttack()
+    {
+        if (Input.GetKeyDown(KeyCode.Q) && canAttack)
+        {
+            attack();
+        }
+    }
+
+    void attack()
+    {
+        if (attackCount == 0 || attackCount == 1 && attackTimer > secondAttackDelay)
+        {
+            Collider2D[] hit = Physics2D.OverlapBoxAll(attackHitbox.transform.position, attackHitbox.size, 0);
+
+            foreach (Collider2D h in hit)
+            {
+                hurt(h);
+            }
+
+            if (attackCount == 0)
+            {
+                animator.Play("Astralis_Attack1", -1, 0);
+            }
+            else
+            {
+                animator.Play("Astralis_Attack2");
+            }
+
+            attackTimer = 0;
+            attackCount++;
+
+            StartCoroutine(slideForward());
+        }
+
+    }
+
+    void hurt(Collider2D h)
+    {
+        if (h.TryGetComponent(out HealthManager healthManager))
+        {
+            healthManager.Health -= damage;
+        }
+
+        if (h.TryGetComponent(out IPushable pushable))
+        {
+            pushable.push(Mathf.Sign(h.transform.position.x - transform.position.x) * Vector2.right);
+        }
+    }
+
+    IEnumerator slideForward()
+    {
+        float oldSpeed = speed;
+        speed = 10 * direction;
+        yield return new WaitForSeconds(0.05f);
+        speed = oldSpeed;
+    }
+
+    void timers()
+    {
+        if(dashTimer != 0)
+            dashTimer = Mathf.Max(0, dashTimer - Time.deltaTime);
+
+        if (attackCount > 0)
+        {
+            attackTimer += Time.deltaTime;
+            if (attackTimer > attackMargin)
+            {
+                attackTimer = 0;
+                attackCount = 0;
+            }
+        }
+    }
+    #endregion
+
+    #region Player States
+    abstract class PlayerState
+    {
+        public abstract void onUpdate();
+    }
+
+    class NormalState : PlayerState
+    {
+        PlayerController player;
+
+        public NormalState(PlayerController player)
+        {
+            this.player = player;
+        }
+
+        public override void onUpdate()
+        {
+            player.grounded = player.isGrounded();
+
+            player.horizontalMovement();
+
+            player.verticalMovement();
+
+            player.tryAttack();
+
+            player.tryDash();
+        }
+    }
+
+    class DashState : PlayerState
+    {
+        PlayerController player;
+        float dashTime = 0;
+
+        public DashState(PlayerController player)
+        {
+            this.player = player;
+            dashTime = player.dashTime;
+
+            player.rb.velocity = player.dashSpeed * player.transform.localScale.x * Vector2.right;
+            player.rb.gravityScale = 0;
+        }
+
+        public override void onUpdate()
+        {
+            dashTime -= Time.deltaTime;
+            if(dashTime < 0)
+            {
+                player.state = new NormalState(player);
+                player.speed = player.residualSpeed;
+                player.dashTimer = player.dashCooldown;
+                player.rb.gravityScale = 1;
+            }
+        }
+    }
+
+    class StunState : PlayerState
+    {
+        PlayerController player;
+
+        public StunState(PlayerController player)
+        {
+            this.player = player;
+        }
+
+        public override void onUpdate()
+        {
+            player.grounded = player.isGrounded();
+
+            if(!player.grounded)
+                player.rb.gravityScale = player.rb.velocity.y >= 0 ? player.gravityMultiplier : player.gravityMultiplierDown;
+        }
+    }
+    #endregion
 }

@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RenacuajoAI : MonoBehaviour
+public class RenacuajoAI : MonoBehaviour, IPushable
 {
     [SerializeField] float speed = 2f;
     [SerializeField] float raycastOffset = 1.3f;
     [SerializeField] float raycastDown = 1.3f;
 
+    [SerializeField] float receivedKnockback = 5;
+
     [SerializeField] LayerMask groundLayer;
+
+    float stunTime = 0;
 
     int direction = -1;
 
@@ -20,6 +24,13 @@ public class RenacuajoAI : MonoBehaviour
     void Update()
     {
         if (!grounded) return;
+
+        if(stunTime > 0)
+        {
+            stunTime -= Time.deltaTime;
+            return;
+        }
+        
 
         if(canMoveForward)
         {
@@ -47,5 +58,11 @@ public class RenacuajoAI : MonoBehaviour
     {
         Gizmos.DrawLine(transform.position + direction * raycastOffset * transform.right, transform.position + direction * raycastOffset * transform.right + Vector3.down * raycastDown);
         Gizmos.DrawLine(transform.position , transform.position + direction * raycastOffset * transform.right);
+    }
+
+    public void push(Vector2 pushDirection)
+    {
+        GetComponent<Rigidbody2D>().velocity = pushDirection * 5;
+        stunTime = 0.1f;
     }
 }

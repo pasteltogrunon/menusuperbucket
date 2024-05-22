@@ -46,10 +46,7 @@ public class PlayerAttack : MonoBehaviour
 
             foreach(Collider2D h in hit)
             {
-                if(h.TryGetComponent(out HealthManager healthManager))
-                {
-                    healthManager.Health -= damage;
-                }
+                hurt(h);
             }
 
             if(attackCount == 0)
@@ -66,5 +63,18 @@ public class PlayerAttack : MonoBehaviour
 
         }
 
+    }
+
+    void hurt(Collider2D h)
+    {
+        if (h.TryGetComponent(out HealthManager healthManager))
+        {
+            healthManager.Health -= damage;
+        }
+
+        if (h.TryGetComponent(out IPushable pushable))
+        {
+            pushable.push(Mathf.Sign(h.transform.position.x - transform.position.x ) * Vector2.right);
+        }
     }
 }
