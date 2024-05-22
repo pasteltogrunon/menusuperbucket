@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     public bool canDoubleJump;
 
-    int jumpCount = 1;
+    int jumpCount = 0;
 
     [Header("Dash")]
     [SerializeField] bool canDash;
@@ -40,6 +40,11 @@ public class PlayerController : MonoBehaviour
     int attackCount = 0;
     float attackTimer = 0;
 
+
+    [Header("Throw")]
+    [SerializeField] bool canThrow = false;
+    [SerializeField] float throwSpeed = 10;
+    [SerializeField] GameObject projectile;
 
     PlayerState state;
 
@@ -83,7 +88,7 @@ public class PlayerController : MonoBehaviour
 
     float hInput
     {
-        get => (Input.GetKey(KeyCode.A) ? -1 : 0) + (Input.GetKey(KeyCode.D) ? 1 : 0);
+        get => (InputManager.Left ? -1 : 0) + (InputManager.Right ? 1 : 0);
     }
 
     //Referencias a uno mismo
@@ -149,7 +154,7 @@ public class PlayerController : MonoBehaviour
     void verticalMovement()
     {
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(InputManager.JumpPressed)
         {
             if(grounded)
             {
@@ -164,7 +169,7 @@ public class PlayerController : MonoBehaviour
 
 
         //If space if kept pressed, the gravity is smaller, so the jump goes higher (only when going up)
-        if(Input.GetKey(KeyCode.Space) && rb.velocity.y >= 0)
+        if(InputManager.JumpHolded && rb.velocity.y >= 0)
         {
             rb.gravityScale = 1;
         }
@@ -182,7 +187,8 @@ public class PlayerController : MonoBehaviour
         //Casting a ray downwards
         if (Physics2D.Raycast(transform.position, Vector2.down, GetComponent<BoxCollider2D>().size.y / 2 + 0.2f, groundLayer))
         {
-            jumpCount = 1;
+            if(canDoubleJump)
+                jumpCount = 1;
             return true;
         }
         return false;
@@ -190,7 +196,7 @@ public class PlayerController : MonoBehaviour
 
     void tryDash()
     {
-        if(Input.GetKeyDown(KeyCode.LeftShift) && canDash && dashTimer == 0)
+        if(InputManager.Dash && canDash && dashTimer == 0)
         {
             state = new DashState(this);
         }
@@ -201,7 +207,7 @@ public class PlayerController : MonoBehaviour
     #region Attack
     void tryAttack()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && canAttack)
+        if (InputManager.Attack && canAttack)
         {
             attack();
         }
@@ -273,6 +279,24 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
+    #region Aim
+    Vector2 aimDirection
+    {
+        get => InputManager.getAimDirection(transform.position);
+    }
+
+    void tryThrow()
+    {
+        if(InputManager.Throw && canThrow)
+        {
+            Vector2 throwDirection = aimDirection;
+            Instantiate(projectile, transform.position + new Vector3(throwDirection.x, throwDirection.y) * 1.5f, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = throwDirection * throwSpeed;
+        }
+
+    }
+
+    #endregion
+
     #region Player States
     abstract class PlayerState
     {
@@ -296,9 +320,12 @@ public class PlayerController : MonoBehaviour
 
             player.verticalMovement();
 
+            //Astralis
             player.tryAttack();
-
             player.tryDash();
+
+            //Prometeus
+            player.tryThrow();
         }
     }
 

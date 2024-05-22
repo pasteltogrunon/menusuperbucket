@@ -248,7 +248,7 @@ MonoBehaviour:
   maxSpeed: 4
   acceleration: 50
   groundFriction: 0.95
-  onAirReduction: 0.1
+  onAirReduction: 0.7
   jumpForce: 4
   gravityMultiplier: 4
   gravityMultiplierDown: 5
@@ -267,6 +267,10 @@ MonoBehaviour:
   attackMargin: 0.4
   secondAttackDelay: 0.1
   attackHitbox: {fileID: 0}
+  canThrow: 1
+  throwSpeed: 10
+  projectile: {fileID: 2268325331462313365, guid: 57207a29f83584745947ee0c2ad6d510,
+    type: 3}
 --- !u!212 &68062119
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1666,6 +1670,7 @@ GameObject:
   m_Component:
   - component: {fileID: 841087268}
   - component: {fileID: 841087267}
+  - component: {fileID: 841087269}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1706,6 +1711,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &841087269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 841087266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ce4f334a8013f54c8e5e76e24102da6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  JumpKey: 32
+  RightKey: 100
+  LeftKey: 97
+  DashKey: 304
+  AttackKey: 113
+  ThrowKey: 114
+  mainCamera: {fileID: 330585545}
 --- !u!1 &858379829
 GameObject:
   m_ObjectHideFlags: 0
@@ -2304,6 +2328,9 @@ MonoBehaviour:
   attackMargin: 0.5
   secondAttackDelay: 0.1
   attackHitbox: {fileID: 524800183}
+  canThrow: 0
+  throwSpeed: 10
+  projectile: {fileID: 0}
 --- !u!50 &996576688
 Rigidbody2D:
   serializedVersion: 4
