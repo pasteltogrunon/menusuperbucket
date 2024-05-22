@@ -16,10 +16,14 @@ public class DialogueManager : MonoBehaviour
     {
         //Distinguir si hay una activa o no
 
-        //Mostrar el string letra por letra
+        //Checkear el tipo de instruccion y actuar en consecuencia
 
-        //Esperar para la siguiente línea
+        //Mostrar el string letra por letra a una velocidad dada proporcional a Time.deltaTime
+
+        //Esperar input para la siguiente línea
         Debug.Log("caca");
+
+        //Cuando acabe que no siga
     }
 
     public void loadDialogueScene(DialogueScene scene)

@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b853ff630227c641b934592ab723764, type: 3}
   m_Name: Scene1
   m_EditorClassIdentifier: 
-  instructionList: []
+  instructionList:
+  - {fileID: 11400000, guid: 4b7eec45366f9ad4baeeefa2603f36dc, type: 2}
