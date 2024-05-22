@@ -40,11 +40,18 @@ public class PlayerController : MonoBehaviour
     int attackCount = 0;
     float attackTimer = 0;
 
-
     [Header("Throw")]
     [SerializeField] bool canThrow = false;
     [SerializeField] float throwSpeed = 10;
     [SerializeField] GameObject projectile;
+
+    [Header("Grapple")]
+    [SerializeField] bool canGrapple = false;
+    [SerializeField] float maxGrappleDistance = 7;
+    [SerializeField] float grappleSpeed = 10;
+    [SerializeField] LayerMask grappleLayer;
+    [SerializeField] LineRenderer grappleLine;
+
 
     PlayerState state;
 
@@ -295,6 +302,19 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    void tryGrapple()
+    {
+        if(InputManager.Grapple && canGrapple)
+        {
+            Vector2 grappleDirection = aimDirection;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(grappleDirection.x, grappleDirection.y), grappleDirection, maxGrappleDistance, grappleLayer);
+            if (hit)
+            {
+                state = new GrappleState(this, hit.point, grappleLine);
+            }
+        }
+    }
+
     #endregion
 
     #region Player States
@@ -326,6 +346,7 @@ public class PlayerController : MonoBehaviour
 
             //Prometeus
             player.tryThrow();
+            player.tryGrapple();
         }
     }
 
@@ -371,6 +392,104 @@ public class PlayerController : MonoBehaviour
 
             if(!player.grounded)
                 player.rb.gravityScale = player.rb.velocity.y >= 0 ? player.gravityMultiplier : player.gravityMultiplierDown;
+        }
+    }
+
+    class GrappleState : PlayerState
+    {
+        PlayerController player;
+        LineRenderer grappleLine;
+
+        Vector2 target;
+        float distance = 0;
+        float initialDistance = 0;
+
+        bool recogiendoCable = false;
+        bool firstApproach = true;
+
+        public GrappleState(PlayerController player, Vector2 target, LineRenderer grappleLine)
+        {
+            this.player = player;
+            this.target = target;
+            this.grappleLine = grappleLine;
+
+            grappleLine.gameObject.SetActive(true);
+
+            distance = Vector3.Distance(target, (Vector2)player.transform.position);
+            initialDistance = distance;
+
+            player.rb.velocity = (target - (Vector2)player.transform.position).normalized * player.grappleSpeed;
+        }
+
+        public override void onUpdate()
+        {
+            if(InputManager.Grapple)
+            {
+                recogiendoCable = true;
+                player.rb.velocity = (target - (Vector2)player.transform.position).normalized * player.grappleSpeed;
+            }
+            else if(InputManager.JumpPressed)
+            {
+                player.state = new NormalState(player);
+                //player.dashTimer = player.dashCooldown;
+                player.rb.gravityScale = 1;
+                grappleLine.gameObject.SetActive(false);
+            }
+
+            if(firstApproach)
+            {
+                //Nada más empezar se acerca un poco
+                distance -= Time.deltaTime * 10;
+                player.rb.gravityScale = 0;
+                if (distance <= 0.75f * initialDistance)
+                {
+                    firstApproach = false;
+                    player.rb.gravityScale = 1;
+                    player.rb.velocity = Vector2.zero;
+                }
+            }
+            else if(recogiendoCable)
+            {
+                distance -= Time.deltaTime * 10;
+                player.rb.gravityScale = 0;
+                if (distance <= 0)
+                {
+                    player.state = new NormalState(player);
+                    //player.dashTimer = player.dashCooldown;
+                    player.rb.gravityScale = 1;
+                    grappleLine.gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                //Pretty much the normal state without the grapple
+                player.grounded = player.isGrounded();
+
+                player.horizontalMovement();
+
+                player.verticalMovement();
+
+                //Astralis
+                player.tryAttack();
+                player.tryDash();
+
+                //Prometeus
+                player.tryThrow();
+
+                if (Vector3.Distance(player.transform.position, target) > distance)
+                {
+                    //Adjust position to swing
+                    Vector2 direction = ((Vector2)player.transform.position - target).normalized;
+                    Vector2 ort = new Vector2(direction.y, -direction.x);
+
+                    player.transform.position = target + distance * direction;
+                    player.rb.velocity = Vector2.Dot(player.rb.velocity, ort) * ort;
+                }
+            }
+
+            grappleLine.SetPosition(0, player.transform.position);
+            grappleLine.SetPosition(1, new Vector3(target.x, target.y));
+            
         }
     }
     #endregion

@@ -15,6 +15,7 @@ public class InputManager : MonoBehaviour
     [HideInInspector] public static bool Dash;
     [HideInInspector] public static bool Attack;
     [HideInInspector] public static bool Throw;
+    [HideInInspector] public static bool Grapple;
 
     [HideInInspector] public static Vector2 mousePosition;
 
@@ -24,6 +25,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] KeyCode DashKey = KeyCode.LeftShift;
     [SerializeField] KeyCode AttackKey = KeyCode.Q;
     [SerializeField] KeyCode ThrowKey = KeyCode.R;
+    [SerializeField] KeyCode GrappleKey = KeyCode.F;
 
     public Camera mainCamera;
 
@@ -41,6 +43,7 @@ public class InputManager : MonoBehaviour
         Dash = Input.GetKeyDown(DashKey);
         Attack = Input.GetKeyDown(AttackKey);
         Throw = Input.GetKeyDown(ThrowKey);
+        Grapple = Input.GetKeyDown(GrappleKey);
 
         mousePosition = Input.mousePosition;
     }

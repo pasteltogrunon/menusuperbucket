@@ -21,7 +21,6 @@ public class DialogueManager : MonoBehaviour
         //Mostrar el string letra por letra a una velocidad dada proporcional a Time.deltaTime
 
         //Esperar input para la siguiente línea
-        Debug.Log("caca");
 
         //Cuando acabe que no siga
     }
