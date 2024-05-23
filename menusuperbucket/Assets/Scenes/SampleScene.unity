@@ -1334,8 +1334,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a4632b4f708f1484fad708e09bc24889, type: 2}
+  m_sharedMaterial: {fileID: -4087288732150106983, guid: a4632b4f708f1484fad708e09bc24889,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1366,7 +1367,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1976,7 +1977,7 @@ MonoBehaviour:
   AttackKey: 113
   ThrowKey: 114
   GrappleKey: 102
-  EnterLineKey: 271
+  EnterLineKey: 13
   mainCamera: {fileID: 330585545}
 --- !u!114 &841087270
 MonoBehaviour:
@@ -1991,7 +1992,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenCharacters: 0.1
-  displayText: {fileID: 0}
+  displayText: {fileID: 487423634}
 --- !u!1 &858379829
 GameObject:
   m_ObjectHideFlags: 0
@@ -2798,7 +2799,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 520
-  canDoubleJump: 0
+  canDoubleJump: 1
   canDash: 1
   dashTime: 0.15
   dashSpeed: 25
