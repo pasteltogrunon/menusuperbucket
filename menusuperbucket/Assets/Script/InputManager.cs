@@ -8,14 +8,15 @@ public class InputManager : MonoBehaviour
 
 
 
-    [HideInInspector] public static bool JumpPressed;
-    [HideInInspector] public static bool JumpHolded;
-    [HideInInspector] public static bool Right;
-    [HideInInspector] public static bool Left;
-    [HideInInspector] public static bool Dash;
-    [HideInInspector] public static bool Attack;
-    [HideInInspector] public static bool Throw;
-    [HideInInspector] public static bool Grapple;
+    public static bool JumpPressed { get => Input.GetKeyDown(Instance.JumpKey); }
+    public static bool JumpHolded { get => Input.GetKey(Instance.JumpKey); }
+    public static bool Right { get => Input.GetKey(Instance.RightKey); }
+    public static bool Left { get => Input.GetKey(Instance.LeftKey); }
+    public static bool Dash { get => Input.GetKeyDown(Instance.DashKey); }
+    public static bool Attack { get => Input.GetKeyDown(Instance.AttackKey); }
+    public static bool Throw { get => Input.GetKeyDown(Instance.ThrowKey); }
+    public static bool Grapple { get => Input.GetKeyDown(Instance.GrappleKey); }
+    public static bool EnterLine { get => Input.GetKeyDown(Instance.EnterLineKey); }
 
     [HideInInspector] public static Vector2 mousePosition;
 
@@ -26,6 +27,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] KeyCode AttackKey = KeyCode.Q;
     [SerializeField] KeyCode ThrowKey = KeyCode.R;
     [SerializeField] KeyCode GrappleKey = KeyCode.F;
+    [SerializeField] KeyCode EnterLineKey = KeyCode.Return;
 
     public Camera mainCamera;
 
@@ -36,20 +38,12 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
-        JumpPressed = Input.GetKeyDown(JumpKey);
-        JumpHolded = Input.GetKey(JumpKey);
-        Right = Input.GetKey(RightKey);
-        Left = Input.GetKey(LeftKey);
-        Dash = Input.GetKeyDown(DashKey);
-        Attack = Input.GetKeyDown(AttackKey);
-        Throw = Input.GetKeyDown(ThrowKey);
-        Grapple = Input.GetKeyDown(GrappleKey);
 
-        mousePosition = Input.mousePosition;
     }
 
     public static Vector2 getAimDirection(Vector3 playerPosition)
     {
+        mousePosition = Input.mousePosition;
         Vector2 screenPosition = Instance.mainCamera.WorldToScreenPoint(playerPosition);
         return (mousePosition - screenPosition).normalized;
     }

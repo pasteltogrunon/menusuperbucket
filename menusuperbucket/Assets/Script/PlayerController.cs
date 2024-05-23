@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] [Tooltip("Fuerza de salto, cuanto más, más alto salta.")] float jumpForce = 10;
     [SerializeField] [Tooltip("Multiplicador de gravedad cuando no se pulsa el espacio.")] float gravityMultiplier = 3;
     [SerializeField] [Tooltip("Multiplicador de gravedad cuando va hacia abajo.")] float gravityMultiplierDown = 4;
-    [SerializeField] float secondJumpForce = 10;
+    [SerializeField] [Tooltip("Fuerza del doble salto.")] float secondJumpForce = 10;
     [SerializeField] LayerMask groundLayer;
     public bool canDoubleJump;
 
@@ -23,18 +23,18 @@ public class PlayerController : MonoBehaviour
 
     [Header("Dash")]
     [SerializeField] bool canDash;
-    [SerializeField] float dashTime = 0.5f;
-    [SerializeField] float dashSpeed = 20;
-    [SerializeField] float residualSpeed = 4;
-    [SerializeField] float dashCooldown = 0.5f;
+    [SerializeField] [Tooltip("Duración del dash.")] float dashTime = 0.5f;
+    [SerializeField] [Tooltip("Velocidad del dash.")] float dashSpeed = 20;
+    [SerializeField] [Tooltip("Velocidad que queda tras el dash.")] float residualSpeed = 4;
+    [SerializeField] [Tooltip("Cooldown del dash.")] float dashCooldown = 0.5f;
 
     float dashTimer = 0;
 
     [Header("Attack")]
     [SerializeField] bool canAttack = false;
-    [SerializeField] int damage = 5;
-    [SerializeField] float attackMargin = 0.4f;
-    [SerializeField] float secondAttackDelay = 0.1f;
+    [SerializeField] [Tooltip("Daño del ataque.")] int damage = 5;
+    [SerializeField] [Tooltip("Margen para volver a atacar (segundo ataque).")] float attackMargin = 0.4f;
+    [SerializeField] [Tooltip("Tiempo mínimo para el segundo ataque.")] float secondAttackDelay = 0.1f;
     [SerializeField] BoxCollider2D attackHitbox;
 
     int attackCount = 0;
@@ -42,13 +42,13 @@ public class PlayerController : MonoBehaviour
 
     [Header("Throw")]
     [SerializeField] bool canThrow = false;
-    [SerializeField] float throwSpeed = 10;
+    [SerializeField] [Tooltip("Fuerza de lanzamiento.")] float throwSpeed = 10;
     [SerializeField] GameObject projectile;
 
     [Header("Grapple")]
     [SerializeField] bool canGrapple = false;
-    [SerializeField] float maxGrappleDistance = 7;
-    [SerializeField] float grappleSpeed = 10;
+    [SerializeField] [Tooltip("Máxima distance de gancho.")] float maxGrappleDistance = 7;
+    [SerializeField] [Tooltip("Velocidad transmitida al recoger el gancho.")] float grappleSpeed = 10;
     [SerializeField] LayerMask grappleLayer;
     [SerializeField] LineRenderer grappleLine;
 

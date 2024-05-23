@@ -1,56 +1,92 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
+    [SerializeField] float timeBetweenCharacters = 0.1f;
+    [SerializeField] TMP_Text displayText;
     public static DialogueManager Instance;
-    // Start is called before the first frame update
-    void Start()
+
+
+    DialogueScene activeScene;
+
+    DialogueInstruction activeInstruction;
+
+    int instructionCount;
+    int characterCount;
+    float timer = 0;
+    bool finishedLine;
+
+    void Awake()
     {
-        
+        Instance = this; //nuts
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         //Distinguir si hay una activa o no
-
-        //Checkear el tipo de instruccion y actuar en consecuencia
-
-        //Mostrar el string letra por letra a una velocidad dada proporcional a Time.deltaTime
-
-        //Esperar input para la siguiente línea
-
-        //Cuando acabe que no siga
+        if(activeScene != null)
+        {
+            //Checkear el tipo de instruccion y actuar en consecuencia
+            if(activeInstruction.type == DialogueInstruction.InstructionType.Dialogue)
+            {
+                manageDialogueLine();
+            }
+        }
     }
 
     public void loadDialogueScene(DialogueScene scene)
     {
+        if(activeScene == null)
+        {
+            activeScene = scene;
 
+            instructionCount = 0;
+            activeInstruction = activeScene.instructionList[instructionCount];
+
+            characterCount = 0;
+        }
     }
-}
 
-public class DialogoPersonaje : MonoBehaviour
-{
-    DialogueScene scene;
-
-
-    void interact()
+    void manageDialogueLine()
     {
-        DialogueManager.Instance.loadDialogueScene(scene);
+        if (finishedLine)
+        {
+            if (InputManager.EnterLine)
+            {
+                instructionCount++;
+                if(instructionCount < activeScene.instructionList.Length)
+                {
+                    activeInstruction = activeScene.instructionList[instructionCount];
+                    characterCount = 0;
+                }
+                else
+                {
+                    displayText.text = null;
+                    activeScene = null;
+                }
+
+                finishedLine = false;
+            }
+        }
+        else
+        {
+            timer += Time.deltaTime;
+            if (timer >= timeBetweenCharacters)
+            {
+                timer -= timeBetweenCharacters;
+                characterCount++;
+
+                displayText.text = activeInstruction.line.Substring(0, Mathf.Min(characterCount, activeInstruction.line.Length));
+                if (characterCount == activeInstruction.line.Length)
+                {
+                    finishedLine = true;
+                }
+            }
+
+        }
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
 }
