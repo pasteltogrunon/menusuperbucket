@@ -218,6 +218,12 @@ public class PlayerController : MonoBehaviour
         {
             attack();
         }
+
+        if (Input.GetKeyDown(KeyCode.W) && canAttack)
+        {
+            //Strong attack
+            animator.Play("Astralis_Strong", -1, 0);
+        }
     }
 
     void attack()
