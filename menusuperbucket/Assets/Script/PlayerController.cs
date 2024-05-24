@@ -362,6 +362,8 @@ public class PlayerController : MonoBehaviour
 
             player.rb.velocity = player.dashSpeed * player.transform.localScale.x * Vector2.right;
             player.rb.gravityScale = 0;
+
+            player.animator.SetBool("Dashing", true);
         }
 
         public override void onUpdate()
@@ -373,6 +375,8 @@ public class PlayerController : MonoBehaviour
                 player.speed = player.residualSpeed;
                 player.dashTimer = player.dashCooldown;
                 player.rb.gravityScale = 1;
+
+                player.animator.SetBool("Dashing", false);
             }
         }
     }
