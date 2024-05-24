@@ -6,13 +6,13 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Horizontal")]
-    [SerializeField] [Tooltip("Velocidad máxima.")] float maxSpeed = 10;
-    [SerializeField] [Tooltip("Aceleración del movimiento horizontal.")] float acceleration = 10;
-    [SerializeField] [Tooltip("Lo que tarda en frenarse si no se pulsa ninguna tecla (cuanto más, menos tarda).")] float groundFriction = 0.2f;
-    [SerializeField] [Tooltip("Reducción de movilidad en el aire (0 es nada, 1 es la misma que en el suelo).")] float onAirReduction = 0.3f;
+    [SerializeField] [Tooltip("Velocidad mï¿½xima.")] float maxSpeed = 10;
+    [SerializeField] [Tooltip("Aceleraciï¿½n del movimiento horizontal.")] float acceleration = 10;
+    [SerializeField] [Tooltip("Lo que tarda en frenarse si no se pulsa ninguna tecla (cuanto mï¿½s, menos tarda).")] float groundFriction = 0.2f;
+    [SerializeField] [Tooltip("Reducciï¿½n de movilidad en el aire (0 es nada, 1 es la misma que en el suelo).")] float onAirReduction = 0.3f;
 
-    [Header("Verical")]
-    [SerializeField] [Tooltip("Fuerza de salto, cuanto más, más alto salta.")] float jumpForce = 10;
+    [Header("Vertical")]
+    [SerializeField] [Tooltip("Fuerza de salto, cuanto mï¿½s, mï¿½s alto salta.")] float jumpForce = 10;
     [SerializeField] [Tooltip("Multiplicador de gravedad cuando no se pulsa el espacio.")] float gravityMultiplier = 3;
     [SerializeField] [Tooltip("Multiplicador de gravedad cuando va hacia abajo.")] float gravityMultiplierDown = 4;
     [SerializeField] [Tooltip("Fuerza del doble salto.")] float secondJumpForce = 10;
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Dash")]
     [SerializeField] bool canDash;
-    [SerializeField] [Tooltip("Duración del dash.")] float dashTime = 0.5f;
+    [SerializeField] [Tooltip("Duraciï¿½n del dash.")] float dashTime = 0.5f;
     [SerializeField] [Tooltip("Velocidad del dash.")] float dashSpeed = 20;
     [SerializeField] [Tooltip("Velocidad que queda tras el dash.")] float residualSpeed = 4;
     [SerializeField] [Tooltip("Cooldown del dash.")] float dashCooldown = 0.5f;
@@ -32,9 +32,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("Attack")]
     [SerializeField] bool canAttack = false;
-    [SerializeField] [Tooltip("Daño del ataque.")] int damage = 5;
+    [SerializeField] [Tooltip("Daï¿½o del ataque.")] int damage = 5;
     [SerializeField] [Tooltip("Margen para volver a atacar (segundo ataque).")] float attackMargin = 0.4f;
-    [SerializeField] [Tooltip("Tiempo mínimo para el segundo ataque.")] float secondAttackDelay = 0.1f;
+    [SerializeField] [Tooltip("Tiempo mï¿½nimo para el segundo ataque.")] float secondAttackDelay = 0.1f;
     [SerializeField] BoxCollider2D attackHitbox;
 
     int attackCount = 0;
@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Grapple")]
     [SerializeField] bool canGrapple = false;
-    [SerializeField] [Tooltip("Máxima distance de gancho.")] float maxGrappleDistance = 7;
+    [SerializeField] [Tooltip("Mï¿½xima distance de gancho.")] float maxGrappleDistance = 7;
     [SerializeField] [Tooltip("Velocidad transmitida al recoger el gancho.")] float grappleSpeed = 10;
     [SerializeField] LayerMask grappleLayer;
     [SerializeField] LineRenderer grappleLine;
@@ -219,7 +219,7 @@ public class PlayerController : MonoBehaviour
             attack();
         }
 
-        if (Input.GetKeyDown(KeyCode.W) && canAttack)
+        if (InputManager.StrongAttack && canAttack)
         {
             //Strong attack
             animator.Play("Astralis_Strong", -1, 0);
@@ -448,7 +448,7 @@ public class PlayerController : MonoBehaviour
 
             if(firstApproach)
             {
-                //Nada más empezar se acerca un poco
+                //Nada mï¿½s empezar se acerca un poco
                 distance -= Time.deltaTime * 10;
                 player.rb.gravityScale = 0;
                 if (distance <= 0.75f * initialDistance)

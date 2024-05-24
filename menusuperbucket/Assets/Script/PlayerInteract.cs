@@ -9,7 +9,7 @@ public class PlayerInteract : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if(InputManager.Interact)
         {
             interact();
         }

@@ -1975,9 +1975,20 @@ MonoBehaviour:
   LeftKey: 97
   DashKey: 304
   AttackKey: 113
+  StrongAttackKey: 119
   ThrowKey: 114
   GrappleKey: 102
+  InteractKey: 101
   EnterLineKey: 13
+  JumpButton: 330
+  DashButton: 331
+  AttackButton: 332
+  StrongAttackButton: 333
+  ThrowButton: 334
+  GrappleButton: 335
+  InteractButton: 339
+  EnterLineButton: 336
+  DeadZone: 0.1
   mainCamera: {fileID: 330585545}
 --- !u!114 &841087270
 MonoBehaviour:
