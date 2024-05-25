@@ -32,10 +32,14 @@ public class PlayerController : MonoBehaviour
 
     [Header("Attack")]
     [SerializeField] bool canAttack = false;
-    [SerializeField] [Tooltip("Da�o del ataque.")] int damage = 5;
+    [SerializeField] [Tooltip("Danio del ataque debil.")] int weakDamage = 5;
+    [SerializeField] [Tooltip("Danio del ataque fuerte.")] int strongDamage = 10;
     [SerializeField] [Tooltip("Margen para volver a atacar (segundo ataque).")] float attackMargin = 0.4f;
-    [SerializeField] [Tooltip("Tiempo m�nimo para el segundo ataque.")] float secondAttackDelay = 0.1f;
+    [SerializeField] [Tooltip("Tiempo minimo para el segundo ataque.")] float secondAttackDelay = 0.1f;
+    [SerializeField] [Tooltip("Tiempo de retardo para el ataque fuerte.")] float strongAttackDelay = 0.1f;
+    [SerializeField] [Tooltip("Frenado cuando se usa el ataque fuerte. 1 es nada, 0 es frenada completa.")] float strongAttackDecelaration = 0.3f;
     [SerializeField] BoxCollider2D attackHitbox;
+    [SerializeField] BoxCollider2D strongAttackHitbox;
 
     int attackCount = 0;
     float attackTimer = 0;
@@ -214,58 +218,19 @@ public class PlayerController : MonoBehaviour
     #region Attack
     void tryAttack()
     {
+        if (state is AttackState) return;
+
         if (InputManager.Attack && canAttack)
         {
-            attack();
+            state = new AttackState(this, AttackState.AttackType.Weak);
         }
 
         if (InputManager.StrongAttack && canAttack)
         {
-            //Strong attack
-            animator.Play("Astralis_Strong", -1, 0);
+            state = new AttackState(this, AttackState.AttackType.Strong);
         }
     }
 
-    void attack()
-    {
-        if (attackCount == 0 || attackCount == 1 && attackTimer > secondAttackDelay)
-        {
-            Collider2D[] hit = Physics2D.OverlapBoxAll(attackHitbox.transform.position, attackHitbox.size, 0);
-
-            foreach (Collider2D h in hit)
-            {
-                hurt(h);
-            }
-
-            if (attackCount == 0)
-            {
-                animator.Play("Astralis_Attack2", -1, 0);
-            }
-            else
-            {
-                animator.Play("Astralis_Attack1");
-            }
-
-            attackTimer = 0;
-            attackCount++;
-
-            StartCoroutine(slideForward());
-        }
-
-    }
-
-    void hurt(Collider2D h)
-    {
-        if (h.TryGetComponent(out HealthManager healthManager))
-        {
-            healthManager.Health -= damage;
-        }
-
-        if (h.TryGetComponent(out IPushable pushable))
-        {
-            pushable.push(Mathf.Sign(h.transform.position.x - transform.position.x) * Vector2.right);
-        }
-    }
 
     IEnumerator slideForward()
     {
@@ -279,16 +244,6 @@ public class PlayerController : MonoBehaviour
     {
         if(dashTimer != 0)
             dashTimer = Mathf.Max(0, dashTimer - Time.deltaTime);
-
-        if (attackCount > 0)
-        {
-            attackTimer += Time.deltaTime;
-            if (attackTimer > attackMargin)
-            {
-                attackTimer = 0;
-                attackCount = 0;
-            }
-        }
     }
     #endregion
 
@@ -384,6 +339,134 @@ public class PlayerController : MonoBehaviour
 
                 player.animator.SetBool("Dashing", false);
             }
+        }
+    }
+    class AttackState : PlayerState
+    {
+        PlayerController player;
+        AttackType attackType;
+        int attackCount = 0;
+        float attackTimer = 0;
+
+        public AttackState(PlayerController player, AttackType attackType)
+        {
+            this.player = player;
+            this.attackType = attackType;
+
+            switch (attackType)
+            {
+                case AttackType.Weak:
+                    weakAttack();
+                    break;
+                case AttackType.Strong:
+                    player.animator.Play("Astralis_Strong", -1, 0);
+                    player.speed *= player.strongAttackDecelaration;
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+
+        public override void onUpdate()
+        {
+            switch(attackType)
+            {
+                case AttackType.Weak:
+                    player.grounded = player.isGrounded();
+
+                    player.horizontalMovement();
+                    player.verticalMovement();
+
+                    trySecondAttack();
+                    break;
+                case AttackType.Strong:
+                    if (attackTimer > player.strongAttackDelay)
+                        strongAttack();
+                    break;
+                default:
+                    break;
+            }
+
+            attackTimer += Time.deltaTime;
+            if (attackTimer > player.attackMargin)
+            {
+                player.state = new NormalState(player);
+            }
+        }
+
+        void weakAttack()
+        {
+            if (attackCount == 0 || attackCount == 1 && attackTimer > player.secondAttackDelay)
+            {
+                Collider2D[] hit = Physics2D.OverlapBoxAll(player.attackHitbox.transform.position, player.attackHitbox.size, 0);
+
+                foreach (Collider2D h in hit)
+                {
+                    hurt(h, player.weakDamage);
+                }
+
+                if (attackCount == 0)
+                {
+                    player.animator.Play("Astralis_Attack2", -1, 0);
+                }
+                else
+                {
+                    player.animator.Play("Astralis_Attack1");
+                }
+
+                attackTimer = 0;
+                attackCount++;
+
+                player.StartCoroutine(player.slideForward());
+            }
+
+        }
+
+        void trySecondAttack()
+        {
+            if (InputManager.Attack)
+            {
+                weakAttack();
+            }
+        }
+
+        void strongAttack()
+        {
+            if(attackCount == 0)
+            {
+                Collider2D[] hit = Physics2D.OverlapBoxAll(player.strongAttackHitbox.transform.position, player.strongAttackHitbox.size, 0);
+
+                foreach (Collider2D h in hit)
+                {
+                    hurt(h, player.strongDamage);
+                }
+
+                player.StartCoroutine(player.slideForward());
+                attackCount++;
+            }
+        }
+
+        void hurt(Collider2D h, int damage)
+        {
+            if (h.transform == player.transform) return;
+
+            if (h.TryGetComponent(out HealthManager healthManager))
+            {
+                healthManager.Health -= damage;
+            }
+
+            if (h.TryGetComponent(out IPushable pushable))
+            {
+                pushable.push(Mathf.Sign(h.transform.position.x - player.transform.position.x) * Vector2.right);
+            }
+        }
+
+        public enum AttackType
+        {
+            Weak,
+            Strong,
+            Charged
         }
     }
 

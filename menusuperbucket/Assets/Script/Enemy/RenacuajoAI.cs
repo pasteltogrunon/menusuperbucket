@@ -5,6 +5,8 @@ using UnityEngine;
 public class RenacuajoAI : MonoBehaviour, IPushable
 {
     [SerializeField] float speed = 2f;
+    [SerializeField] float timeStunned = 0.4f;
+    [SerializeField] float timePushed = 0.1f;
     [SerializeField] float raycastOffset = 1.3f;
     [SerializeField] float raycastDown = 1.3f;
 
@@ -12,7 +14,9 @@ public class RenacuajoAI : MonoBehaviour, IPushable
 
     [SerializeField] LayerMask groundLayer;
 
+    //Time being pushed and time being unable to do things
     float stunTime = 0;
+    float pushTime = 0;
 
     int direction = -1;
 
@@ -25,11 +29,20 @@ public class RenacuajoAI : MonoBehaviour, IPushable
     {
         if (!grounded) return;
 
-        if(stunTime > 0)
+        if (pushTime > 0)
         {
+            //If pushed we do not countdown stun
+            pushTime -= Time.deltaTime;
+            return;
+        }
+
+        if (stunTime > 0)
+        {
+            GetComponent<Rigidbody2D>().velocity = Vector2.up * GetComponent<Rigidbody2D>().velocity.y;
             stunTime -= Time.deltaTime;
             return;
         }
+
         
 
         if(canMoveForward)
@@ -63,6 +76,7 @@ public class RenacuajoAI : MonoBehaviour, IPushable
     public void push(Vector2 pushDirection)
     {
         GetComponent<Rigidbody2D>().velocity = pushDirection * 5;
-        stunTime = 0.1f;
+        stunTime = timeStunned;
+        pushTime = timePushed;
     }
 }
