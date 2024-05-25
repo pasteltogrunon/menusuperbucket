@@ -45,12 +45,12 @@ public class InputManager : MonoBehaviour
 
     private bool RightAxis()
     {
-        return Input.GetAxis("Horizontal") > DeadZone;
+        return Input.GetAxisRaw("Horizontal") > DeadZone;
     }
 
     private bool LeftAxis()
     {
-        return Input.GetAxis("Horizontal") < -DeadZone;
+        return Input.GetAxisRaw("Horizontal") < -DeadZone;
     }
 
     public Camera mainCamera;

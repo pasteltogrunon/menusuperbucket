@@ -239,11 +239,11 @@ public class PlayerController : MonoBehaviour
 
             if (attackCount == 0)
             {
-                animator.Play("Astralis_Attack1", -1, 0);
+                animator.Play("Astralis_Attack2", -1, 0);
             }
             else
             {
-                animator.Play("Astralis_Attack2");
+                animator.Play("Astralis_Attack1");
             }
 
             attackTimer = 0;
@@ -302,7 +302,7 @@ public class PlayerController : MonoBehaviour
     {
         if(InputManager.Throw && canThrow)
         {
-            Vector2 throwDirection = aimDirection;
+            Vector2 throwDirection = (direction * Vector2.right + Vector2.up).normalized;
             Instantiate(projectile, transform.position + new Vector3(throwDirection.x, throwDirection.y) * 1.5f, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = throwDirection * throwSpeed;
         }
 
@@ -313,10 +313,10 @@ public class PlayerController : MonoBehaviour
         if(InputManager.Grapple && canGrapple)
         {
             Vector2 grappleDirection = aimDirection;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(grappleDirection.x, grappleDirection.y), grappleDirection, maxGrappleDistance, grappleLayer);
+            Collider2D hit = Physics2D.OverlapCircle(transform.position,  maxGrappleDistance, grappleLayer);
             if (hit)
             {
-                state = new GrappleState(this, hit.point, grappleLine);
+                state = new GrappleState(this, hit.transform.position, grappleLine);
             }
         }
     }
