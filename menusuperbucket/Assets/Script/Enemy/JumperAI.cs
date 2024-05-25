@@ -153,7 +153,7 @@ public class JumperAI : MonoBehaviour, IPushable
 
     public void push(Vector2 pushDirection)
     {
-        GetComponent<Rigidbody2D>().velocity = pushDirection * 5;
+        GetComponent<Rigidbody2D>().velocity = pushDirection * receivedKnockback;
         stunTime = timeStunned;
         pushTime = timePushed;
     }
