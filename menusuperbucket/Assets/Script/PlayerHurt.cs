@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerHurt : MonoBehaviour
 {
     [SerializeField] float invulnerableTime = 0.5f;
+    [SerializeField] float stunTime = 0.5f;
     [SerializeField] Vector2 damageKnockback;
     [SerializeField] LayerMask enemyLayer;
 
@@ -58,7 +59,21 @@ public class PlayerHurt : MonoBehaviour
     IEnumerator damageCooldown()
     {
         IsInvulnerable = true;
-        yield return new WaitForSeconds(invulnerableTime);
-        IsInvulnerable = false;
+
+        Material material = GetComponent<Renderer>().material;
+        for(float t = 0; t<= invulnerableTime; t+= Time.deltaTime)
+        {
+            if(t > stunTime)
+                GetComponent<PlayerController>().Stunned = false;
+
+            if(material.HasFloat("_Invulnerable"))
+            {
+                material.SetFloat("_Invulnerable", 1 - t / invulnerableTime);
+            }
+
+            yield return null;
+        }
+        _isInvulnerable = false;
+
     }
 }

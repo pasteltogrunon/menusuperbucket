@@ -46,13 +46,21 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Damage: 0
+    - _Invulnerable: 0
+    - _Invulnerable_Frequency: 10
+    - _Invulnerable_Power: 0.1
+    - _Invulnerable_Radius: 1
     - _Noise_Scale: 10
     - _Power: 12
     - _Scale: 100
     m_Colors:
     - _Background_Color: {r: 0.09278209, g: 0.09940676, b: 0.14150935, a: 0}
     - _Color: {r: 6.422234, g: 6.422234, b: 6.422234, a: 1}
+    - _Damage_Color: {r: 3.586044, g: 2.886792, b: 4, a: 1}
     - _Flow_Speed: {r: 0.1, g: 0.025, b: 0, a: 0}
+    - _Invulnerable_Color: {r: 0.5, g: 0.15801886, b: 0.48963302, a: 1}
+    - _Invulnerable_Scale: {r: 0.5, g: 0.5, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &6314400763040167892
 MonoBehaviour:
