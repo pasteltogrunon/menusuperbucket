@@ -24,6 +24,10 @@ public class InputManager : MonoBehaviour
 
     [HideInInspector] public static Vector2 mousePosition;
 
+    /* Perdon por cambiar los controles del teclao uwu,
+    a mi me gustan mas los nuevos para poder usar las dos manos comodamente,
+    pero por si quieres tirar patras, te dejo los antiwos uwuw
+
     [SerializeField] KeyCode JumpKey = KeyCode.Space;
     [SerializeField] KeyCode RightKey = KeyCode.D;
     [SerializeField] KeyCode LeftKey = KeyCode.A;
@@ -34,6 +38,18 @@ public class InputManager : MonoBehaviour
     [SerializeField] KeyCode GrappleKey = KeyCode.F;
     [SerializeField] KeyCode InteractKey = KeyCode.E;
     [SerializeField] KeyCode EnterLineKey = KeyCode.Return;
+    */
+
+    [SerializeField] KeyCode JumpKey = KeyCode.Space;
+    [SerializeField] KeyCode RightKey = KeyCode.D;
+    [SerializeField] KeyCode LeftKey = KeyCode.A;
+    [SerializeField] KeyCode DashKey = KeyCode.LeftShift;
+    [SerializeField] KeyCode AttackKey = KeyCode.J;
+    [SerializeField] KeyCode StrongAttackKey = KeyCode.K;
+    [SerializeField] KeyCode ThrowKey = KeyCode.H;
+    [SerializeField] KeyCode GrappleKey = KeyCode.L;
+    [SerializeField] KeyCode InteractKey = KeyCode.F;
+    [SerializeField] KeyCode EnterLineKey = KeyCode.Return;
 
     [SerializeField] KeyCode JumpButton = KeyCode.JoystickButton0;
     [SerializeField] KeyCode DashButton = KeyCode.JoystickButton1;
@@ -43,7 +59,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] KeyCode GrappleButton = KeyCode.JoystickButton5;
     [SerializeField] KeyCode InteractButton = KeyCode.JoystickButton9;
     [SerializeField] KeyCode EnterLineButton = KeyCode.JoystickButton6;
-    [SerializeField] float DeadzoneValue = 0.1f;
+    [Range(0.0f, 1.0f)] [SerializeField] float DeadzoneValue = 0.1f;
 
     private bool RightAxis()
     {

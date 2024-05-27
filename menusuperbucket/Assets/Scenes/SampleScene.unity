@@ -2463,11 +2463,11 @@ MonoBehaviour:
   RightKey: 100
   LeftKey: 97
   DashKey: 304
-  AttackKey: 113
-  StrongAttackKey: 119
-  ThrowKey: 114
-  GrappleKey: 102
-  InteractKey: 101
+  AttackKey: 106
+  StrongAttackKey: 107
+  ThrowKey: 104
+  GrappleKey: 108
+  InteractKey: 102
   EnterLineKey: 13
   JumpButton: 330
   DashButton: 331
@@ -3650,15 +3650,15 @@ MonoBehaviour:
   dashEndRunLerp: 0.5
   dashRefillTime: 0.08
   dashInputBufferTime: 0.1
-  gravityStrength: -66.666664
-  gravityScale: 6.795786
+  gravityStrength: -73.33333
+  gravityScale: 7.475364
   fallGravityMult: 1.25
   maxFallSpeed: 24
   fastFallGravityMult: 1.65
   maxFastFallSpeed: 28
-  jumpHeight: 3
+  jumpHeight: 3.3
   jumpTimeToApex: 0.3
-  jumpForce: 20
+  jumpForce: 22
   jumpCutGravityMult: 2
   jumpHangGravityMult: 0.5
   jumpHangTimeThreshold: 1
