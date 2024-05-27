@@ -121,6 +121,11 @@ public class ShootingFlyingEnemyAI : MonoBehaviour, IPushable
                         .GetComponent<Rigidbody2D>().velocity = dir * shotSpeed;
 
                     attackTimer = attackCooldown;
+
+                    if(TryGetComponent(out Animator anim))
+                    {
+                        anim.Play("attack");
+                    }
                 }
             }
             else if(distance <= minRadius)

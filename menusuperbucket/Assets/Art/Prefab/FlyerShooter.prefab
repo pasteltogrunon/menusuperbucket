@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4391266743483220814}
   - component: {fileID: 813538168667715524}
   - component: {fileID: 5272833486057780166}
+  - component: {fileID: 2852870549946711131}
   m_Layer: 7
   m_Name: FlyerShooter
   m_TagString: Untagged
@@ -191,7 +192,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.03}
+  m_Offset: {x: -0.29, y: 0.12}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -204,3 +205,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.53, y: 0.56}
   m_EdgeRadius: 0
+--- !u!95 &2852870549946711131
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3201830776862002406}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 68791b0aa043b0649838f7dd38d047f3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
