@@ -37,17 +37,22 @@ public class PlayerHurt : MonoBehaviour
 
         if(hit.Length != 0)
         {
-            //Health damage
-            GetComponent<HealthManager>().Health -= 5;
-
-            //Damage knockback
-            float enemyDirection = Mathf.Sign(transform.position.x - hit[0].transform.position.x);
-            GetComponent<Rigidbody2D>().velocity = new Vector2(damageKnockback.x * enemyDirection, damageKnockback.y);
-            
-            //Invulnerability
-            StartCoroutine(damageCooldown());
+            hurt(hit[0].transform.position, 5);
         }
 
+    }
+
+    public void hurt(Vector2 pos, int damage)
+    {
+        //Health damage
+        GetComponent<HealthManager>().Health -= damage;
+
+        //Damage knockback
+        float enemyDirection = Mathf.Sign(transform.position.x - pos.x);
+        GetComponent<Rigidbody2D>().velocity = new Vector2(damageKnockback.x * enemyDirection, damageKnockback.y);
+
+        //Invulnerability
+        StartCoroutine(damageCooldown());
     }
 
     IEnumerator damageCooldown()

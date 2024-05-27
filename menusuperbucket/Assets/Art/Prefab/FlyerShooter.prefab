@@ -130,7 +130,7 @@ MonoBehaviour:
   minRadius: 2
   attackCooldown: 4
   shotSpeed: 4
-  projectile: {fileID: 2268325331462313365, guid: 57207a29f83584745947ee0c2ad6d510,
+  projectile: {fileID: 2268325331462313365, guid: dc79b852e6d3a9d49979536eabbc94e6,
     type: 3}
 --- !u!50 &813538168667715524
 Rigidbody2D:
