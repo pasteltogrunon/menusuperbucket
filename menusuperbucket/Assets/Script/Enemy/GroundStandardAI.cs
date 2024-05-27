@@ -33,6 +33,8 @@ public class GroundStandardAI : MonoBehaviour, IPushable
 
     Transform spottedEnemy;
 
+    Animator animator;
+
     protected Vector2 enemyDirection
     {
         get => new Vector2(spottedEnemy.position.x - transform.position.x, spottedEnemy.position.y - transform.position.y);
@@ -50,6 +52,9 @@ public class GroundStandardAI : MonoBehaviour, IPushable
     {
         direction = -Mathf.FloorToInt(transform.localScale.x);
         state = State.Wandering;
+
+        TryGetComponent(out animator);
+
     }
 
     void Start()
@@ -65,6 +70,9 @@ public class GroundStandardAI : MonoBehaviour, IPushable
         {
             //If pushed we do not countdown stun
             pushTime -= Time.deltaTime;
+
+            animator?.SetFloat("Speed", 0);
+
             return;
         }
 
@@ -72,6 +80,9 @@ public class GroundStandardAI : MonoBehaviour, IPushable
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.up * GetComponent<Rigidbody2D>().velocity.y;
             stunTime -= Time.deltaTime;
+
+            animator?.SetFloat("Speed", 0);
+
             return;
         }
 
@@ -87,6 +98,9 @@ public class GroundStandardAI : MonoBehaviour, IPushable
             default:
                 break;
         }
+       
+
+        animator?.SetFloat("Speed", Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x));
         
     }
 

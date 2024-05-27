@@ -271,6 +271,7 @@ MonoBehaviour:
   strongAttackDecelaration: 0.3
   attackHitbox: {fileID: 0}
   strongAttackHitbox: {fileID: 0}
+  HitVFX: {fileID: 0}
   canThrow: 1
   throwSpeed: 10
   projectile: {fileID: 2268325331462313365, guid: 57207a29f83584745947ee0c2ad6d510,
@@ -3371,6 +3372,7 @@ MonoBehaviour:
   strongAttackDecelaration: 0.3
   attackHitbox: {fileID: 524800183}
   strongAttackHitbox: {fileID: 1517138899}
+  HitVFX: {fileID: 4613113559489217463, guid: 6338ec31e5084c44292665df891e8e2f, type: 3}
   canThrow: 0
   throwSpeed: 10
   projectile: {fileID: 0}

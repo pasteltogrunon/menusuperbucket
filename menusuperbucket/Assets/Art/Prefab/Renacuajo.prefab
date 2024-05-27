@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 8473736393818561368}
   - component: {fileID: 6663809715485894510}
   - component: {fileID: 967421716265693698}
+  - component: {fileID: 2076333609139535701}
   m_Layer: 7
-  m_Name: Enemy
+  m_Name: Renacuajo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,3 +196,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.53, y: 0.56}
   m_EdgeRadius: 0
+--- !u!95 &2076333609139535701
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5128079706139519234}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9375d5390ab83624f8dd5df8a41a9417, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

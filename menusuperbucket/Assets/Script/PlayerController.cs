@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] [Tooltip("Frenado cuando se usa el ataque fuerte. 1 es nada, 0 es frenada completa.")] float strongAttackDecelaration = 0.3f;
     [SerializeField] BoxCollider2D attackHitbox;
     [SerializeField] BoxCollider2D strongAttackHitbox;
+    [SerializeField] GameObject HitVFX;
 
     int attackCount = 0;
     float attackTimer = 0;
@@ -453,6 +454,7 @@ public class PlayerController : MonoBehaviour
 
             if (h.TryGetComponent(out HealthManager healthManager))
             {
+                Instantiate(player.HitVFX, h.ClosestPoint(player.transform.position), Quaternion.identity);
                 healthManager.Health -= damage;
             }
 

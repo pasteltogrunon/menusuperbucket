@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7147385923489461095}
   - component: {fileID: 4376330875129011824}
   - component: {fileID: 1772687278847307151}
+  - component: {fileID: 4596227268881823253}
   m_Layer: 7
   m_Name: Jumper
   m_TagString: Untagged
@@ -114,23 +115,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b483ad43a243f124eb75b074d762952f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
   timeStunned: 0.4
   timePushed: 0.1
   receivedKnockback: 5
+  wanderSpeed: 2
   raycastOffset: 0.55
   raycastDown: 0.5
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
   detectionRadius: 7
+  minRadius: 0
   speedWhenDected: 3
-  jumpRadius: 3
-  jumpSpeed: 8
   detectionInterval: 0.3
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
+  attackRadius: 3
+  attackCooldown: 3
+  attackSpeed: 3
+  attackDelay: 0.1
 --- !u!50 &4376330875129011824
 Rigidbody2D:
   serializedVersion: 4
@@ -203,3 +207,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.53, y: 0.56}
   m_EdgeRadius: 0
+--- !u!95 &4596227268881823253
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6378807101931596932}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0e69c12d16bb86e42b5b23020471cf58, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
