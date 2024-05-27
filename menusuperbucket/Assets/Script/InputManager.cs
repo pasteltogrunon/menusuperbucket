@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour
 
     public static bool JumpPressed { get => Input.GetKeyDown(Instance.JumpKey) || Input.GetKeyDown(Instance.JumpButton); }
     public static bool JumpHolded { get => Input.GetKey(Instance.JumpKey) || Input.GetKey(Instance.JumpButton); }
+    public static bool JumpUp { get => Input.GetKeyUp(Instance.JumpKey) || Input.GetKeyUp(Instance.JumpButton); }
     public static bool Right { get => Input.GetKey(Instance.RightKey) || Instance.RightAxis(); }
     public static bool Left { get => Input.GetKey(Instance.LeftKey) || Instance.LeftAxis(); }
     public static bool Dash { get => Input.GetKeyDown(Instance.DashKey) || Input.GetKeyDown(Instance.DashButton); }
@@ -19,6 +20,7 @@ public class InputManager : MonoBehaviour
     public static bool Grapple { get => Input.GetKeyDown(Instance.GrappleKey) || Input.GetKeyDown(Instance.GrappleButton); }
     public static bool Interact { get => Input.GetKeyDown(Instance.InteractKey) || Input.GetKeyDown(Instance.InteractButton); }
     public static bool EnterLine { get => Input.GetKeyDown(Instance.EnterLineKey) || Input.GetKeyDown(Instance.EnterLineButton); }
+    public static float Deadzone { get => Instance.DeadzoneValue; }
 
     [HideInInspector] public static Vector2 mousePosition;
 
@@ -41,16 +43,16 @@ public class InputManager : MonoBehaviour
     [SerializeField] KeyCode GrappleButton = KeyCode.JoystickButton5;
     [SerializeField] KeyCode InteractButton = KeyCode.JoystickButton9;
     [SerializeField] KeyCode EnterLineButton = KeyCode.JoystickButton6;
-    [SerializeField] float DeadZone = 0.1f;
+    [SerializeField] float DeadzoneValue = 0.1f;
 
     private bool RightAxis()
     {
-        return Input.GetAxisRaw("Horizontal") > DeadZone;
+        return Input.GetAxisRaw("Horizontal") > DeadzoneValue;
     }
 
     private bool LeftAxis()
     {
-        return Input.GetAxisRaw("Horizontal") < -DeadZone;
+        return Input.GetAxisRaw("Horizontal") < -DeadzoneValue;
     }
 
     public Camera mainCamera;

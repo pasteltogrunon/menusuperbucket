@@ -5,30 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    [Header("Horizontal")]
-    [SerializeField] [Tooltip("Velocidad m�xima.")] float maxSpeed = 10;
-    [SerializeField] [Tooltip("Aceleraci�n del movimiento horizontal.")] float acceleration = 10;
-    [SerializeField] [Tooltip("Lo que tarda en frenarse si no se pulsa ninguna tecla (cuanto m�s, menos tarda).")] float groundFriction = 0.2f;
-    [SerializeField] [Tooltip("Reducci�n de movilidad en el aire (0 es nada, 1 es la misma que en el suelo).")] float onAirReduction = 0.3f;
-
-    [Header("Vertical")]
-    [SerializeField] [Tooltip("Fuerza de salto, cuanto m�s, m�s alto salta.")] float jumpForce = 10;
+    [Header("Stun Gravity")]
     [SerializeField] [Tooltip("Multiplicador de gravedad cuando no se pulsa el espacio.")] float gravityMultiplier = 3;
     [SerializeField] [Tooltip("Multiplicador de gravedad cuando va hacia abajo.")] float gravityMultiplierDown = 4;
-    [SerializeField] [Tooltip("Fuerza del doble salto.")] float secondJumpForce = 10;
-    [SerializeField] LayerMask groundLayer;
-    public bool canDoubleJump;
-
-    int jumpCount = 0;
-
-    [Header("Dash")]
-    [SerializeField] bool canDash;
-    [SerializeField] [Tooltip("Duraci�n del dash.")] float dashTime = 0.5f;
-    [SerializeField] [Tooltip("Velocidad del dash.")] float dashSpeed = 20;
-    [SerializeField] [Tooltip("Velocidad que queda tras el dash.")] float residualSpeed = 4;
-    [SerializeField] [Tooltip("Cooldown del dash.")] float dashCooldown = 0.5f;
-
-    float dashTimer = 0;
 
     [Header("Attack")]
     [SerializeField] bool canAttack = false;
@@ -57,12 +36,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask grappleLayer;
     [SerializeField] LineRenderer grappleLine;
 
+    #region General Use
 
     PlayerState state;
 
-
     Rigidbody2D rb;
     Animator animator;
+
+    //Script to handle all player movement.
+	PlayerMovement movementHandler;
+
     bool grounded;
     public bool Stunned
     {
@@ -108,6 +91,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+		movementHandler = GetComponent<PlayerMovement>();
 
         state = new NormalState(this);
     }
@@ -124,99 +108,39 @@ public class PlayerController : MonoBehaviour
 
         state.onUpdate();
     }
+    #endregion
 
     #region Movement
+
     void horizontalMovement()
     {
-        if(grounded)
-        {
-            //If the player is grounded we check the movement normally
-            if (hInput != 0)
-            {
-                //Not adding to the speed if over the limits
-                if(!(hInput == 1 && speed >= maxSpeed) && !((hInput == -1 && speed <= -maxSpeed)))
-                {
-                    speed += hInput * acceleration * Time.deltaTime;
-                }
-            }
-            else
-            {
-                //If not pressing any key, decelerate the player
-                speed = speed * Mathf.Pow(groundFriction, 1 / Time.deltaTime);
-            }
-        }
-        else
-        {
-            //Reduce the movemnt capacity in the air
-            if (hInput != 0)
-            {
-                if (!(hInput == 1 && speed >= maxSpeed *onAirReduction) && !((hInput == -1 && speed <= -maxSpeed * onAirReduction)))
-                    speed += hInput * acceleration * Time.deltaTime ;
-            }
-        }
-
         if(hInput != 0)
-        {
             direction = Mathf.Sign(hInput);
-        }
-
-        animator.SetFloat("Speed", Mathf.Abs(speed));
+        
+        animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
     }
 
     void verticalMovement()
     {
-
-        if(InputManager.JumpPressed)
-        {
-            if(grounded)
-            {
-                rb.velocity = speed * Vector2.right + jumpForce * Vector2.up;
-            }
-            else if(jumpCount == 1)
-            {
-                rb.velocity = speed * Vector2.right + secondJumpForce * Vector2.up;
-                jumpCount--;
-            }
-        }
-
-
-        //If space if kept pressed, the gravity is smaller, so the jump goes higher (only when going up)
-        if(InputManager.JumpHolded && rb.velocity.y >= 0)
-        {
-            rb.gravityScale = 1;
-        }
-        else
-        {
-            if(!grounded)
-                rb.velocity -= (rb.velocity.y >= 0 ? gravityMultiplier : gravityMultiplierDown) * Time.deltaTime * Vector2.up;
-        }
-
         animator.SetFloat("Vertical Speed", rb.velocity.y);
     }
 
     bool isGrounded()
     {
-        //Casting a ray downwards
-        if (Physics2D.Raycast(transform.position, Vector2.down, GetComponent<BoxCollider2D>().size.y / 2 + 0.2f, groundLayer))
-        {
-            if(canDoubleJump)
-                jumpCount = 1;
-            return true;
-        }
-        return false;
+        return movementHandler.IsGrounded();
     }
 
     void tryDash()
     {
-        if(InputManager.Dash && canDash && dashTimer == 0)
+        if(movementHandler.IsDashing)
         {
             state = new DashState(this);
         }
     }
-
     #endregion
 
     #region Attack
+
     void tryAttack()
     {
         if (state is AttackState) return;
@@ -243,8 +167,7 @@ public class PlayerController : MonoBehaviour
 
     void timers()
     {
-        if(dashTimer != 0)
-            dashTimer = Mathf.Max(0, dashTimer - Time.deltaTime);
+
     }
     #endregion
 
@@ -280,10 +203,13 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Player States
+
     abstract class PlayerState
     {
         public abstract void onUpdate();
     }
+
+    #region Normal State
 
     class NormalState : PlayerState
     {
@@ -296,10 +222,7 @@ public class PlayerController : MonoBehaviour
 
         public override void onUpdate()
         {
-            player.grounded = player.isGrounded();
-
             player.horizontalMovement();
-
             player.verticalMovement();
 
             //Astralis
@@ -311,6 +234,9 @@ public class PlayerController : MonoBehaviour
             player.tryGrapple();
         }
     }
+    #endregion
+
+    #region Dash State
 
     class DashState : PlayerState
     {
@@ -320,28 +246,22 @@ public class PlayerController : MonoBehaviour
         public DashState(PlayerController player)
         {
             this.player = player;
-            dashTime = player.dashTime;
-
-            player.rb.velocity = player.dashSpeed * player.transform.localScale.x * Vector2.right;
-            player.rb.gravityScale = 0;
-
             player.animator.SetBool("Dashing", true);
         }
 
         public override void onUpdate()
         {
-            dashTime -= Time.deltaTime;
-            if(dashTime < 0)
+            if(!player.movementHandler.IsDashing)
             {
                 player.state = new NormalState(player);
-                player.speed = player.residualSpeed;
-                player.dashTimer = player.dashCooldown;
-                player.rb.gravityScale = 1;
-
                 player.animator.SetBool("Dashing", false);
             }
         }
     }
+    #endregion
+
+    #region Attack State
+
     class AttackState : PlayerState
     {
         PlayerController player;
@@ -374,8 +294,6 @@ public class PlayerController : MonoBehaviour
             switch(attackType)
             {
                 case AttackType.Weak:
-                    player.grounded = player.isGrounded();
-
                     player.horizontalMovement();
                     player.verticalMovement();
 
@@ -471,6 +389,9 @@ public class PlayerController : MonoBehaviour
             Charged
         }
     }
+    #endregion
+
+    #region Stun State
 
     class StunState : PlayerState
     {
@@ -483,13 +404,14 @@ public class PlayerController : MonoBehaviour
 
         public override void onUpdate()
         {
-            player.grounded = player.isGrounded();
-
-            if(!player.grounded)
+            if(!player.isGrounded())
                 player.rb.gravityScale = player.rb.velocity.y >= 0 ? player.gravityMultiplier : player.gravityMultiplierDown;
         }
     }
+    #endregion
 
+    #region Grapple State
+    
     class GrappleState : PlayerState
     {
         PlayerController player;
@@ -558,10 +480,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 //Pretty much the normal state without the grapple
-                player.grounded = player.isGrounded();
-
                 player.horizontalMovement();
-
                 player.verticalMovement();
 
                 //Astralis
@@ -587,5 +506,7 @@ public class PlayerController : MonoBehaviour
             
         }
     }
+    #endregion
+
     #endregion
 }
