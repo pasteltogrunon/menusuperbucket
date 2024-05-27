@@ -400,6 +400,7 @@ MonoBehaviour:
   strongAttackDecelaration: 0.3
   attackHitbox: {fileID: 0}
   strongAttackHitbox: {fileID: 0}
+  HitVFX: {fileID: 0}
   canThrow: 1
   throwSpeed: 10
   projectile: {fileID: 2268325331462313365, guid: 57207a29f83584745947ee0c2ad6d510,
@@ -565,7 +566,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 98864508}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -4000,7 +4001,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 858379829}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -4843,7 +4844,7 @@ GameObject:
   - component: {fileID: 955464382}
   - component: {fileID: 955464381}
   - component: {fileID: 955464384}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5391,6 +5392,7 @@ MonoBehaviour:
   strongAttackDecelaration: 0.3
   attackHitbox: {fileID: 524800183}
   strongAttackHitbox: {fileID: 1517138899}
+  HitVFX: {fileID: 4613113559489217463, guid: 6338ec31e5084c44292665df891e8e2f, type: 3}
   canThrow: 0
   throwSpeed: 10
   projectile: {fileID: 0}
@@ -7478,7 +7480,7 @@ GameObject:
   - component: {fileID: 1390472685}
   - component: {fileID: 1390472684}
   - component: {fileID: 1390472687}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9364,7 +9366,7 @@ GameObject:
   - component: {fileID: 1755785723}
   - component: {fileID: 1755785722}
   - component: {fileID: 1755785725}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9954,7 +9956,7 @@ GameObject:
   - component: {fileID: 1887703402}
   - component: {fileID: 1887703401}
   - component: {fileID: 1887703400}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
