@@ -233,6 +233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 50
   health: 0
+  deathParticles: {fileID: 0}
 --- !u!114 &68062118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3469,6 +3470,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 50
   health: 0
+  deathParticles: {fileID: 0}
 --- !u!114 &996576692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5917,6 +5919,11 @@ PrefabInstance:
       propertyPath: groundLayer.m_Bits
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 8778521523697380090, guid: aeb49615aaff1a04c93c2e15612efb5c,
+        type: 3}
+      propertyPath: maxHealth
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6503,6 +6510,12 @@ PrefabInstance:
       propertyPath: groundLayer.m_Bits
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 8778521523697380090, guid: aeb49615aaff1a04c93c2e15612efb5c,
+        type: 3}
+      propertyPath: deathParticles
+      value: 
+      objectReference: {fileID: 4613113559489217463, guid: 6bb970a0c01e2b94caf93bd7ac3b622e,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
