@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PlayerHurt : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class PlayerHurt : MonoBehaviour
     [SerializeField] float stunTime = 0.5f;
     [SerializeField] Vector2 damageKnockback;
     [SerializeField] LayerMask enemyLayer;
+
+    [SerializeField] Volume damageVolume;
 
     bool _isInvulnerable = false;
 
@@ -71,7 +74,15 @@ public class PlayerHurt : MonoBehaviour
                 material.SetFloat("_Invulnerable", 1 - t / invulnerableTime);
             }
 
+            if(damageVolume != null)
+                damageVolume.weight = 1 - t / invulnerableTime;
+
             yield return null;
+        }
+
+        if (material.HasFloat("_Invulnerable"))
+        {
+            material.SetFloat("_Invulnerable", 0);
         }
         _isInvulnerable = false;
 
