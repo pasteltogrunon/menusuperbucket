@@ -218,6 +218,8 @@ public class PlayerController : MonoBehaviour
         public NormalState(PlayerController player)
         {
             this.player = player;
+
+            player.animator.SetBool("Dashing", false);
         }
 
         public override void onUpdate()
@@ -286,7 +288,8 @@ public class PlayerController : MonoBehaviour
                 default:
                     break;
             }
-            
+
+            player.animator.SetBool("Dashing", false);
         }
 
         public override void onUpdate()
@@ -400,6 +403,8 @@ public class PlayerController : MonoBehaviour
         public StunState(PlayerController player)
         {
             this.player = player;
+
+            player.animator.SetBool("Dashing", false);
         }
 
         public override void onUpdate()
@@ -436,6 +441,8 @@ public class PlayerController : MonoBehaviour
             initialDistance = distance;
 
             player.rb.velocity = (target - (Vector2)player.transform.position).normalized * player.grappleSpeed;
+
+            player.animator.SetBool("Dashing", false);
         }
 
         public override void onUpdate()

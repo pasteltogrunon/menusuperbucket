@@ -7,6 +7,9 @@ public class SpinnerAI : GroundStandardAI
     [SerializeField] float attackDelay = 0.3f;
     [SerializeField] float attackDuration = 4f;
     [SerializeField] float attackAcceleration = 4f;
+    [SerializeField] float attackBurstSpeed = 5f;
+
+    [Space]
 
     [SerializeField] BoxCollider2D spinHitbox;
 
@@ -22,10 +25,12 @@ public class SpinnerAI : GroundStandardAI
     {
         pushTime = attackDelay + attackDuration;
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        pushTime = attackDuration + attackDelay;
         GetComponent<Animator>().Play("preattack");
 
         yield return new WaitForSeconds(attackDelay);
+
+        GetComponent<Rigidbody2D>().velocity = enemyDirection.normalized * attackBurstSpeed * Time.deltaTime;
+
 
         spinHitbox.gameObject.SetActive(true);
         gameObject.layer = 3;
@@ -33,10 +38,10 @@ public class SpinnerAI : GroundStandardAI
         {
             GetComponent<Animator>().SetFloat("SpinTime", attackDuration - t);
 
-            GetComponent<Rigidbody2D>().velocity += enemyDirection.normalized * attackAcceleration * Time.deltaTime;
-            if(GetComponent<Rigidbody2D>().velocity.magnitude > attackSpeed)
+            GetComponent<Rigidbody2D>().velocity += Mathf.Sign(enemyDirection.x) * attackAcceleration * Time.deltaTime * Vector2.right;
+            if(GetComponent<Rigidbody2D>().velocity.magnitude >= attackSpeed)
             {
-                GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity.normalized * attackSpeed * Time.deltaTime;
+                GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity.normalized * attackSpeed;
             }
             yield return null;
         }

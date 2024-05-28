@@ -135,11 +135,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   attackRadius: 4
-  attackCooldown: 0.5
-  attackSpeed: 15
+  attackCooldown: 1
+  attackSpeed: 10
   attackDelay: 0.3
   attackDuration: 5
   attackAcceleration: 20
+  attackBurstSpeed: 7
   spinHitbox: {fileID: 625378894617479751}
   invulnerableLayer:
     serializedVersion: 2
