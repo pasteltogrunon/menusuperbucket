@@ -40,7 +40,7 @@ Material:
     m_Floats:
     - _DepthMinThreshold: 0.5
     - _Multiplier: 0.2
-    - _NormalMinThreshold: 1.547
+    - _NormalMinThreshold: 1.108
     - _Thickness: 1.83
     m_Colors:
     - _Tint: {r: 0, g: 0, b: 0, a: 0}
