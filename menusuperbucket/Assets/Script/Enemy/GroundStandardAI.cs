@@ -213,8 +213,8 @@ public class GroundStandardAI : MonoBehaviour, IPushable
     public void push(Vector2 pushDirection)
     {
         GetComponent<Rigidbody2D>().velocity = pushDirection * receivedKnockback;
-        stunTime = timeStunned;
-        pushTime = timePushed;
+        stunTime = Mathf.Max(timeStunned, stunTime);
+        pushTime = Mathf.Max(timePushed, pushTime);
     }
 
     enum State
