@@ -282,7 +282,7 @@ public class PlayerController : MonoBehaviour
                     weakAttack();
                     break;
                 case AttackType.Strong:
-                    player.animator.Play("Astralis_Strong", -1, 0);
+                    player.animator.Play("Strong", -1, 0);
                     player.speed *= player.strongAttackDecelaration;
                     break;
                 default:
@@ -330,11 +330,11 @@ public class PlayerController : MonoBehaviour
 
                 if (attackCount == 0)
                 {
-                    player.animator.Play("Astralis_Attack2", -1, 0);
+                    player.animator.Play("Attack2", -1, 0);
                 }
                 else
                 {
-                    player.animator.Play("Astralis_Attack1");
+                    player.animator.Play("Attack1");
                 }
 
                 attackTimer = 0;
