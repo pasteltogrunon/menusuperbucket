@@ -1,0 +1,15 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerProjectile : MonoBehaviour
+{
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Destroy(gameObject);
+        if(collision.transform.TryGetComponent(out IProjectilable target))
+        {
+            target.trigger();
+        }
+    }
+}

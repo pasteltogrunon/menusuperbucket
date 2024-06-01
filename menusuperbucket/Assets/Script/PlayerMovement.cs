@@ -182,7 +182,7 @@ public class PlayerMovement : MonoBehaviour
 
 	#endregion
 
-    private void Awake()
+    public void onAwake()
 	{
 		RB = GetComponent<Rigidbody2D>();
 	}
@@ -214,13 +214,13 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
 
-	private void Start()
+	public void onStart()
 	{
 		SetGravityScale(gravityScale);
 		IsFacingRight = true;
 	}
 
-    private void Update()
+    public void onUpdate()
 	{
         #region Update: Timers
 
@@ -440,7 +440,7 @@ public class PlayerMovement : MonoBehaviour
 		#endregion
     }
 
-    private void FixedUpdate()
+    public void onFixedUpdate()
 	{
 		#region FixedUpdate: Run
 		

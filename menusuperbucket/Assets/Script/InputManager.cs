@@ -20,6 +20,7 @@ public class InputManager : MonoBehaviour
     public static bool Grapple { get => Input.GetKeyDown(Instance.GrappleKey) || Input.GetKeyDown(Instance.GrappleButton); }
     public static bool Interact { get => Input.GetKeyDown(Instance.InteractKey) || Input.GetKeyDown(Instance.InteractButton); }
     public static bool EnterLine { get => Input.GetKeyDown(Instance.EnterLineKey) || Input.GetKeyDown(Instance.EnterLineButton); }
+    public static bool Platform { get => Input.GetKeyDown(Instance.PlatformKey) || Input.GetKeyDown(Instance.PlatformButton); }
     public static float Deadzone { get => Instance.DeadzoneValue; }
 
     [HideInInspector] public static Vector2 mousePosition;
@@ -50,6 +51,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] KeyCode GrappleKey = KeyCode.L;
     [SerializeField] KeyCode InteractKey = KeyCode.F;
     [SerializeField] KeyCode EnterLineKey = KeyCode.Return;
+    [SerializeField] KeyCode PlatformKey = KeyCode.U;
 
     [SerializeField] KeyCode JumpButton = KeyCode.JoystickButton0;
     [SerializeField] KeyCode DashButton = KeyCode.JoystickButton1;
@@ -59,6 +61,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] KeyCode GrappleButton = KeyCode.JoystickButton5;
     [SerializeField] KeyCode InteractButton = KeyCode.JoystickButton9;
     [SerializeField] KeyCode EnterLineButton = KeyCode.JoystickButton6;
+    [SerializeField] KeyCode PlatformButton = KeyCode.JoystickButton10;
     [Range(0.0f, 1.0f)] [SerializeField] float DeadzoneValue = 0.1f;
 
     private bool RightAxis()

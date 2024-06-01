@@ -389,16 +389,23 @@ MonoBehaviour:
   strongAttackHitbox: {fileID: 0}
   HitVFX: {fileID: 0}
   canThrow: 1
+  throwCooldown: 0.5
   throwSpeed: 10
   projectile: {fileID: 2268325331462313365, guid: 57207a29f83584745947ee0c2ad6d510,
     type: 3}
   canGrapple: 1
   maxGrappleDistance: 10
   grappleSpeed: 10
+  swingAcceleration: -20
+  maxSwingSpeed: 20
   grappleLayer:
     serializedVersion: 2
     m_Bits: 512
   grappleLine: {fileID: 960469267}
+  canPlatform: 1
+  platformCooldown: 3
+  platform: {fileID: 8936636652532218295, guid: 8de20a777e6d6984099ede6340fd012c,
+    type: 3}
 --- !u!212 &68062119
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8522,6 +8529,7 @@ MonoBehaviour:
   GrappleKey: 108
   InteractKey: 102
   EnterLineKey: 13
+  PlatformKey: 117
   JumpButton: 330
   DashButton: 331
   AttackButton: 332
@@ -8530,6 +8538,7 @@ MonoBehaviour:
   GrappleButton: 335
   InteractButton: 339
   EnterLineButton: 336
+  PlatformButton: 340
   DeadzoneValue: 0.25
   mainCamera: {fileID: 330585545}
 --- !u!114 &841087270
@@ -9745,15 +9754,21 @@ MonoBehaviour:
   strongAttackHitbox: {fileID: 1517138899}
   HitVFX: {fileID: 4613113559489217463, guid: 6338ec31e5084c44292665df891e8e2f, type: 3}
   canThrow: 0
+  throwCooldown: 1.5
   throwSpeed: 10
   projectile: {fileID: 0}
   canGrapple: 0
   maxGrappleDistance: 7
   grappleSpeed: 10
+  swingAcceleration: 3
+  maxSwingSpeed: 6
   grappleLayer:
     serializedVersion: 2
     m_Bits: 0
   grappleLine: {fileID: 0}
+  canPlatform: 0
+  platformCooldown: 3
+  platform: {fileID: 0}
 --- !u!50 &996576688
 Rigidbody2D:
   serializedVersion: 4
@@ -14648,16 +14663,23 @@ MonoBehaviour:
   strongAttackHitbox: {fileID: 1869513277}
   HitVFX: {fileID: 4613113559489217463, guid: 6338ec31e5084c44292665df891e8e2f, type: 3}
   canThrow: 1
+  throwCooldown: 0.5
   throwSpeed: 10
   projectile: {fileID: 2268325331462313365, guid: 57207a29f83584745947ee0c2ad6d510,
     type: 3}
   canGrapple: 1
   maxGrappleDistance: 7
   grappleSpeed: 10
+  swingAcceleration: 3
+  maxSwingSpeed: 6
   grappleLayer:
     serializedVersion: 2
     m_Bits: 512
   grappleLine: {fileID: 960469267}
+  canPlatform: 1
+  platformCooldown: 3
+  platform: {fileID: 8936636652532218295, guid: 8de20a777e6d6984099ede6340fd012c,
+    type: 3}
 --- !u!212 &2058948625
 SpriteRenderer:
   m_ObjectHideFlags: 0

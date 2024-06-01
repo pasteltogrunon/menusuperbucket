@@ -26,15 +26,27 @@ public class PlayerController : MonoBehaviour
 
     [Header("Throw")]
     [SerializeField] bool canThrow = false;
+    [SerializeField] float throwCooldown = 1.5f;
     [SerializeField] [Tooltip("Fuerza de lanzamiento.")] float throwSpeed = 10;
     [SerializeField] GameObject projectile;
+
+    float throwTimer;
 
     [Header("Grapple")]
     [SerializeField] bool canGrapple = false;
     [SerializeField] [Tooltip("M�xima distance de gancho.")] float maxGrappleDistance = 7;
     [SerializeField] [Tooltip("Velocidad transmitida al recoger el gancho.")] float grappleSpeed = 10;
+    [SerializeField] float swingAcceleration = 3;
+    [SerializeField] float maxSwingSpeed = 6;
     [SerializeField] LayerMask grappleLayer;
     [SerializeField] LineRenderer grappleLine;
+
+    [Header("Platform")]
+    [SerializeField] bool canPlatform = false;
+    [SerializeField] float platformCooldown = 3f;
+    [SerializeField] GameObject platform;
+
+    float platformTimer;
 
     #region General Use
 
@@ -94,12 +106,14 @@ public class PlayerController : MonoBehaviour
 		movementHandler = GetComponent<PlayerMovement>();
 
         state = new NormalState(this);
+
+        movementHandler.onAwake();
     }
 
     //Referencias a otros objetos
     void Start()
     {
-        
+        movementHandler.onStart();   
     }
 
     void Update()
@@ -107,6 +121,11 @@ public class PlayerController : MonoBehaviour
         timers();
 
         state.onUpdate();
+    }
+
+    private void FixedUpdate()
+    {
+        state.onFixedUpdate();
     }
     #endregion
 
@@ -167,7 +186,15 @@ public class PlayerController : MonoBehaviour
 
     void timers()
     {
+        if(platformTimer > 0)
+        {
+            platformTimer -= Time.deltaTime;
+        }
 
+        if(throwTimer > 0)
+        {
+            throwTimer -= Time.deltaTime;
+        }
     }
     #endregion
 
@@ -181,8 +208,12 @@ public class PlayerController : MonoBehaviour
     {
         if(InputManager.Throw && canThrow)
         {
-            Vector2 throwDirection = (direction * Vector2.right + Vector2.up).normalized;
-            Instantiate(projectile, transform.position + new Vector3(throwDirection.x, throwDirection.y) * 1.5f, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = throwDirection * throwSpeed;
+            if(throwTimer <= 0)
+            {
+                Vector2 throwDirection = (direction * Vector2.right + Vector2.up).normalized;
+                Instantiate(projectile, transform.position + new Vector3(throwDirection.x, throwDirection.y) * 1.5f, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = throwDirection * throwSpeed;
+                throwTimer = throwCooldown;
+            }
         }
 
     }
@@ -202,11 +233,35 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
+    #region Platform
+    void tryPlatform()
+    {
+        if(InputManager.Platform && canPlatform)
+        {
+            createPlatform();
+        }
+    }
+
+    void createPlatform()
+    {
+        if(platformTimer <= 0)
+        {
+            Instantiate(platform, transform.position + (GetComponent<BoxCollider2D>().size.y/2 + 0.2f) * Vector3.down, Quaternion.identity);
+            platformTimer = platformCooldown;
+        }
+    }
+    #endregion
+
     #region Player States
 
     abstract class PlayerState
     {
         public abstract void onUpdate();
+
+        public virtual void onFixedUpdate()
+        {
+            return;
+        }
     }
 
     #region Normal State
@@ -224,6 +279,8 @@ public class PlayerController : MonoBehaviour
 
         public override void onUpdate()
         {
+            player.movementHandler.onUpdate();
+
             player.horizontalMovement();
             player.verticalMovement();
 
@@ -234,7 +291,14 @@ public class PlayerController : MonoBehaviour
             //Prometeus
             player.tryThrow();
             player.tryGrapple();
+            player.tryPlatform();
         }
+
+        public override void onFixedUpdate()
+        {
+            player.movementHandler.onFixedUpdate();
+        }
+
     }
     #endregion
 
@@ -294,6 +358,8 @@ public class PlayerController : MonoBehaviour
 
         public override void onUpdate()
         {
+            player.movementHandler.onUpdate();
+
             switch(attackType)
             {
                 case AttackType.Weak:
@@ -315,11 +381,17 @@ public class PlayerController : MonoBehaviour
             {
                 player.state = new NormalState(player);
             }
+
+        }
+
+        public override void onFixedUpdate()
+        {
+            player.movementHandler.onFixedUpdate();
         }
 
         void weakAttack()
         {
-            if (attackCount == 0 || attackCount == 1 && attackTimer > player.secondAttackDelay)
+            if (attackCount == 0 || (attackCount == 1 && attackTimer > player.secondAttackDelay))
             {
                 Collider2D[] hit = Physics2D.OverlapBoxAll(player.attackHitbox.transform.position, player.attackHitbox.size, 0);
 
@@ -339,8 +411,6 @@ public class PlayerController : MonoBehaviour
 
                 attackTimer = 0;
                 attackCount++;
-
-                player.StartCoroutine(player.slideForward());
             }
 
         }
@@ -409,8 +479,12 @@ public class PlayerController : MonoBehaviour
 
         public override void onUpdate()
         {
-            if(!player.isGrounded())
-                player.rb.gravityScale = player.rb.velocity.y >= 0 ? player.gravityMultiplier : player.gravityMultiplierDown;
+            player.movementHandler.onUpdate();
+        }
+
+        public override void onFixedUpdate()
+        {
+            player.movementHandler.onFixedUpdate();
         }
     }
     #endregion
@@ -497,11 +571,19 @@ public class PlayerController : MonoBehaviour
                 //Prometeus
                 player.tryThrow();
 
+                Vector2 direction = ((Vector2)player.transform.position - target).normalized;
+                Vector2 ort = new Vector2(direction.y, -direction.x);
+
+                if(Vector2.Dot(player.hInput * ort, Vector2.up) < 0.5)
+                {
+                    player.rb.velocity += player.hInput * ort * player.swingAcceleration * Time.deltaTime;
+                    if(player.rb.velocity.magnitude > player.maxSwingSpeed)
+                        player.rb.velocity = player.rb.velocity.normalized * player.maxSwingSpeed;
+                }
+
                 if (Vector3.Distance(player.transform.position, target) > distance)
                 {
                     //Adjust position to swing
-                    Vector2 direction = ((Vector2)player.transform.position - target).normalized;
-                    Vector2 ort = new Vector2(direction.y, -direction.x);
 
                     player.transform.position = target + distance * direction;
                     player.rb.velocity = Vector2.Dot(player.rb.velocity, ort) * ort;
