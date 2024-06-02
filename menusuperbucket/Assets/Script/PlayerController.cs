@@ -142,6 +142,7 @@ public class PlayerController : MonoBehaviour
     void verticalMovement()
     {
         animator.SetFloat("Vertical Speed", rb.velocity.y);
+        animator.SetBool("Grounded", isGrounded());
     }
 
     bool isGrounded()
