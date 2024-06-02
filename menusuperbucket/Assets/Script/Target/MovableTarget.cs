@@ -10,13 +10,17 @@ public class MovableTarget : MonoBehaviour, IProjectilable
 
     [SerializeField] Transform movingObject;
 
+    bool triggered = false;
+
     public void trigger()
     {
-        StartCoroutine(move());
+        if(!triggered)
+            StartCoroutine(move());
     }
 
     IEnumerator move()
     {
+        triggered = true;
         Vector3 position =  movingObject.localPosition;
         for(float t=0; t <= time; t+=Time.deltaTime)
         {
