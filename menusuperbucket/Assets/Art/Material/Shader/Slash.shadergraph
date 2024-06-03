@@ -4,9 +4,6 @@
     "m_ObjectId": "92b0bb78425e4cfcb8663fd9bd4c443d",
     "m_Properties": [
         {
-            "m_Id": "186755ddec9e48c7acc5f54feb2a6c9b"
-        },
-        {
             "m_Id": "fde3da1a045041468571e649f3925236"
         },
         {
@@ -227,7 +224,7 @@
                 "m_Node": {
                     "m_Id": "b9321d8a63904071a8e762aeb35115c2"
                 },
-                "m_SlotId": 3
+                "m_SlotId": 4
             },
             "m_InputSlot": {
                 "m_Node": {
@@ -241,7 +238,7 @@
                 "m_Node": {
                     "m_Id": "b9321d8a63904071a8e762aeb35115c2"
                 },
-                "m_SlotId": 3
+                "m_SlotId": 4
             },
             "m_InputSlot": {
                 "m_Node": {
@@ -281,8 +278,8 @@
     ],
     "m_VertexContext": {
         "m_Position": {
-            "x": 0.0,
-            "y": 0.0
+            "x": 525.9999389648438,
+            "y": 19.999988555908204
         },
         "m_Blocks": [
             {
@@ -298,8 +295,8 @@
     },
     "m_FragmentContext": {
         "m_Position": {
-            "x": 0.0,
-            "y": 200.0
+            "x": 525.9999389648438,
+            "y": 220.0
         },
         "m_Blocks": [
             {
@@ -702,36 +699,6 @@
         "e32": 0.0,
         "e33": 1.0
     }
-}
-
-{
-    "m_SGVersion": 3,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
-    "m_ObjectId": "186755ddec9e48c7acc5f54feb2a6c9b",
-    "m_Guid": {
-        "m_GuidSerialized": "edea7e99-8a60-4f97-a8b3-3f185dd63364"
-    },
-    "m_Name": "Color",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Color",
-    "m_DefaultReferenceName": "_Color",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_DismissedVersion": 0,
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": {
-        "r": 1.0,
-        "g": 1.0,
-        "b": 1.0,
-        "a": 0.0
-    },
-    "isMainColor": false,
-    "m_ColorMode": 1
 }
 
 {
@@ -1208,21 +1175,21 @@
     "m_Value": 0.0,
     "m_SerializableColorKeys": [
         {
-            "x": 0.05918477103114128,
-            "y": 0.05934687703847885,
-            "z": 0.1320754885673523,
-            "w": 0.6029449701309204
+            "x": 0.1603773832321167,
+            "y": 0.052198298275470737,
+            "z": 0.11383537948131561,
+            "w": 0.45294880867004397
         },
         {
-            "x": 0.4716981053352356,
-            "y": 0.10457457602024079,
-            "z": 0.426513671875,
-            "w": 0.6911726593971252
+            "x": 0.11289605498313904,
+            "y": 0.5566037893295288,
+            "z": 0.4603513777256012,
+            "w": 0.582360565662384
         },
         {
-            "x": 0.2615939676761627,
-            "y": 0.12281949073076248,
-            "z": 0.37735843658447268,
+            "x": 3.2380430698394777,
+            "y": 3.8783340454101564,
+            "z": 3.5847983360290529,
             "w": 1.0
         }
     ],
@@ -2345,9 +2312,6 @@
     "m_ChildObjectList": [
         {
             "m_Id": "5557f50515ef4a32a1a48510a36f12cf"
-        },
-        {
-            "m_Id": "186755ddec9e48c7acc5f54feb2a6c9b"
         },
         {
             "m_Id": "fde3da1a045041468571e649f3925236"

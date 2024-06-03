@@ -446,7 +446,8 @@ public class PlayerController : MonoBehaviour
 
             if (h.TryGetComponent(out HealthManager healthManager))
             {
-                Instantiate(player.HitVFX, h.ClosestPoint(player.transform.position), Quaternion.identity);
+                Vector3 spawnPos = h.ClosestPoint(player.transform.position);
+                Instantiate(player.HitVFX, spawnPos, Quaternion.LookRotation(player.transform.position - spawnPos));
                 healthManager.Health -= damage;
             }
 
