@@ -59,6 +59,7 @@ public class PlayerHurt : MonoBehaviour
         StartCoroutine(damageCooldown());
     }
 
+
     IEnumerator damageCooldown()
     {
         IsInvulnerable = true;
