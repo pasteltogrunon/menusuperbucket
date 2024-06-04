@@ -10,6 +10,8 @@ public class MovableTarget : MonoBehaviour, IProjectilable
 
     [SerializeField] Transform movingObject;
 
+    [SerializeField] ParticleSystem setInactive;
+
     bool triggered = false;
 
     public void trigger()
@@ -29,5 +31,6 @@ public class MovableTarget : MonoBehaviour, IProjectilable
         }
         movingObject.localPosition = position + curve.Evaluate(1) * (target - position);
         this.enabled = false;
+        setInactive.Stop();
     }
 }
