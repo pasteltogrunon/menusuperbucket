@@ -5,9 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    [Header("Stun Gravity")]
-    [SerializeField] [Tooltip("Multiplicador de gravedad cuando no se pulsa el espacio.")] float gravityMultiplier = 3;
-    [SerializeField] [Tooltip("Multiplicador de gravedad cuando va hacia abajo.")] float gravityMultiplierDown = 4;
+
 
     [Header("Attack")]
     [SerializeField] bool canAttack = false;
@@ -21,8 +19,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] BoxCollider2D strongAttackHitbox;
     [SerializeField] GameObject HitVFX;
 
-    int attackCount = 0;
-    float attackTimer = 0;
+    [Header("Dash")]
+    [SerializeField] ParticleSystem dashparticles;
 
     [Header("Throw")]
     [SerializeField] bool canThrow = false;
@@ -33,7 +31,7 @@ public class PlayerController : MonoBehaviour
     float throwTimer;
 
     [Header("Grapple")]
-    [SerializeField] bool canGrapple = false;
+    public bool CanGrapple = false;
     [SerializeField] [Tooltip("M�xima distance de gancho.")] float maxGrappleDistance = 7;
     [SerializeField] [Tooltip("Velocidad transmitida al recoger el gancho.")] float grappleSpeed = 10;
     [SerializeField] float swingAcceleration = 3;
@@ -221,7 +219,7 @@ public class PlayerController : MonoBehaviour
 
     void tryGrapple()
     {
-        if(InputManager.Grapple && canGrapple)
+        if(InputManager.Grapple && CanGrapple)
         {
             Vector2 grappleDirection = aimDirection;
             Collider2D hit = Physics2D.OverlapCircle(transform.position,  maxGrappleDistance, grappleLayer);
@@ -314,6 +312,8 @@ public class PlayerController : MonoBehaviour
         {
             this.player = player;
             player.animator.SetBool("Dashing", true);
+            player.dashparticles.transform.rotation = Quaternion.Euler(0, 0, player.direction == 1 ? 0 : 180);
+            player.dashparticles.Play();
         }
 
         public override void onUpdate()

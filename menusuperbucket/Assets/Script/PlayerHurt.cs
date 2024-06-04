@@ -63,12 +63,16 @@ public class PlayerHurt : MonoBehaviour
     IEnumerator damageCooldown()
     {
         IsInvulnerable = true;
+        bool cleanedStun = false;
 
         Material material = GetComponent<Renderer>().material;
         for(float t = 0; t<= invulnerableTime; t+= Time.deltaTime)
         {
-            if(t > stunTime)
+            if(t > stunTime && !cleanedStun)
+            {
                 GetComponent<PlayerController>().Stunned = false;
+                cleanedStun = true;
+            }
 
             if(material.HasFloat("_Invulnerable"))
             {
