@@ -52,7 +52,18 @@ public class PlayerController : MonoBehaviour
 
     #region General Use
 
-    PlayerState state;
+    PlayerState _state;
+
+    PlayerState State
+    {
+        get => _state;
+        set
+        {
+            _state?.onEnd();
+            _state = value;
+        }
+    }
+
 
     Rigidbody2D rb;
     Animator animator;
@@ -63,16 +74,16 @@ public class PlayerController : MonoBehaviour
     bool grounded;
     public bool Stunned
     {
-        get => state is StunState;
+        get => State is StunState;
         set
         {
             if(value)
             {
-                state = new StunState(this);
+                State = new StunState(this);
             }
             else
             {
-                state = new NormalState(this);
+                State = new NormalState(this);
             }
         }
     }
@@ -107,7 +118,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
 		movementHandler = GetComponent<PlayerMovement>();
 
-        state = new NormalState(this);
+        State = new NormalState(this);
 
         movementHandler.onAwake();
     }
@@ -122,12 +133,12 @@ public class PlayerController : MonoBehaviour
     {
         timers();
 
-        state.onUpdate();
+        State.onUpdate();
     }
 
     private void FixedUpdate()
     {
-        state.onFixedUpdate();
+        State.onFixedUpdate();
     }
     #endregion
 
@@ -156,7 +167,7 @@ public class PlayerController : MonoBehaviour
     {
         if(movementHandler.IsDashing)
         {
-            state = new DashState(this);
+            State = new DashState(this);
         }
     }
     #endregion
@@ -165,16 +176,16 @@ public class PlayerController : MonoBehaviour
 
     void tryAttack()
     {
-        if (state is AttackState) return;
+        if (State is AttackState) return;
 
         if (InputManager.Attack && canAttack)
         {
-            state = new AttackState(this, AttackState.AttackType.Weak);
+            State = new AttackState(this, AttackState.AttackType.Weak);
         }
 
         if (InputManager.StrongAttack && canAttack)
         {
-            state = new AttackState(this, AttackState.AttackType.Strong);
+            State = new AttackState(this, AttackState.AttackType.Strong);
         }
     }
 
@@ -250,11 +261,11 @@ public class PlayerController : MonoBehaviour
                 }
                 if(index != -1)
                 {
-                    state = new GrappleState(this, candidates[index].ClosestPoint(grapplePosition), grappleLine);
+                    State = new GrappleState(this, candidates[index].ClosestPoint(grapplePosition), grappleLine);
                 }
                 else if(indexpos != -1)
                 {
-                    state = new GrappleState(this, candidates[indexpos].ClosestPoint(grapplePosition), grappleLine);
+                    State = new GrappleState(this, candidates[indexpos].ClosestPoint(grapplePosition), grappleLine);
                 }
             }
         }
@@ -288,6 +299,11 @@ public class PlayerController : MonoBehaviour
         public abstract void onUpdate();
 
         public virtual void onFixedUpdate()
+        {
+            return;
+        }
+
+        public virtual void onEnd()
         {
             return;
         }
@@ -350,9 +366,14 @@ public class PlayerController : MonoBehaviour
         {
             if(!player.movementHandler.IsDashing)
             {
-                player.state = new NormalState(player);
+                player.State = new NormalState(player);
                 player.animator.SetBool("Dashing", false);
             }
+        }
+
+        public override void onEnd()
+        {
+            player.animator.SetBool("Dashing", false);
         }
     }
     #endregion
@@ -384,7 +405,6 @@ public class PlayerController : MonoBehaviour
                     break;
             }
 
-            player.animator.SetBool("Dashing", false);
         }
 
         public override void onUpdate()
@@ -410,7 +430,7 @@ public class PlayerController : MonoBehaviour
             attackTimer += Time.deltaTime;
             if (attackTimer > player.attackMargin)
             {
-                player.state = new NormalState(player);
+                player.State = new NormalState(player);
             }
 
         }
@@ -548,7 +568,6 @@ public class PlayerController : MonoBehaviour
 
             player.rb.velocity = (target - (Vector2)player.transform.position).normalized * player.grappleSpeed;
 
-            player.animator.SetBool("Dashing", false);
         }
 
         public override void onUpdate()
@@ -560,7 +579,7 @@ public class PlayerController : MonoBehaviour
             }
             else if(InputManager.JumpPressed)
             {
-                player.state = new NormalState(player);
+                player.State = new NormalState(player);
                 player.rb.velocity *= player.speedBoost;
                 player.rb.gravityScale = player.gravityMultiplier;
                 grappleLine.gameObject.SetActive(false);
@@ -584,7 +603,7 @@ public class PlayerController : MonoBehaviour
                 player.rb.gravityScale = 0;
                 if (distance <= 0)
                 {
-                    player.state = new NormalState(player);
+                    player.State = new NormalState(player);
                     player.rb.gravityScale = player.movementHandler.gravityScale;
                     grappleLine.gameObject.SetActive(false);
                 }
@@ -624,6 +643,12 @@ public class PlayerController : MonoBehaviour
             grappleLine.SetPosition(0, player.transform.position);
             grappleLine.SetPosition(1, new Vector3(target.x, target.y));
             
+        }
+
+        public override void onEnd()
+        {
+            player.rb.gravityScale = player.movementHandler.gravityScale;
+            grappleLine.gameObject.SetActive(false);
         }
     }
     #endregion

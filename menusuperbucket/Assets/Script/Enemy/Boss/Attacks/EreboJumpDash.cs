@@ -28,9 +28,11 @@ public class EreboJumpDash : EreboAttackBase
     {
         GetComponent<Rigidbody2D>().velocity = jumpForce * Vector2.up;
         yield return new WaitForSeconds(jumpDelay);
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        GetComponent<Rigidbody2D>().gravityScale = 0;
         Vector2 direction = targetDirection;
         preattack.Play();
-        yield return new WaitForSeconds(dashDelay);
+        yield return new WaitForSeconds(healthDelayScale(dashDelay));
 
         for (float t = 0; t<dashTime; t+=Time.deltaTime)
         {
@@ -38,7 +40,8 @@ public class EreboJumpDash : EreboAttackBase
             yield return null;
         }
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        yield return new WaitForSeconds(sleepTime);
+        GetComponent<Rigidbody2D>().gravityScale = 1;
+        yield return new WaitForSeconds(healthDelayScale(sleepTime));
         EndAttack();
     }
 

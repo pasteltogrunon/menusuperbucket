@@ -24,4 +24,9 @@ public abstract class EreboAttackBase : MonoBehaviour
     {
         get => Mathf.Sign(bossAI.Target.position.x - transform.position.x) * Vector2.right;
     }
+
+    protected float healthDelayScale(float time)
+    {
+        return time / (1/0.4f - (float) (GetComponent<HealthManager>().Health*6) / (GetComponent<HealthManager>().MaxHealth * 4));
+    }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HealthManager : MonoBehaviour
 {
-    [SerializeField] int maxHealth = 10;
+    public int MaxHealth = 10;
     [SerializeField] int health;
 
     [SerializeField] GameObject deathParticles;
@@ -19,7 +19,7 @@ public class HealthManager : MonoBehaviour
                 StartCoroutine(damageFX());
             }
 
-            health = Mathf.Clamp(value, 0, maxHealth);
+            health = Mathf.Clamp(value, 0, MaxHealth);
             if(health == 0)
             {
                 die();
@@ -30,7 +30,7 @@ public class HealthManager : MonoBehaviour
     
     void Awake()
     {
-        health = maxHealth;
+        health = MaxHealth;
     }
     
     void die()

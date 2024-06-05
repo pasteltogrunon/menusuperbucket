@@ -26,7 +26,7 @@ public class EreboDash : EreboAttackBase
     {
         Vector2 direction = horizontalTargetDirection;
         preattack.Play();
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(healthDelayScale(delay));
 
         for (float t = 0; t<dashTime; t+=Time.deltaTime)
         {
@@ -34,7 +34,7 @@ public class EreboDash : EreboAttackBase
             yield return null;
         }
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        yield return new WaitForSeconds(sleepTime);
+        yield return new WaitForSeconds(healthDelayScale(sleepTime));
         EndAttack();
     }
 

@@ -9,6 +9,7 @@ public class EreboShootProjectile : EreboAttackBase
     [SerializeField] int projectileAmount = 4;
     [SerializeField] float intervalTime = 0.5f;
     [SerializeField] float projectileStartSpeed = 10;
+    [SerializeField] float delayTime = 0.3f;
     [SerializeField] float sleepTime = 1;
 
     private Vector3 firePoint
@@ -29,12 +30,13 @@ public class EreboShootProjectile : EreboAttackBase
 
     IEnumerator ShootFireballs(int amount)
     {
-        for(int i=0; i<projectileAmount; i++)
+        yield return new WaitForSeconds(healthDelayScale(delayTime));
+        for (int i=0; i<projectileAmount; i++)
         {
             ShootFireball();
             yield return new WaitForSeconds(intervalTime);
         }
-        yield return new WaitForSeconds(sleepTime);
+        yield return new WaitForSeconds(healthDelayScale(sleepTime));
         EndAttack();
     }
 
