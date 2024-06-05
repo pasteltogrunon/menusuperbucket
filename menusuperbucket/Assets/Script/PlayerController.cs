@@ -36,8 +36,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] [Tooltip("Velocidad transmitida al recoger el gancho.")] float grappleSpeed = 10;
     [SerializeField] float swingAcceleration = 3;
     [SerializeField] float maxSwingSpeed = 6;
+    [SerializeField] float positionBias = 0.25f;
+    [SerializeField] float gravityMultiplier = 2;
+    [SerializeField] float speedBoost = 1.5f;
     [SerializeField] LayerMask grappleLayer;
     [SerializeField] LineRenderer grappleLine;
+    [SerializeField] LayerMask groundLayer;
 
     [Header("Platform")]
     [SerializeField] bool canPlatform = false;
@@ -198,11 +202,6 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Aim
-    Vector2 aimDirection
-    {
-        get => InputManager.getAimDirection(transform.position);
-    }
-
     void tryThrow()
     {
         if(InputManager.Throw && canThrow)
@@ -221,11 +220,42 @@ public class PlayerController : MonoBehaviour
     {
         if(InputManager.Grapple && CanGrapple)
         {
-            Vector2 grappleDirection = aimDirection;
-            Collider2D hit = Physics2D.OverlapCircle(transform.position,  maxGrappleDistance, grappleLayer);
-            if (hit)
+            Vector2 grapplePosition = (Vector2) transform.position + rb.velocity * positionBias;
+            Collider2D[] candidates = Physics2D.OverlapCircleAll(transform.position,  maxGrappleDistance, grappleLayer);
+            if (candidates.Length != 0)
             {
-                state = new GrappleState(this, hit.transform.position, grappleLine);
+                float dist = Mathf.Infinity, distpos = Mathf.Infinity;
+                int index = -1, indexpos = -1;
+                for(int i = 0; i < candidates.Length; i++)
+                {
+                    //We check the non obstructed grapple points with a bias in position given by the velocity
+                    RaycastHit2D h = Physics2D.Raycast(grapplePosition, candidates[i].ClosestPoint(grapplePosition) - grapplePosition, maxGrappleDistance, groundLayer);
+                    if (h.collider == candidates[i])
+                    {
+                        float disti = Vector2.Distance(grapplePosition, candidates[i].ClosestPoint(grapplePosition));
+                        if (disti < dist)
+                        {
+                            index = i;
+                            dist = disti;
+                        }
+                    }
+
+                    // If none is non-obstructed, we just get the closest one
+                    float distipos = Vector2.Distance(grapplePosition, candidates[i].ClosestPoint(grapplePosition));
+                    if (distipos < distpos)
+                    {
+                        indexpos = i;
+                        distpos = distipos;
+                    }
+                }
+                if(index != -1)
+                {
+                    state = new GrappleState(this, candidates[index].ClosestPoint(grapplePosition), grappleLine);
+                }
+                else if(indexpos != -1)
+                {
+                    state = new GrappleState(this, candidates[indexpos].ClosestPoint(grapplePosition), grappleLine);
+                }
             }
         }
     }
@@ -531,8 +561,8 @@ public class PlayerController : MonoBehaviour
             else if(InputManager.JumpPressed)
             {
                 player.state = new NormalState(player);
-                //player.dashTimer = player.dashCooldown;
-                player.rb.gravityScale = 1;
+                player.rb.velocity *= player.speedBoost;
+                player.rb.gravityScale = player.gravityMultiplier;
                 grappleLine.gameObject.SetActive(false);
             }
 
@@ -555,8 +585,7 @@ public class PlayerController : MonoBehaviour
                 if (distance <= 0)
                 {
                     player.state = new NormalState(player);
-                    //player.dashTimer = player.dashCooldown;
-                    player.rb.gravityScale = 1;
+                    player.rb.gravityScale = player.movementHandler.gravityScale;
                     grappleLine.gameObject.SetActive(false);
                 }
             }
@@ -573,18 +602,18 @@ public class PlayerController : MonoBehaviour
                 //Prometeus
                 player.tryThrow();
 
-                Vector2 direction = ((Vector2)player.transform.position - target).normalized;
-                Vector2 ort = new Vector2(direction.y, -direction.x);
 
-                if(Vector2.Dot(player.hInput * ort, Vector2.up) < 0.5)
+                if (Vector3.Distance(player.transform.position, target) >= distance)
                 {
-                    player.rb.velocity += player.hInput * ort * player.swingAcceleration * Time.deltaTime;
-                    if(player.rb.velocity.magnitude > player.maxSwingSpeed)
-                        player.rb.velocity = player.rb.velocity.normalized * player.maxSwingSpeed;
-                }
+                    Vector2 direction = ((Vector2)player.transform.position - target).normalized;
+                    Vector2 ort = new Vector2(direction.y, -direction.x);
 
-                if (Vector3.Distance(player.transform.position, target) > distance)
-                {
+                    if(Vector2.Dot(player.hInput * ort, Vector2.up) < 0.5)
+                    {
+                        player.rb.velocity += Vector2.Dot(ort, Vector2.right) * player.hInput * ort * player.swingAcceleration * Time.deltaTime;
+                        if(player.rb.velocity.magnitude > player.maxSwingSpeed)
+                            player.rb.velocity = player.rb.velocity.normalized * player.maxSwingSpeed;
+                    }
                     //Adjust position to swing
 
                     player.transform.position = target + distance * direction;
