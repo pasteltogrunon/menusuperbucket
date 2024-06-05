@@ -846,6 +846,7 @@ GameObject:
   - component: {fileID: 458607884}
   - component: {fileID: 458607883}
   - component: {fileID: 458607887}
+  - component: {fileID: 458607888}
   - component: {fileID: 458607882}
   - component: {fileID: 458607881}
   - component: {fileID: 458607880}
@@ -1064,20 +1065,63 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: -0.09304476
-      outSlope: -0.09304476
+      inSlope: -0.033058885
+      outSlope: -0.033058885
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.047138046
+      outWeight: 0.043771043
     - serializedVersion: 3
       time: 1
-      value: 0
-      inSlope: -2.3745904
-      outSlope: -2.3745904
+      value: 0.010233939
+      inSlope: -3.1765335
+      outSlope: -3.1765335
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.021548808
+      inWeight: 0.015488207
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  dashTime: 0.75
+  sleepTime: 1
+  preattack: {fileID: 2099154079}
+--- !u!114 &458607888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458607879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e92a551503f01044b11580b110274c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpDelay: 0.2
+  jumpForce: 10
+  dashDelay: 0.5
+  dashSpeed: 25
+  dashSpeedProfile:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

@@ -15,6 +15,7 @@ public class EreboAI : MonoBehaviour
         // Añadir ataques al jefe
         possibleAttacks.Add(GetComponent<EreboShootProjectile>());
         possibleAttacks.Add(GetComponent<EreboDash>());
+        possibleAttacks.Add(GetComponent<EreboJumpDash>());
 
         // Iniciar el primer ataque
         StartNextAttack();
