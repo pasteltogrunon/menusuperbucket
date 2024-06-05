@@ -10,8 +10,14 @@ public class Projectile : MonoBehaviour
 
     [SerializeField] float lifetime = 5;
 
+    [SerializeField] ParticleSystem deathParticles;
+    [SerializeField] ParticleSystem continuousParticles;
+
+    bool dead;
+
     private void Start()
     {
+        dead = false;
         StartCoroutine(scheduleDeath());
     }
 
@@ -22,21 +28,25 @@ public class Projectile : MonoBehaviour
 
     protected virtual void onUpdate()
     {
-        Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, damageRadius, hitLayer);
-        if(hit.Length != 0)
+        if(!dead)
         {
-            foreach(Collider2D h in hit)
+            Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, damageRadius, hitLayer);
+            if(hit.Length != 0)
             {
-                if(h.TryGetComponent(out PlayerHurt playerHealth))
+                foreach(Collider2D h in hit)
                 {
-                    playerHealth.hurt(transform.position, 5);
+                    if(h.TryGetComponent(out PlayerHurt playerHealth))
+                    {
+                        playerHealth.hurt(transform.position, 5);
+                    }
+                    else if(h.TryGetComponent(out HealthManager health))
+                    {
+                        health.Health -= 5;
+                    }
                 }
-                else if(h.TryGetComponent(out HealthManager health))
-                {
-                    health.Health -= 5;
-                }
+
+                die();
             }
-            Destroy(gameObject);
         }
     }
 
@@ -48,6 +58,14 @@ public class Projectile : MonoBehaviour
 
     protected virtual void die()
     {
-        Destroy(gameObject);
+        dead = true;
+
+        deathParticles.transform.SetParent(null);
+        deathParticles.Play();
+
+        continuousParticles.Stop();
+        GetComponent<Renderer>().enabled = false;
+
+        Destroy(gameObject, 2f);
     }
 }
