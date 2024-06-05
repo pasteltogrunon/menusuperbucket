@@ -31,7 +31,8 @@ public class EreboShootProjectile : EreboAttackBase
     IEnumerator ShootFireballs(int amount)
     {
         yield return new WaitForSeconds(healthDelayScale(delayTime));
-        for (int i=0; i<projectileAmount; i++)
+
+        for (int i=0; i<Random.Range(1, projectileAmount + 1); i++)
         {
             ShootFireball();
             yield return new WaitForSeconds(intervalTime);
