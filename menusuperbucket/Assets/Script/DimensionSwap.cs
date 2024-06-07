@@ -24,6 +24,8 @@ public class DimensionSwap : MonoBehaviour
     [SerializeField] Color futureFogColor;
     [SerializeField] Color pastFogColor;
 
+    [SerializeField] Material twirlMaterial;
+
     void Awake()
     {
         Instance = this;
@@ -72,5 +74,18 @@ public class DimensionSwap : MonoBehaviour
             RenderSettings.fogEndDistance = 30;
             RenderSettings.fogColor = futureFogColor;
         }
+
+        StartCoroutine(swapAnimation());
+    }
+
+    IEnumerator swapAnimation()
+    {
+        for(float t = 0; t < 1; t+=Time.deltaTime)
+        {
+            twirlMaterial?.SetFloat("_Twirl_Strength", - 10*t * (t - 1));
+            yield return null;
+        }
+        twirlMaterial?.SetFloat("_Twirl_Strength", 0);
+
     }
 }
