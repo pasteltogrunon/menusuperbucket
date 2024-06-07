@@ -18,9 +18,11 @@ public class DimensionSwap : MonoBehaviour
     [SerializeField] CinemachineVirtualCamera AstralisCam;
     [SerializeField] CinemachineVirtualCamera PrometeusCam;
 
-
     [SerializeField] Color futureColor;
     [SerializeField] Color pastColor;
+
+    [SerializeField] Color futureFogColor;
+    [SerializeField] Color pastFogColor;
 
     void Awake()
     {
@@ -36,7 +38,11 @@ public class DimensionSwap : MonoBehaviour
         Future.SetActive(past);
         past = !past;
 
+
+        RenderSettings.fog = true;
         RenderSettings.ambientLight = futureColor;
+        RenderSettings.fogEndDistance = 30;
+        RenderSettings.fogColor = futureFogColor;
     }
 
     void Update()
@@ -56,11 +62,15 @@ public class DimensionSwap : MonoBehaviour
         {
             PrometeusCam.Priority = 11;
             RenderSettings.ambientLight = pastColor;
+            RenderSettings.fogEndDistance = 300;
+            RenderSettings.fogColor = pastFogColor;
         }
         else
         {
             PrometeusCam.Priority = 9;
             RenderSettings.ambientLight = futureColor;
+            RenderSettings.fogEndDistance = 30;
+            RenderSettings.fogColor = futureFogColor;
         }
     }
 }
