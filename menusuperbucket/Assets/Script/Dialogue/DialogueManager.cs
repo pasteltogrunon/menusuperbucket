@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
-    [SerializeField] float timeBetweenCharacters = 0.1f;
+    [SerializeField] float timeBetweenCharacters = 0.1f; // no funciona creo -ruchu
     [SerializeField] TMP_Text displayText;
     public static DialogueManager Instance;
 

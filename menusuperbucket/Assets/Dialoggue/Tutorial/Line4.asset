@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b853ff630227c641b934592ab723764, type: 3}
-  m_Name: Scene1
+  m_Script: {fileID: 11500000, guid: d4cd794e38900354cb3c90e3f5d2cc99, type: 3}
+  m_Name: Line4
   m_EditorClassIdentifier: 
-  instructionList:
-  - {fileID: 11400000, guid: 4b7eec45366f9ad4baeeefa2603f36dc, type: 2}
-  - {fileID: 11400000, guid: 33f37bab3c435154fb7a2810f87f516b, type: 2}
+  type: 0
+  line: "When Prometheus arrived at Mount Olympus, he found the flame protected by
+    Erebus. It was then that the titan\u2026"
