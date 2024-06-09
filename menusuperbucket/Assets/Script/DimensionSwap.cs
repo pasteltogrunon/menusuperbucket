@@ -35,17 +35,9 @@ public class DimensionSwap : MonoBehaviour
     private void Start()
     {
         past = true;
-        Prometeus.SetActive(!past);
-        Past.SetActive(!past);
-        Astralis.SetActive(past);
-        Future.SetActive(past);
-        past = !past;
-
-        activeCamera = AstralisCam;
         RenderSettings.fog = true;
-        RenderSettings.ambientLight = futureColor;
-        RenderSettings.fogEndDistance = 30;
-        RenderSettings.fogColor = futureFogColor;
+
+        swapDimensionManagement();
     }
 
     void Update()
@@ -55,13 +47,45 @@ public class DimensionSwap : MonoBehaviour
 
     public void swapDimension()
     {
+        StartCoroutine(swapAnimation());
+    }
+
+    IEnumerator swapAnimation()
+    {
+        InputManager.CinematicInputsLocked = true;
+        CinemachineComponentBase componentBase = activeCamera.GetCinemachineComponent(CinemachineCore.Stage.Body);
+        if (activeCamera.GetCinemachineComponent(CinemachineCore.Stage.Body) is CinemachineFramingTransposer)
+        {
+            (componentBase as CinemachineFramingTransposer).m_CameraDistance = 4;
+        }
+        for (float t = 0; t < 0.5f; t+=Time.deltaTime)
+        {
+            twirlMaterial?.SetFloat("_Twirl_Strength", - 10*t * (t - 1));
+            yield return null;
+        }
+
+        (componentBase as CinemachineFramingTransposer).m_CameraDistance = 10;
+
+        swapDimensionManagement();
+
+        for (float t = 0.5f; t <1; t += Time.deltaTime)
+        {
+            twirlMaterial?.SetFloat("_Twirl_Strength", -10 * t * (t - 1));
+            yield return null;
+        }
+        twirlMaterial?.SetFloat("_Twirl_Strength", 0);
+        InputManager.CinematicInputsLocked = false;
+    }
+
+    void swapDimensionManagement()
+    {
         Prometeus.SetActive(!past);
         Past.SetActive(!past);
         Astralis.SetActive(past);
         Future.SetActive(past);
         past = !past;
 
-        if(past)
+        if (past)
         {
             PrometeusCam.Priority = 11;
             activeCamera = PrometeusCam;
@@ -77,18 +101,5 @@ public class DimensionSwap : MonoBehaviour
             RenderSettings.fogEndDistance = 30;
             RenderSettings.fogColor = futureFogColor;
         }
-
-        StartCoroutine(swapAnimation());
-    }
-
-    IEnumerator swapAnimation()
-    {
-        for(float t = 0; t < 1; t+=Time.deltaTime)
-        {
-            twirlMaterial?.SetFloat("_Twirl_Strength", - 10*t * (t - 1));
-            yield return null;
-        }
-        twirlMaterial?.SetFloat("_Twirl_Strength", 0);
-
     }
 }

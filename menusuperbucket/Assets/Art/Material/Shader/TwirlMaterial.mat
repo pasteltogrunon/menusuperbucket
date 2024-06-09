@@ -38,8 +38,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Color_Time_Scaling: 0.1
     - _Power: -1.7
     - _Radius: 0.6
     - _Twirl_Strength: 0
-    m_Colors: []
+    m_Colors:
+    - _Color: {r: 4, g: 4, b: 4, a: 0}
   m_BuildTextureStacks: []

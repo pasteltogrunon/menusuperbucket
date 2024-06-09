@@ -5,18 +5,20 @@ using UnityEngine;
 public class EreboAI : MonoBehaviour
 {
     private EreboAttackBase currentAttack;
-    private List<EreboAttackBase> possibleAttacks = new List<EreboAttackBase>();
+    [SerializeField] private List<EreboAttackBase> possibleAttacks = new List<EreboAttackBase>();
 
     public Transform Target;
-
+    public Transform minAreaVertex, maxAreaVertex;
 
     void Start()
     {
         // Añadir ataques al jefe
-        possibleAttacks.Add(GetComponent<EreboShootProjectile>());
-        possibleAttacks.Add(GetComponent<EreboDash>());
-        possibleAttacks.Add(GetComponent<EreboJumpDash>());
-        possibleAttacks.Add(GetComponent<EreboFisting>());
+        //possibleAttacks.Add(GetComponent<EreboShootProjectile>());
+        //possibleAttacks.Add(GetComponent<EreboDash>());
+        //possibleAttacks.Add(GetComponent<EreboJumpDash>());
+        //possibleAttacks.Add(GetComponent<EreboFisting>());
+        //possibleAttacks.Add(GetComponent<EreboTeleport>());
+        //possibleAttacks.Add(GetComponent<EreboSpawnBombs>());
 
         // Iniciar el primer ataque
         StartNextAttack();
