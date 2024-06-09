@@ -1346,7 +1346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0906a93558382d4780a4f53b340a79b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  MaxHealth: 10
   health: 0
   deathParticles: {fileID: 0}
 --- !u!114 &68062118
@@ -1382,10 +1382,16 @@ MonoBehaviour:
   grappleSpeed: 10
   swingAcceleration: 3
   maxSwingSpeed: 6
+  positionBias: 0.25
+  gravityMultiplier: 2
+  speedBoost: 1.5
   grappleLayer:
     serializedVersion: 2
     m_Bits: 512
   grappleLine: {fileID: 960469267}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
   canPlatform: 0
   platformCooldown: 3
   platform: {fileID: 0}
@@ -31574,6 +31580,9 @@ MonoBehaviour:
   PrometeusCam: {fileID: 1990793289}
   futureColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
   pastColor: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}
+  futureFogColor: {r: 0, g: 0, b: 0, a: 0}
+  pastFogColor: {r: 0, g: 0, b: 0, a: 0}
+  twirlMaterial: {fileID: 0}
 --- !u!4 &841087268
 Transform:
   m_ObjectHideFlags: 0
@@ -35270,10 +35279,16 @@ MonoBehaviour:
   grappleSpeed: 10
   swingAcceleration: 3
   maxSwingSpeed: 6
+  positionBias: 0.25
+  gravityMultiplier: 2
+  speedBoost: 1.5
   grappleLayer:
     serializedVersion: 2
     m_Bits: 0
   grappleLine: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
   canPlatform: 0
   platformCooldown: 3
   platform: {fileID: 0}
@@ -35361,7 +35376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0906a93558382d4780a4f53b340a79b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  MaxHealth: 10
   health: 0
   deathParticles: {fileID: 0}
 --- !u!114 &996576692
@@ -61304,6 +61319,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: tablet
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c280979babaf72a4db6f674f1a57a71b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
