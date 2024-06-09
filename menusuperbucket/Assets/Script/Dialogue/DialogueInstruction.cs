@@ -6,7 +6,7 @@ using UnityEngine;
 public class DialogueInstruction : ScriptableObject
 {
     public InstructionType type;
-    public string line;
+    [TextArea(100, 10)] public string line;
 
     public enum InstructionType
     {
