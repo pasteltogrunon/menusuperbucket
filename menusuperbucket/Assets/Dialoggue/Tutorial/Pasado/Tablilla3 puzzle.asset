@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4cd794e38900354cb3c90e3f5d2cc99, type: 3}
-  m_Name: Line4
+  m_Script: {fileID: 11500000, guid: 1b853ff630227c641b934592ab723764, type: 3}
+  m_Name: Tablilla3 puzzle
   m_EditorClassIdentifier: 
-  type: 0
-  line: "When Prometheus arrived at Mount Olympus, he found the flame protected by
-    Erebus. It was then that the titan\u2026"
+  instructionList:
+  - {fileID: 11400000, guid: 598f5b93bc075904c94dd7d0e5371ab5, type: 2}
