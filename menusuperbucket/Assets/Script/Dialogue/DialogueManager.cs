@@ -9,7 +9,6 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] TMP_Text displayText;
     public static DialogueManager Instance;
 
-
     DialogueScene activeScene;
 
     DialogueInstruction activeInstruction;
@@ -44,6 +43,8 @@ public class DialogueManager : MonoBehaviour
         {
             activeScene = scene;
 
+            InputManager.CinematicInputsLocked = true;
+
             instructionCount = 0;
             activeInstruction = activeScene.instructionList[instructionCount];
 
@@ -60,11 +61,15 @@ public class DialogueManager : MonoBehaviour
                 instructionCount++;
                 if(instructionCount < activeScene.instructionList.Length)
                 {
+                    //Next instruction
                     activeInstruction = activeScene.instructionList[instructionCount];
                     characterCount = 0;
                 }
                 else
                 {
+                    //Finish scene
+                    InputManager.CinematicInputsLocked = false;
+
                     displayText.text = null;
                     activeScene = null;
                 }

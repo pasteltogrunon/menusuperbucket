@@ -6,22 +6,25 @@ public class InputManager : MonoBehaviour
 {
     public static InputManager Instance;
 
+    public static bool CinematicInputsLocked;
 
-
-    public static bool JumpPressed { get => Input.GetKeyDown(Instance.JumpKey) || Input.GetKeyDown(Instance.JumpButton); }
-    public static bool JumpHolded { get => Input.GetKey(Instance.JumpKey) || Input.GetKey(Instance.JumpButton); }
-    public static bool JumpUp { get => Input.GetKeyUp(Instance.JumpKey) || Input.GetKeyUp(Instance.JumpButton); }
-    public static bool Right { get => Input.GetKey(Instance.RightKey) || Instance.RightAxis(); }
-    public static bool Left { get => Input.GetKey(Instance.LeftKey) || Instance.LeftAxis(); }
-    public static bool Dash { get => Input.GetKeyDown(Instance.DashKey) || Input.GetKeyDown(Instance.DashButton); }
-    public static bool Attack { get => Input.GetKeyDown(Instance.AttackKey) || Input.GetKeyDown(Instance.AttackButton); }
-    public static bool StrongAttack { get => Input.GetKeyDown(Instance.StrongAttackKey) || Input.GetKeyDown(Instance.StrongAttackButton); }
-    public static bool Throw { get => Input.GetKeyDown(Instance.ThrowKey) || Input.GetKeyDown(Instance.ThrowButton); }
-    public static bool Grapple { get => Input.GetKeyDown(Instance.GrappleKey) || Input.GetKeyDown(Instance.GrappleButton); }
-    public static bool Interact { get => Input.GetKeyDown(Instance.InteractKey) || Input.GetKeyDown(Instance.InteractButton); }
+    public static bool JumpPressed { get => (Input.GetKeyDown(Instance.JumpKey) || Input.GetKeyDown(Instance.JumpButton)) && !CinematicInputsLocked; }
+    public static bool JumpHolded { get => (Input.GetKey(Instance.JumpKey) || Input.GetKey(Instance.JumpButton)) && !CinematicInputsLocked; }
+    public static bool JumpUp { get => (Input.GetKeyUp(Instance.JumpKey) || Input.GetKeyUp(Instance.JumpButton)) && !CinematicInputsLocked; }
+    public static bool Right { get => (Instance.RightAxis()) && !CinematicInputsLocked; }
+    public static bool Left { get => (Instance.LeftAxis()) && !CinematicInputsLocked; }
+    public static bool Dash { get => (Input.GetKeyDown(Instance.DashKey) || Input.GetKeyDown(Instance.DashButton)) && !CinematicInputsLocked; }
+    public static bool Attack { get => (Input.GetKeyDown(Instance.AttackKey) || Input.GetKeyDown(Instance.AttackButton)) && !CinematicInputsLocked; }
+    public static bool StrongAttack { get => (Input.GetKeyDown(Instance.StrongAttackKey) || Input.GetKeyDown(Instance.StrongAttackButton)) && !CinematicInputsLocked; }
+    public static bool Throw { get => (Input.GetKeyDown(Instance.ThrowKey) || Input.GetKeyDown(Instance.ThrowButton)) && !CinematicInputsLocked; }
+    public static bool Grapple { get => (Input.GetKeyDown(Instance.GrappleKey) || Input.GetKeyDown(Instance.GrappleButton)) && !CinematicInputsLocked; }
+    public static bool Interact { get => (Input.GetKeyDown(Instance.InteractKey) || Input.GetKeyDown(Instance.InteractButton)) && !CinematicInputsLocked; }
+    public static bool Platform { get => (Input.GetKeyDown(Instance.PlatformKey) || Input.GetKeyDown(Instance.PlatformButton)) && !CinematicInputsLocked; }
     public static bool EnterLine { get => Input.GetKeyDown(Instance.EnterLineKey) || Input.GetKeyDown(Instance.EnterLineButton); }
-    public static bool Platform { get => Input.GetKeyDown(Instance.PlatformKey) || Input.GetKeyDown(Instance.PlatformButton); }
     public static float Deadzone { get => Instance.DeadzoneValue; }
+    public static float HorizontalAxis { get => CinematicInputsLocked || Mathf.Abs(Input.GetAxisRaw("Horizontal")) < Deadzone ? 0 : Input.GetAxisRaw("Horizontal"); }
+    public static float VerticalAxis { get => CinematicInputsLocked || Mathf.Abs(Input.GetAxisRaw("Vertical")) < Deadzone ? 0 : Input.GetAxisRaw("Vertical"); }
+
 
     [HideInInspector] public static Vector2 mousePosition;
 
@@ -42,8 +45,6 @@ public class InputManager : MonoBehaviour
     */
 
     [SerializeField] KeyCode JumpKey = KeyCode.Space;
-    [SerializeField] KeyCode RightKey = KeyCode.D;
-    [SerializeField] KeyCode LeftKey = KeyCode.A;
     [SerializeField] KeyCode DashKey = KeyCode.LeftShift;
     [SerializeField] KeyCode AttackKey = KeyCode.J;
     [SerializeField] KeyCode StrongAttackKey = KeyCode.K;

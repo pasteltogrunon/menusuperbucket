@@ -236,13 +236,9 @@ public class PlayerMovement : MonoBehaviour
 
 		#region Update: Inputs
 
-		_moveInput.x = Input.GetAxisRaw("Horizontal");
-		if(Mathf.Abs(_moveInput.x) < InputManager.Deadzone)
-			_moveInput.x = 0;
-		
-		_moveInput.y = Input.GetAxisRaw("Vertical");
-		if(Mathf.Abs(_moveInput.y) < InputManager.Deadzone)
-			_moveInput.y = 0;
+		_moveInput.x = InputManager.HorizontalAxis;
+
+        _moveInput.y = InputManager.VerticalAxis;
 
 		if (_moveInput.x != 0)
 			IsFacingRight = (_moveInput.x > 0);
