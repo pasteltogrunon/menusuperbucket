@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -44,6 +45,10 @@ public class DialogueManager : MonoBehaviour
             activeScene = scene;
 
             InputManager.CinematicInputsLocked = true;
+            if (DimensionSwap.Instance.activeCamera.GetCinemachineComponent(CinemachineCore.Stage.Body) is CinemachineFramingTransposer framingTransposer)
+            {
+                framingTransposer.m_CameraDistance = 6;
+            }
 
             instructionCount = 0;
             activeInstruction = activeScene.instructionList[instructionCount];
@@ -69,6 +74,11 @@ public class DialogueManager : MonoBehaviour
                 {
                     //Finish scene
                     InputManager.CinematicInputsLocked = false;
+
+                    if (DimensionSwap.Instance.activeCamera.GetCinemachineComponent(CinemachineCore.Stage.Body) is CinemachineFramingTransposer framingTransposer)
+                    {
+                        framingTransposer.m_CameraDistance = 10;
+                    }
 
                     displayText.text = null;
                     activeScene = null;
