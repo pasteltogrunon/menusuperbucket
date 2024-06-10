@@ -30,9 +30,11 @@ public class EreboFisting : EreboAttackBase
 
     IEnumerator ShootFist()
     {
+        bossAI.animator.Play("StartCharging");
         Rigidbody2D fistRB = Instantiate(fistPrefab, firePoint, Quaternion.identity).GetComponent<Rigidbody2D>();
         fistRB.constraints = RigidbodyConstraints2D.FreezeAll;
         yield return new WaitForSeconds(healthDelayScale(delayTime));
+        bossAI.animator.Play("Shooting");
         fistRB.constraints = RigidbodyConstraints2D.FreezeRotation;
 
         Vector2 direction = (bossAI.Target.position - firePoint).normalized;

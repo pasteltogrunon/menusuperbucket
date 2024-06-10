@@ -24,6 +24,7 @@ public class EreboSpawnBombs : EreboAttackBase
 
     IEnumerator Spawn()
     {
+        bossAI.animator.Play("StartCharging");
         yield return new WaitForSeconds(healthDelayScale(delay));
         for(int i = 0; i<Random.Range(1, maxBombs+1); i++)
         {

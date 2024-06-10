@@ -6,6 +6,6 @@ public class Shrine : MonoBehaviour, IInteractable
 {
     void IInteractable.interact()
     {
-        DimensionSwap.Instance.swapDimension();
+        DimensionSwap.Instance.swapDimension(transform);
     }
 }

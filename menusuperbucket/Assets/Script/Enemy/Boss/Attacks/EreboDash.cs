@@ -26,13 +26,17 @@ public class EreboDash : EreboAttackBase
     {
         Vector2 direction = horizontalTargetDirection;
         preattack.Play();
+        bossAI.animator.Play("StartCharging");
         yield return new WaitForSeconds(healthDelayScale(delay));
+        bossAI.animator.Play("Dashing");
 
         for (float t = 0; t<dashTime; t+=Time.deltaTime)
         {
             GetComponent<Rigidbody2D>().velocity = direction * dashSpeed * dashSpeedProfile.Evaluate(t / dashTime);
             yield return null;
         }
+        bossAI.animator.Play("DashEnd");
+
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         yield return new WaitForSeconds(healthDelayScale(sleepTime));
         EndAttack();

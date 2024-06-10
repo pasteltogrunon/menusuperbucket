@@ -73,15 +73,7 @@ public class DialogueManager : MonoBehaviour
                 else
                 {
                     //Finish scene
-                    InputManager.CinematicInputsLocked = false;
-
-                    if (DimensionSwap.Instance.activeCamera.GetCinemachineComponent(CinemachineCore.Stage.Body) is CinemachineFramingTransposer framingTransposer)
-                    {
-                        framingTransposer.m_CameraDistance = 10;
-                    }
-
-                    displayText.text = null;
-                    activeScene = null;
+                    unLoadScene();
                 }
 
                 finishedLine = false;
@@ -103,5 +95,18 @@ public class DialogueManager : MonoBehaviour
             }
 
         }
+    }
+
+    public void unLoadScene()
+    {
+        InputManager.CinematicInputsLocked = false;
+
+        if (DimensionSwap.Instance.activeCamera.GetCinemachineComponent(CinemachineCore.Stage.Body) is CinemachineFramingTransposer framingTransposer)
+        {
+            framingTransposer.m_CameraDistance = 10;
+        }
+
+        displayText.text = null;
+        activeScene = null;
     }
 }

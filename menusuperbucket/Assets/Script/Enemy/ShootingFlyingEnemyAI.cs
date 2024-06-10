@@ -53,6 +53,11 @@ public class ShootingFlyingEnemyAI : MonoBehaviour, IPushable
         StartCoroutine(checkForPlayer());
     }
 
+    private void OnEnable()
+    {
+        StartCoroutine(checkForPlayer());
+    }
+
     void Update()
     {
         if (pushTime > 0)

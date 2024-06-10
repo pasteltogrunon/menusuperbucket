@@ -136,7 +136,7 @@ MonoBehaviour:
     m_Bits: 256
   attackRadius: 4
   attackCooldown: 1
-  attackSpeed: 10
+  attackSpeed: 14
   attackDelay: 0.3
   attackDuration: 5
   attackAcceleration: 20

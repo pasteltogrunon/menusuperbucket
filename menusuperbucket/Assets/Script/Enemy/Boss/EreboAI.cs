@@ -9,6 +9,20 @@ public class EreboAI : MonoBehaviour
 
     public Transform Target;
     public Transform minAreaVertex, maxAreaVertex;
+    public Animator animator;
+
+    public BoxCollider2D groundCheck;
+    public LayerMask groundLayer;
+
+    private float direction
+    {
+        get => Target.position.x - transform.position.x > 0 ? -1 : 1;
+    }
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     void Start()
     {
@@ -30,10 +44,13 @@ public class EreboAI : MonoBehaviour
         {
             currentAttack.Execute();
         }
+
     }
 
     void StartNextAttack()
     {
+        transform.localScale = new Vector3(direction, 1, 1);
+
         int randomIndex = Random.Range(0, possibleAttacks.Count);
         currentAttack = possibleAttacks[randomIndex];
         currentAttack.StartAttack();

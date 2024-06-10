@@ -7,7 +7,7 @@ public class HealthManager : MonoBehaviour
     public int MaxHealth = 10;
     [SerializeField] int health;
 
-    [SerializeField] GameObject deathParticles;
+    [SerializeField] protected GameObject deathParticles;
 
     public int Health
     {
@@ -33,7 +33,7 @@ public class HealthManager : MonoBehaviour
         health = MaxHealth;
     }
     
-    void die()
+    protected virtual void die()
     {
         if(deathParticles != null)
         {

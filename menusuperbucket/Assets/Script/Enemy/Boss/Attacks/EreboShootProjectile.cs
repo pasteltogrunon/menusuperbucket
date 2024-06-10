@@ -30,8 +30,10 @@ public class EreboShootProjectile : EreboAttackBase
 
     IEnumerator ShootFireballs(int amount)
     {
+        bossAI.animator.Play("StartCharging");
         yield return new WaitForSeconds(healthDelayScale(delayTime));
 
+        bossAI.animator.Play("Shooting");
         for (int i=0; i<Random.Range(1, projectileAmount + 1); i++)
         {
             ShootFireball();

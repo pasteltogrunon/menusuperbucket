@@ -115,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
     #region Components
 
     public Rigidbody2D RB { get; private set; }
+    PlayerController playerController;
 
     #endregion
 
@@ -185,6 +186,7 @@ public class PlayerMovement : MonoBehaviour
     public void onAwake()
 	{
 		RB = GetComponent<Rigidbody2D>();
+        playerController = GetComponent<PlayerController>();
 	}
 
     #region General Use
@@ -546,6 +548,7 @@ public class PlayerMovement : MonoBehaviour
 			force -= RB.velocity.y;
 
 		RB.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+        playerController.jumpSound();
 	}
 
 	private void WallJump(int dir)

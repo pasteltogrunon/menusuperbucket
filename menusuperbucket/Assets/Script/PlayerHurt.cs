@@ -10,7 +10,10 @@ public class PlayerHurt : MonoBehaviour
     [SerializeField] Vector2 damageKnockback;
     [SerializeField] LayerMask enemyLayer;
 
+    [Header("FX")]
     [SerializeField] Volume damageVolume;
+    [SerializeField] AudioSource hurtSource;
+    [SerializeField] AudioClip[] hurtSounds = new AudioClip[3];
 
     bool _isInvulnerable = false;
 
@@ -54,7 +57,7 @@ public class PlayerHurt : MonoBehaviour
         //Damage knockback
         float enemyDirection = Mathf.Sign(transform.position.x - pos.x);
         GetComponent<Rigidbody2D>().velocity = new Vector2(damageKnockback.x * enemyDirection, damageKnockback.y);
-
+        hurtSource.PlayOneShot(hurtSounds[Random.Range(0, hurtSounds.Length)]);
         //Invulnerability
         StartCoroutine(damageCooldown());
     }

@@ -27,6 +27,9 @@ public class DimensionSwap : MonoBehaviour
 
     [SerializeField] Material twirlMaterial;
 
+    [HideInInspector] public Vector2 AstralisSpawnPos;
+    [HideInInspector] public Vector2 PrometeusSpawnPos;
+
     void Awake()
     {
         Instance = this;
@@ -37,6 +40,9 @@ public class DimensionSwap : MonoBehaviour
         past = true;
         RenderSettings.fog = true;
 
+        AstralisSpawnPos = Astralis.transform.position;
+        PrometeusSpawnPos = Prometeus.transform.position;
+
         swapDimensionManagement();
     }
 
@@ -45,9 +51,19 @@ public class DimensionSwap : MonoBehaviour
 
     }
 
-    public void swapDimension()
+    public void swapDimension(Transform shrine)
     {
+        if(past)
+        {
+            PrometeusSpawnPos = shrine.position;
+        }
+        else
+        {
+            AstralisSpawnPos = shrine.position;
+        }
+
         StartCoroutine(swapAnimation());
+
     }
 
     IEnumerator swapAnimation()
@@ -87,19 +103,24 @@ public class DimensionSwap : MonoBehaviour
 
         if (past)
         {
+            //To Prometheus
             PrometeusCam.Priority = 11;
             activeCamera = PrometeusCam;
             RenderSettings.ambientLight = pastColor;
             RenderSettings.fogEndDistance = 300;
             RenderSettings.fogColor = pastFogColor;
+            Prometeus.GetComponent<HealthManager>().Health = Prometeus.GetComponent<HealthManager>().MaxHealth;
         }
         else
         {
+            //To Astralis
             PrometeusCam.Priority = 9;
             activeCamera = AstralisCam;
             RenderSettings.ambientLight = futureColor;
             RenderSettings.fogEndDistance = 30;
             RenderSettings.fogColor = futureFogColor;
+            Astralis.GetComponent<HealthManager>().Health = Astralis.GetComponent<HealthManager>().MaxHealth;
         }
+
     }
 }

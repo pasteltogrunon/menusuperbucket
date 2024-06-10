@@ -5,7 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-
+    [SerializeField] AudioSource jumpSource;
+    [SerializeField] AudioClip[] jumpSounds = new AudioClip[4];
+    [SerializeField] AudioSource stepSource;
+    [SerializeField] AudioClip[] stepSounds = new AudioClip[5];
 
     [Header("Attack")]
     [SerializeField] bool canAttack = false;
@@ -18,9 +21,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] BoxCollider2D attackHitbox;
     [SerializeField] BoxCollider2D strongAttackHitbox;
     [SerializeField] GameObject HitVFX;
+    [SerializeField] AudioSource attackSource;
+    [SerializeField] AudioClip[] attackSounds = new AudioClip[4];
 
     [Header("Dash")]
     [SerializeField] ParticleSystem dashparticles;
+    [SerializeField] AudioSource dashSound;
 
     [Header("Throw")]
     [SerializeField] bool canThrow = false;
@@ -169,6 +175,16 @@ public class PlayerController : MonoBehaviour
         {
             State = new DashState(this);
         }
+    }
+
+    public void jumpSound()
+    {
+        jumpSource.PlayOneShot(jumpSounds[Random.Range(0, jumpSounds.Length)]);
+    }
+
+    public void stepSound()
+    {
+        stepSource.PlayOneShot(stepSounds[Random.Range(0, stepSounds.Length)]);
     }
     #endregion
 
@@ -360,6 +376,7 @@ public class PlayerController : MonoBehaviour
             player.animator.SetBool("Dashing", true);
             player.dashparticles.transform.rotation = Quaternion.Euler(0, 0, player.direction == 1 ? 0 : 180);
             player.dashparticles.Play();
+            player.dashSound.Play();
         }
 
         public override void onUpdate()
@@ -400,6 +417,7 @@ public class PlayerController : MonoBehaviour
                 case AttackType.Strong:
                     player.animator.Play("Strong", -1, 0);
                     player.speed *= player.strongAttackDecelaration;
+                    player.attackSource.PlayOneShot(player.attackSounds[3]);
                     break;
                 default:
                     break;
@@ -460,6 +478,7 @@ public class PlayerController : MonoBehaviour
                     player.animator.Play("Attack1");
                 }
 
+                player.attackSource.PlayOneShot(player.attackSounds[Random.Range(0, player.attackSounds.Length - 1)]);
                 attackTimer = 0;
                 attackCount++;
             }
