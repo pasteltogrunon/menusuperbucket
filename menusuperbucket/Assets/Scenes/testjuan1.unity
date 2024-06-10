@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17398894, g: 0.2175594, b: 0.29973426, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1361,6 +1361,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4151770217cbae947af1df6c64194029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpSource: {fileID: 0}
+  jumpSounds:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  stepSource: {fileID: 0}
+  stepSounds:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   canAttack: 0
   weakDamage: 5
   strongDamage: 10
@@ -1371,7 +1384,14 @@ MonoBehaviour:
   attackHitbox: {fileID: 0}
   strongAttackHitbox: {fileID: 0}
   HitVFX: {fileID: 0}
+  attackSource: {fileID: 0}
+  attackSounds:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   dashparticles: {fileID: 0}
+  dashSound: {fileID: 0}
   canThrow: 1
   throwCooldown: 1.5
   throwSpeed: 10
@@ -1499,6 +1519,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   damageVolume: {fileID: 0}
+  hurtSource: {fileID: 0}
+  hurtSounds:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!95 &68062123
 Animator:
   serializedVersion: 5
@@ -5113,7 +5138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &214560813
 Transform:
   m_ObjectHideFlags: 0
@@ -26504,7 +26529,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &564880735
 Transform:
   m_ObjectHideFlags: 0
@@ -32294,6 +32319,8 @@ MonoBehaviour:
   futureFogColor: {r: 0, g: 0, b: 0, a: 0}
   pastFogColor: {r: 0, g: 0, b: 0, a: 0}
   twirlMaterial: {fileID: 0}
+  AstralisSpawnPos: {x: 0, y: 0}
+  PrometeusSpawnPos: {x: 0, y: 0}
 --- !u!4 &841087268
 Transform:
   m_ObjectHideFlags: 0
@@ -36242,6 +36269,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4151770217cbae947af1df6c64194029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpSource: {fileID: 0}
+  jumpSounds:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  stepSource: {fileID: 0}
+  stepSounds:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   canAttack: 1
   weakDamage: 5
   strongDamage: 10
@@ -36252,7 +36292,14 @@ MonoBehaviour:
   attackHitbox: {fileID: 524800183}
   strongAttackHitbox: {fileID: 1517138899}
   HitVFX: {fileID: 4613113559489217463, guid: 6338ec31e5084c44292665df891e8e2f, type: 3}
+  attackSource: {fileID: 0}
+  attackSounds:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   dashparticles: {fileID: 0}
+  dashSound: {fileID: 0}
   canThrow: 0
   throwCooldown: 1.5
   throwSpeed: 10
@@ -36397,6 +36444,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   damageVolume: {fileID: 0}
+  hurtSource: {fileID: 0}
+  hurtSounds:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!95 &996576694
 Animator:
   serializedVersion: 5
