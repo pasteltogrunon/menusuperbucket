@@ -12,15 +12,13 @@ public class PlaceHolderFracture : MonoBehaviour
         index = 0;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(InputManager.Attack)
-        {
-            if(index < sprites.Length)
-                GetComponent<SpriteRenderer>().sprite = sprites[index];
 
-            index++;
-        }
+    public bool addHitToFracture()
+    {
+        if (index < sprites.Length)
+            GetComponent<SpriteRenderer>().sprite = sprites[index];
+
+        index++;
+        return index < sprites.Length;
     }
 }

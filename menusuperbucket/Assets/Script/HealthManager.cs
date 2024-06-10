@@ -16,11 +16,16 @@ public class HealthManager : MonoBehaviour
         {
             if(value < health)
             {
+                health = Mathf.Clamp(value, 0, MaxHealth);
                 StartCoroutine(damageFX());
+                onDamage();
+            }
+            else
+            {
+                health = Mathf.Clamp(value, 0, MaxHealth);
             }
 
-            health = Mathf.Clamp(value, 0, MaxHealth);
-            if(health == 0)
+            if (health == 0)
             {
                 die();
             }
@@ -54,5 +59,10 @@ public class HealthManager : MonoBehaviour
             }
             material.SetFloat("_Damage", 0);
         }
+    }
+
+    protected virtual void onDamage()
+    {
+        
     }
 }

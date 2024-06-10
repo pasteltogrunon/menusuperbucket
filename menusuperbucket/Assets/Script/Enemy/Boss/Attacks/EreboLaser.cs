@@ -5,8 +5,13 @@ using UnityEngine;
 public class EreboLaser : EreboAttackBase
 {
     [SerializeField] float delay = 0.5f;
-    [SerializeField] float distance = 10;
+    [SerializeField] float distance = 30;
     [SerializeField] float sleepTime = 1;
+
+    [SerializeField] ParticleSystem laser;
+    [SerializeField] ParticleSystem preLaser;
+
+    [SerializeField] LayerMask playerLayer;
 
     public override void StartAttack()
     {
@@ -20,9 +25,11 @@ public class EreboLaser : EreboAttackBase
 
     IEnumerator Laser()
     {
-        Vector2 direction = targetDirection;
-        yield return new WaitForSeconds(healthDelayScale(delay));
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, targetDirection, distance);
+        Vector2 direction = horizontalTargetDirection;
+        bossAI.animator.Play("Shooting");
+        preLaser.Play();
+        yield return new WaitForSeconds(delay);
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.25f, direction, distance, playerLayer);
         if(hit)
         {
             if(hit.transform.TryGetComponent(out PlayerHurt hurt))
@@ -30,6 +37,7 @@ public class EreboLaser : EreboAttackBase
                 hurt.hurt(transform.position, 5);
             }
         }
+        laser.Play();
         yield return new WaitForSeconds(healthDelayScale(sleepTime));
         EndAttack();
     }
