@@ -62,4 +62,9 @@ public class EreboAI : MonoBehaviour
         StartNextAttack();
     }
 
+    public void endAttack()
+    {
+        currentAttack.StopAllCoroutines();
+    }
+
 }

@@ -12,6 +12,8 @@ public class BossHealthManager : HealthManager
     [SerializeField] GameObject nextPhaseGameobject;
     [SerializeField] PlaceHolderFracture fracture;
 
+    [SerializeField] AudioSource music;
+
     // Update is called once per frame
     void Update()
     {
@@ -27,9 +29,7 @@ public class BossHealthManager : HealthManager
         {
             if(Health <= 20)
             {
-                nextPhaseGameobject.SetActive(true);
-                nextPhaseGameobject.transform.position = transform.position;
-                gameObject.SetActive(false);
+                StartCoroutine(phase1End());
             }
         }
         else if(phase == 2)
@@ -47,4 +47,18 @@ public class BossHealthManager : HealthManager
         }
     }
 
+
+    IEnumerator phase1End()
+    {
+        GetComponent<EreboAI>().endAttack();
+        GetComponent<EreboAI>().enabled = false;
+        music.Stop();
+        GetComponent<Animator>().Play("Phase1End");
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        yield return new WaitForSeconds(5f);
+        nextPhaseGameobject.SetActive(true);
+        nextPhaseGameobject.transform.position = transform.position;
+        gameObject.SetActive(false);
+    }
 }
