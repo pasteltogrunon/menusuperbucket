@@ -26,9 +26,10 @@ public class EreboLaser : EreboAttackBase
     IEnumerator Laser()
     {
         Vector2 direction = horizontalTargetDirection;
-        bossAI.animator.Play("Shooting");
+        bossAI.animator.Play("Charging");
         preLaser.Play();
         yield return new WaitForSeconds(delay);
+        bossAI.animator.Play("Shooting");
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.25f, direction, distance, playerLayer);
         if(hit)
         {

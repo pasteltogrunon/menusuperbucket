@@ -10,7 +10,7 @@ public class ChungWater : MonoBehaviour
     {
         if (collision.TryGetComponent(out PlayerHurt playerHurt))
         {
-            playerHurt.hurt(transform.position, 5);
+            playerHurt.hurtAlways(transform.position, 5);
             if(playerHurt.GetComponent<HealthManager>().Health != 0)
                 collision.transform.position = respawnPosition.position;
         }

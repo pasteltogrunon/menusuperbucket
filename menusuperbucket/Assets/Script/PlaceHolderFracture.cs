@@ -19,6 +19,6 @@ public class PlaceHolderFracture : MonoBehaviour
             GetComponent<SpriteRenderer>().sprite = sprites[index];
 
         index++;
-        return index < sprites.Length;
+        return index < sprites.Length + 1;
     }
 }

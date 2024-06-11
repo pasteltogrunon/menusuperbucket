@@ -33,6 +33,7 @@ public class EreboFisting : EreboAttackBase
         bossAI.animator.Play("StartCharging");
         Rigidbody2D fistRB = Instantiate(fistPrefab, firePoint, Quaternion.identity).GetComponent<Rigidbody2D>();
         fistRB.constraints = RigidbodyConstraints2D.FreezeAll;
+        Destroy(fistRB.gameObject, delayTime + duration + 0.1f);
         yield return new WaitForSeconds(healthDelayScale(delayTime));
         bossAI.animator.Play("Shooting");
         fistRB.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -47,7 +48,6 @@ public class EreboFisting : EreboAttackBase
         }
 
         //fistRB.GetComponent<Collider2D>().enabled = false;
-        Destroy(fistRB.gameObject);
 
         yield return new WaitForSeconds(healthDelayScale(sleepTime));
         EndAttack();

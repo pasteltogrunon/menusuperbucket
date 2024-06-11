@@ -51,6 +51,13 @@ public class PlayerHurt : MonoBehaviour
 
     public void hurt(Vector2 pos, int damage)
     {
+        if (IsInvulnerable) return;
+
+        hurtAlways(pos, damage);
+    }
+
+    public void hurtAlways(Vector2 pos, int damage)
+    {
         //Health damage
         GetComponent<HealthManager>().Health -= damage;
 
