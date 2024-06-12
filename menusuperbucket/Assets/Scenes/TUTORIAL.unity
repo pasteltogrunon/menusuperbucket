@@ -1002,7 +1002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0906a93558382d4780a4f53b340a79b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  MaxHealth: 10
   health: 0
   deathParticles: {fileID: 0}
 --- !u!114 &68062118
@@ -1017,8 +1017,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4151770217cbae947af1df6c64194029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravityMultiplier: 4
-  gravityMultiplierDown: 5
+  jumpSource: {fileID: 0}
+  jumpSounds:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  stepSource: {fileID: 0}
+  stepSounds:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   canAttack: 0
   weakDamage: 5
   strongDamage: 10
@@ -1029,20 +1040,34 @@ MonoBehaviour:
   attackHitbox: {fileID: 0}
   strongAttackHitbox: {fileID: 0}
   HitVFX: {fileID: 0}
+  attackSource: {fileID: 0}
+  attackSounds:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  dashparticles: {fileID: 0}
+  dashSound: {fileID: 0}
   canThrow: 1
   throwCooldown: 1.5
   throwSpeed: 10
   projectile: {fileID: 2268325331462313365, guid: 57207a29f83584745947ee0c2ad6d510,
     type: 3}
-  canGrapple: 1
+  CanGrapple: 0
   maxGrappleDistance: 10
   grappleSpeed: 10
   swingAcceleration: 3
   maxSwingSpeed: 6
+  positionBias: 0.25
+  gravityMultiplier: 4
+  speedBoost: 1.5
   grappleLayer:
     serializedVersion: 2
     m_Bits: 512
   grappleLine: {fileID: 960469267}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
   canPlatform: 0
   platformCooldown: 3
   platform: {fileID: 0}
@@ -1150,6 +1175,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   damageVolume: {fileID: 0}
+  hurtSource: {fileID: 0}
+  hurtSounds:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!95 &68062123
 Animator:
   serializedVersion: 5
@@ -1192,6 +1222,7 @@ MonoBehaviour:
   doConserveMomentum: 1
   coyoteTime: 0.15
   jumpInputBufferTime: 0.1
+  omnidirectionalDash: 0
   dashAmount: 0
   dashSpeed: 16
   dashSleepTime: 0.05
@@ -1203,6 +1234,8 @@ MonoBehaviour:
   dashInputBufferTime: 0.1
   gravityStrength: -25
   gravityScale: 2.54842
+  gravityStrengthDJ: -21.25
+  gravityScaleDJ: 2.166157
   fallGravityMult: 1.25
   maxFallSpeed: 24
   fastFallGravityMult: 1.65
@@ -1210,7 +1243,11 @@ MonoBehaviour:
   jumpHeight: 2
   jumpTimeToApex: 0.4
   jumpForce: 10
-  jumpCutGravityMult: 2
+  canDoubleJump: 0
+  doubleJumpHeight: 1.7
+  doubleJumpTimeToApex: 0.4
+  doubleJumpForce: 8.5
+  jumpCutGravityMult: 1.6
   jumpHangGravityMult: 0.5
   jumpHangTimeThreshold: 1
   jumpHangAccelerationMult: 1.1
@@ -6595,6 +6632,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   target: {x: 18, y: -2.5, z: 0}
   movingObject: {fileID: 469572336}
+  setInactive: {fileID: 0}
 --- !u!1 &481861774
 GameObject:
   m_ObjectHideFlags: 0
@@ -7538,6 +7576,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   target: {x: 26, y: -2.5, z: 0}
   movingObject: {fileID: 497624347}
+  setInactive: {fileID: 0}
 --- !u!1001 &509253538
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12168,6 +12207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f8e4b51f817d3845a296aa11f80102f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeCamera: {fileID: 0}
   Prometeus: {fileID: 819366048}
   Astralis: {fileID: 1028201468}
   Past: {fileID: 214560812}
@@ -12176,6 +12216,11 @@ MonoBehaviour:
   PrometeusCam: {fileID: 1990793289}
   futureColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
   pastColor: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}
+  futureFogColor: {r: 0, g: 0, b: 0, a: 0}
+  pastFogColor: {r: 0, g: 0, b: 0, a: 0}
+  twirlMaterial: {fileID: 0}
+  AstralisSpawnPos: {x: 0, y: 0}
+  PrometeusSpawnPos: {x: 0, y: 0}
 --- !u!4 &841087268
 Transform:
   m_ObjectHideFlags: 0
@@ -12204,8 +12249,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JumpKey: 32
-  RightKey: 100
-  LeftKey: 97
   DashKey: 304
   AttackKey: 106
   StrongAttackKey: 107
@@ -14598,8 +14641,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4151770217cbae947af1df6c64194029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravityMultiplier: 4
-  gravityMultiplierDown: 5
+  jumpSource: {fileID: 0}
+  jumpSounds:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  stepSource: {fileID: 0}
+  stepSounds:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   canAttack: 1
   weakDamage: 5
   strongDamage: 10
@@ -14610,19 +14664,33 @@ MonoBehaviour:
   attackHitbox: {fileID: 524800183}
   strongAttackHitbox: {fileID: 1517138899}
   HitVFX: {fileID: 4613113559489217463, guid: 6338ec31e5084c44292665df891e8e2f, type: 3}
+  attackSource: {fileID: 0}
+  attackSounds:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  dashparticles: {fileID: 0}
+  dashSound: {fileID: 0}
   canThrow: 0
   throwCooldown: 1.5
   throwSpeed: 10
   projectile: {fileID: 0}
-  canGrapple: 0
+  CanGrapple: 0
   maxGrappleDistance: 7
   grappleSpeed: 10
   swingAcceleration: 3
   maxSwingSpeed: 6
+  positionBias: 0.25
+  gravityMultiplier: 4
+  speedBoost: 1.5
   grappleLayer:
     serializedVersion: 2
     m_Bits: 0
   grappleLine: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
   canPlatform: 0
   platformCooldown: 3
   platform: {fileID: 0}
@@ -14710,7 +14778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0906a93558382d4780a4f53b340a79b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  MaxHealth: 10
   health: 0
   deathParticles: {fileID: 0}
 --- !u!114 &996576692
@@ -14748,6 +14816,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   damageVolume: {fileID: 0}
+  hurtSource: {fileID: 0}
+  hurtSounds:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!95 &996576694
 Animator:
   serializedVersion: 5
@@ -14790,25 +14863,32 @@ MonoBehaviour:
   doConserveMomentum: 1
   coyoteTime: 0.1
   jumpInputBufferTime: 0.1
+  omnidirectionalDash: 0
   dashAmount: 1
   dashSpeed: 25
   dashSleepTime: 0.05
   dashAttackTime: 0.12
-  dashEndTime: 0.14
+  dashEndTime: 0.06
   dashEndSpeed: {x: 10, y: 8}
   dashEndRunLerp: 0.5
   dashRefillTime: 0.08
   dashInputBufferTime: 0.1
-  gravityStrength: -66.666664
-  gravityScale: 6.795786
+  gravityStrength: -73.33333
+  gravityScale: 7.475364
+  gravityStrengthDJ: -64.44444
+  gravityScaleDJ: 6.56926
   fallGravityMult: 1.25
   maxFallSpeed: 24
   fastFallGravityMult: 1.65
   maxFastFallSpeed: 28
-  jumpHeight: 3
+  jumpHeight: 3.3
   jumpTimeToApex: 0.3
-  jumpForce: 20
-  jumpCutGravityMult: 2
+  jumpForce: 22
+  canDoubleJump: 1
+  doubleJumpHeight: 2.9
+  doubleJumpTimeToApex: 0.3
+  doubleJumpForce: 19.333334
+  jumpCutGravityMult: 1.6
   jumpHangGravityMult: 0.5
   jumpHangTimeThreshold: 1
   jumpHangAccelerationMult: 1.1
@@ -16386,6 +16466,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   target: {x: 14, y: -2.5, z: 0}
   movingObject: {fileID: 1190432155}
+  setInactive: {fileID: 0}
 --- !u!1 &1192167731
 GameObject:
   m_ObjectHideFlags: 0
@@ -17100,8 +17181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04d318a9652b1fb42a41a95ecd8074ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activatingObject: {fileID: 2007858537}
-  deactivatingObject: {fileID: 1213572537}
+  activatingObjects: []
+  deactivatingObjects: []
 --- !u!1 &1274833192
 GameObject:
   m_ObjectHideFlags: 0
@@ -18542,6 +18623,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   target: {x: 22, y: -2.5, z: 0}
   movingObject: {fileID: 1355839158}
+  setInactive: {fileID: 0}
 --- !u!1 &1363488247
 GameObject:
   m_ObjectHideFlags: 0

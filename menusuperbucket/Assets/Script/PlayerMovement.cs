@@ -29,11 +29,12 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Dash")]
 
+	[SerializeField] [Tooltip("Dicta si el dash puede hacerse en todas direcciones o solo horizontalmente.")] bool omnidirectionalDash;
 	[SerializeField] [Tooltip("Cuántos dashes tienes mákena.")] int dashAmount;
 	[SerializeField] [Tooltip("Cuánta velocidad alcanza el dash.")] float dashSpeed;
 	[SerializeField] [Tooltip("Tiempo que se congela el juego al pulsar el dash y antes de leer el input direccional y aplicar la fuerza.")] float dashSleepTime;
 	[Space(5)]
-	[SerializeField] [Tooltip("Tiempo que realiza el dash (sí, llevamos dos parámetros sin comentario gracios, qué pasa).")] float dashAttackTime;
+	[SerializeField] [Tooltip("Tiempo que realiza el dash (sí, llevamos dos parámetros sin comentario gracioso, qué pasa).")] float dashAttackTime;
 	[Space(5)]
 	[SerializeField] [Tooltip("Tiempo. Final. Dash. In that order.")] float dashEndTime;
 	[SerializeField] [Tooltip("Frena al jugador para hacer el dash más responsive.")] Vector2 dashEndSpeed;
@@ -47,6 +48,8 @@ public class PlayerMovement : MonoBehaviour
 	[HideInInspector] public float gravityStrength; //La fuelsa de la graveda..
 	[HideInInspector] public float gravityScale; //Strength of the player's gravity as a multiplier of gravity (set in ProjectSettings/Physics2D).
 										        //Also the value the player's rigidbody2D.gravityScale is set to. Esto se queda tal cual, cabron.
+	[HideInInspector] public float gravityStrengthDJ;
+	[HideInInspector] public float gravityScaleDJ;
 	
 	[Space(5)]
 
@@ -65,8 +68,19 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] [Tooltip("Altura del salto.")] float jumpHeight;
 	[SerializeField] [Tooltip("Tiempo desde que se aplica la fuerza del salto hasta que se alcanza la altura deseada.")] float jumpTimeToApex;
 	[HideInInspector] public float jumpForce; //Fuerza vertical aplicada al jugador.
+	
+	[Space(5)]
 
-	[Header("Both Jumps")]
+	[Header("Double Jump")]
+
+	[SerializeField] [Tooltip("A ver si el penco no va a poder doblesaltar.")] bool canDoubleJump = true;
+	[SerializeField] [Tooltip("Altura del doble salto.")] float doubleJumpHeight;
+	[SerializeField] [Tooltip("Tiempo desde que se aplica la fuerza del doble salto hasta que se alcanza la altura deseada.")] float doubleJumpTimeToApex;
+	[HideInInspector] public float doubleJumpForce; //Fuerza vertical aplicada al jugador.
+
+	[Space(5)]
+
+	[Header("All Jumps")]
 	[SerializeField] [Tooltip("Multiplicador que aumenta la gravedad si el jugador suelta el botón de salto durante el propio salto.")] float jumpCutGravityMult;
 	[Range(0f, 1)] [SerializeField] [Tooltip("Reduce la gravedad cerca de la cúspide del salto.")] float jumpHangGravityMult;
 	[SerializeField] [Tooltip("Velocidades (cercanas a 0) a las que el jugador experimentará una reducción de gravedad (cerca de la cúspide).")] float jumpHangTimeThreshold;
@@ -95,9 +109,11 @@ public class PlayerMovement : MonoBehaviour
     {
 		//Calculate gravity strength using the formula (gravity = 2 * jumpHeight / timeToJumpApex^2) 
 		gravityStrength = -(2 * jumpHeight) / (jumpTimeToApex * jumpTimeToApex);
+		gravityStrengthDJ = -(2 * doubleJumpHeight) / (doubleJumpTimeToApex * doubleJumpTimeToApex);
 		
 		//Calculate the rigidbody's gravity scale (ie: gravity strength relative to unity's gravity value, see project settings/Physics2D)
 		gravityScale = gravityStrength / Physics2D.gravity.y;
+		gravityScaleDJ = gravityStrengthDJ / Physics2D.gravity.y;
 
 		//Calculate are run acceleration & deceleration forces using formula: amount = ((1 / Time.fixedDeltaTime) * acceleration) / runMaxSpeed
 		runAccelAmount = (50 * runAcceleration) / runMaxSpeed;
@@ -105,6 +121,7 @@ public class PlayerMovement : MonoBehaviour
 
 		//Calculate jumpForce using the formula (initialJumpVelocity = gravity * timeToJumpApex)
 		jumpForce = Mathf.Abs(gravityStrength) * jumpTimeToApex;
+		doubleJumpForce = Mathf.Abs(gravityStrengthDJ) * doubleJumpTimeToApex;
 
 		runAcceleration = Mathf.Clamp(runAcceleration, 0.01f, runMaxSpeed);
 		groundFriction = Mathf.Clamp(groundFriction, 0.01f, runMaxSpeed);
@@ -124,6 +141,7 @@ public class PlayerMovement : MonoBehaviour
     //Variables para controlar los estados del jugador.
 	public bool IsFacingRight { get; private set; }
 	public bool IsJumping { get; private set; }
+	public bool IsDoubleJumping { get; private set; }
 	public bool IsWallJumping { get; private set; }
 	public bool IsDashing { get; private set; }
 	public bool IsSliding { get; private set; }
@@ -302,6 +320,13 @@ public class PlayerMovement : MonoBehaviour
 			_isJumpFalling = true;
 		}
 
+		if (IsDoubleJumping && RB.velocity.y < 0 && IsGrounded())
+		{
+			IsDoubleJumping = false;
+
+			_isJumpFalling = true;
+		}
+
 		if (IsWallJumping && Time.time - _wallJumpStartTime > wallJumpTime)
 		{
 			IsWallJumping = false;
@@ -317,19 +342,21 @@ public class PlayerMovement : MonoBehaviour
 		if (!IsDashing)
 		{
 			//Jump
-			if (CanJump() && LastPressedJumpTime > 0)
+			if (LastPressedJumpTime > 0 && CanJump())
 			{
 				IsJumping = true;
+				IsDoubleJumping = false;
 				IsWallJumping = false;
 				_isJumpCut = false;
 				_isJumpFalling = false;
+
 				Jump();
 
 				//AnimHandler.startedJumping = true;
 			}
 
 			//Wall Jump
-			else if (CanWallJump() && LastPressedJumpTime > 0)
+			else if (LastPressedJumpTime > 0 && CanWallJump())
 			{
 				IsWallJumping = true;
 				IsJumping = false;
@@ -340,6 +367,18 @@ public class PlayerMovement : MonoBehaviour
 				_lastWallJumpDir = (LastOnWallRightTime > 0) ? -1 : 1;
 
 				WallJump(_lastWallJumpDir);
+			}
+
+			//Double Jump
+			else if (LastPressedJumpTime > 0 && CanDoubleJump())
+			{
+				IsJumping = true;
+				IsDoubleJumping = true;
+				IsWallJumping = false;
+				_isJumpCut = false;
+				_isJumpFalling = false;
+
+				DoubleJump();
 			}
 		}
 
@@ -352,15 +391,9 @@ public class PlayerMovement : MonoBehaviour
 			//Freeze game for split second. Adds juiciness and a bit of forgiveness over directional input
 			Sleep(dashSleepTime); 
 
-			//If not direction pressed, dash forward
-			if (_moveInput != Vector2.zero)
-			{
-				if (IsGrounded() && _moveInput.y < 0)
-					_lastDashDir = IsFacingRight ? Vector2.right : Vector2.left;
-				
-				else
-					_lastDashDir = _moveInput;
-			}
+			//If not omnidirectional, not direction pressed or grounded and downward direction, dash forward
+			if (omnidirectionalDash && _moveInput != Vector2.zero && !(IsGrounded() && _moveInput.y < 0))
+				_lastDashDir = _moveInput;
 			else
 				_lastDashDir = IsFacingRight ? Vector2.right : Vector2.left;
 
@@ -413,6 +446,11 @@ public class PlayerMovement : MonoBehaviour
 			else if ((IsJumping || IsWallJumping || _isJumpFalling) && Mathf.Abs(RB.velocity.y) < jumpHangTimeThreshold)
 			{
 				SetGravityScale(gravityScale * jumpHangGravityMult);
+			}
+
+			else if (IsDoubleJumping && Mathf.Abs(RB.velocity.y) < jumpHangTimeThreshold)
+			{
+				SetGravityScale(gravityScaleDJ * jumpHangGravityMult);
 			}
 
 			else if (RB.velocity.y < 0)
@@ -551,6 +589,22 @@ public class PlayerMovement : MonoBehaviour
         playerController.jumpSound();
 	}
 
+	private void DoubleJump()
+	{
+		//Ensures we can't call Jump multiple times from one press
+		LastPressedJumpTime = 0;
+		LastOnGroundTime = 0;
+		
+		//We increase the force applied if we are falling
+		//This means we'll always feel like we jump the same amount
+		float force = doubleJumpForce;
+		if (RB.velocity.y != 0)
+			force -= RB.velocity.y;
+
+		RB.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+        playerController.jumpSound();
+	}
+
 	private void WallJump(int dir)
 	{
 		//Ensures we can't call Wall Jump multiple times from one press
@@ -658,6 +712,11 @@ public class PlayerMovement : MonoBehaviour
     private bool CanJump()
     {
 		return LastOnGroundTime > 0 && !IsJumping;
+    }
+
+	private bool CanDoubleJump()
+    {
+		return LastOnGroundTime <= 0 && LastOnWallTime <= 0 && !IsDoubleJumping;
     }
 
 	private bool CanWallJump()

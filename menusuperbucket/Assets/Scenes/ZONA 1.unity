@@ -13264,6 +13264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f8e4b51f817d3845a296aa11f80102f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeCamera: {fileID: 0}
   Prometeus: {fileID: 819366048}
   Astralis: {fileID: 1028201468}
   Past: {fileID: 214560812}
@@ -13272,6 +13273,11 @@ MonoBehaviour:
   PrometeusCam: {fileID: 1990793289}
   futureColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
   pastColor: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}
+  futureFogColor: {r: 0, g: 0, b: 0, a: 0}
+  pastFogColor: {r: 0, g: 0, b: 0, a: 0}
+  twirlMaterial: {fileID: 0}
+  AstralisSpawnPos: {x: 0, y: 0}
+  PrometeusSpawnPos: {x: 0, y: 0}
 --- !u!4 &841087268
 Transform:
   m_ObjectHideFlags: 0
@@ -13300,8 +13306,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JumpKey: 32
-  RightKey: 100
-  LeftKey: 97
   DashKey: 304
   AttackKey: 106
   StrongAttackKey: 107
@@ -15772,6 +15776,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114134383759601536, guid: 134e72d9ab42cef4e9f41c44da831191,
+        type: 3}
+      propertyPath: dashEndTime
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114134383759601536, guid: 134e72d9ab42cef4e9f41c44da831191,
+        type: 3}
+      propertyPath: gravityScaleDJ
+      value: 6.56926
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114134383759601536, guid: 134e72d9ab42cef4e9f41c44da831191,
+        type: 3}
+      propertyPath: doubleJumpForce
+      value: 19.333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114134383759601536, guid: 134e72d9ab42cef4e9f41c44da831191,
+        type: 3}
+      propertyPath: doubleJumpHeight
+      value: 2.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114134383759601536, guid: 134e72d9ab42cef4e9f41c44da831191,
+        type: 3}
+      propertyPath: gravityStrengthDJ
+      value: -64.44444
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114134383759601536, guid: 134e72d9ab42cef4e9f41c44da831191,
+        type: 3}
+      propertyPath: jumpCutGravityMult
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114134383759601536, guid: 134e72d9ab42cef4e9f41c44da831191,
+        type: 3}
+      propertyPath: doubleJumpTimeToApex
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -27936,6 +27975,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538958437135685367, guid: 6bc69091559848d4398a51fee5813bb3,
+        type: 3}
+      propertyPath: canDoubleJump
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538958437135685367, guid: 6bc69091559848d4398a51fee5813bb3,
+        type: 3}
+      propertyPath: gravityScaleDJ
+      value: 2.166157
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538958437135685367, guid: 6bc69091559848d4398a51fee5813bb3,
+        type: 3}
+      propertyPath: doubleJumpForce
+      value: 8.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538958437135685367, guid: 6bc69091559848d4398a51fee5813bb3,
+        type: 3}
+      propertyPath: doubleJumpHeight
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538958437135685367, guid: 6bc69091559848d4398a51fee5813bb3,
+        type: 3}
+      propertyPath: gravityStrengthDJ
+      value: -21.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538958437135685367, guid: 6bc69091559848d4398a51fee5813bb3,
+        type: 3}
+      propertyPath: jumpCutGravityMult
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538958437135685367, guid: 6bc69091559848d4398a51fee5813bb3,
+        type: 3}
+      propertyPath: doubleJumpTimeToApex
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8680577287366295558, guid: 6bc69091559848d4398a51fee5813bb3,
         type: 3}

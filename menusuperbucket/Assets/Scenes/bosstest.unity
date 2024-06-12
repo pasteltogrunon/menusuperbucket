@@ -45940,6 +45940,41 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9114134383759601536, guid: 134e72d9ab42cef4e9f41c44da831191,
+        type: 3}
+      propertyPath: dashEndTime
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114134383759601536, guid: 134e72d9ab42cef4e9f41c44da831191,
+        type: 3}
+      propertyPath: gravityScaleDJ
+      value: 6.56926
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114134383759601536, guid: 134e72d9ab42cef4e9f41c44da831191,
+        type: 3}
+      propertyPath: doubleJumpForce
+      value: 19.333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114134383759601536, guid: 134e72d9ab42cef4e9f41c44da831191,
+        type: 3}
+      propertyPath: doubleJumpHeight
+      value: 2.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114134383759601536, guid: 134e72d9ab42cef4e9f41c44da831191,
+        type: 3}
+      propertyPath: gravityStrengthDJ
+      value: -64.44444
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114134383759601536, guid: 134e72d9ab42cef4e9f41c44da831191,
+        type: 3}
+      propertyPath: jumpCutGravityMult
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114134383759601536, guid: 134e72d9ab42cef4e9f41c44da831191,
+        type: 3}
+      propertyPath: doubleJumpTimeToApex
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -61592,6 +61627,41 @@ PrefabInstance:
       propertyPath: damageVolume
       value: 
       objectReference: {fileID: 1656802039}
+    - target: {fileID: 8538958437135685367, guid: 6bc69091559848d4398a51fee5813bb3,
+        type: 3}
+      propertyPath: canDoubleJump
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538958437135685367, guid: 6bc69091559848d4398a51fee5813bb3,
+        type: 3}
+      propertyPath: gravityScaleDJ
+      value: 2.166157
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538958437135685367, guid: 6bc69091559848d4398a51fee5813bb3,
+        type: 3}
+      propertyPath: doubleJumpForce
+      value: 8.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538958437135685367, guid: 6bc69091559848d4398a51fee5813bb3,
+        type: 3}
+      propertyPath: doubleJumpHeight
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538958437135685367, guid: 6bc69091559848d4398a51fee5813bb3,
+        type: 3}
+      propertyPath: gravityStrengthDJ
+      value: -21.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538958437135685367, guid: 6bc69091559848d4398a51fee5813bb3,
+        type: 3}
+      propertyPath: jumpCutGravityMult
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538958437135685367, guid: 6bc69091559848d4398a51fee5813bb3,
+        type: 3}
+      propertyPath: doubleJumpTimeToApex
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 8680577287366295558, guid: 6bc69091559848d4398a51fee5813bb3,
         type: 3}
       propertyPath: grappleLine
@@ -83498,6 +83568,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348090349611204141, guid: 8d18819ce7027df40bd6fdda8f25a3de,
+        type: 3}
+      propertyPath: dashEndTime
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348090349611204141, guid: 8d18819ce7027df40bd6fdda8f25a3de,
+        type: 3}
+      propertyPath: gravityScaleDJ
+      value: 7.7018905
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348090349611204141, guid: 8d18819ce7027df40bd6fdda8f25a3de,
+        type: 3}
+      propertyPath: doubleJumpForce
+      value: 22.666666
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348090349611204141, guid: 8d18819ce7027df40bd6fdda8f25a3de,
+        type: 3}
+      propertyPath: doubleJumpHeight
+      value: 3.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348090349611204141, guid: 8d18819ce7027df40bd6fdda8f25a3de,
+        type: 3}
+      propertyPath: gravityStrengthDJ
+      value: -75.55555
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348090349611204141, guid: 8d18819ce7027df40bd6fdda8f25a3de,
+        type: 3}
+      propertyPath: jumpCutGravityMult
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348090349611204141, guid: 8d18819ce7027df40bd6fdda8f25a3de,
+        type: 3}
+      propertyPath: doubleJumpTimeToApex
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4935292292658914555, guid: 8d18819ce7027df40bd6fdda8f25a3de,
         type: 3}
