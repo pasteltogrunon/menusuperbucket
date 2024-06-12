@@ -10,8 +10,8 @@ public class DimensionSwap : MonoBehaviour
     bool past = false;
     public CinemachineVirtualCamera activeCamera;
 
-    [SerializeField] GameObject Prometeus;
-    [SerializeField] GameObject Astralis;
+    public GameObject Prometeus;
+    public GameObject Astralis;
 
     [SerializeField] GameObject Past;
     [SerializeField] GameObject Future;
