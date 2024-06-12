@@ -403,9 +403,9 @@ public class PlayerMovement : MonoBehaviour
 				RB.velocity = new Vector2(RB.velocity.x, Mathf.Max(RB.velocity.y, -maxFastFallSpeed));
 			}
 
-			else if (_isJumpCut)
+			else if (_isJumpCut || playerController.Stunned)
 			{
-				//Higher gravity if jump button released
+				//Higher gravity if jump button released or the player is stunned
 				SetGravityScale(gravityScale * jumpCutGravityMult);
 				RB.velocity = new Vector2(RB.velocity.x, Mathf.Max(RB.velocity.y, -maxFallSpeed));
 			}

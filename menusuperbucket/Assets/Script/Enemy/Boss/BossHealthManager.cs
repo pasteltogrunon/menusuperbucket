@@ -56,7 +56,9 @@ public class BossHealthManager : HealthManager
         GetComponent<Animator>().Play("Phase1End");
         GetComponent<Collider2D>().enabled = false;
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(4f);
+        CameraManager.cameraShake(1, 4, 3);
+        yield return new WaitForSeconds(1f);
         nextPhaseGameobject.SetActive(true);
         nextPhaseGameobject.transform.position = transform.position;
         gameObject.SetActive(false);

@@ -38,6 +38,9 @@ public class EreboSuperLaserDown : EreboAttackBase
         preLaser.transform.position = spawnPoint;
 
         yield return new WaitForSeconds(delay);
+
+        CameraManager.cameraShake(duration, 5, 4);
+
         Rigidbody2D waveRightRB = Instantiate(wavePrefab, new Vector2(spawnPoint.x, 1), Quaternion.identity).GetComponent<Rigidbody2D>();
         Destroy(waveRightRB.gameObject, delay + duration + 0.1f);
 

@@ -9,6 +9,9 @@ public class EreboTeleport : EreboAttackBase
     [SerializeField] float sleepTime = 1;
     [SerializeField] float downSpeed = 10;
 
+    [SerializeField] ParticleSystem teleportParticles;
+
+
     public override void StartAttack()
     {
         StartCoroutine(Teleport());
@@ -24,6 +27,8 @@ public class EreboTeleport : EreboAttackBase
         transform.position = bossAI.Target.position + height * Vector3.up;
         GetComponent<Rigidbody2D>().gravityScale = 0;
         bossAI.animator.Play("StartCharging");
+        teleportParticles.Play();
+
         yield return new WaitForSeconds(healthDelayScale(delay));
         bossAI.animator.Play("JumpAttack");
         GetComponent<Rigidbody2D>().velocity = 10 * Vector2.down;

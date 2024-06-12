@@ -11,6 +11,7 @@ public class EreboTeleportLaser : EreboAttackBase
 
     [SerializeField] ParticleSystem laser;
     [SerializeField] ParticleSystem preLaser;
+    [SerializeField] ParticleSystem teleportParticles;
 
     [SerializeField] LayerMask playerLayer;
 
@@ -30,7 +31,11 @@ public class EreboTeleportLaser : EreboAttackBase
         GetComponent<Rigidbody2D>().gravityScale = 0;
         bossAI.animator.Play("PreShootingDown");
         preLaser.Play();
+        teleportParticles.Play();
         yield return new WaitForSeconds(healthDelayScale(delay));
+
+        CameraManager.cameraShake(0.3f, 5, 3);
+
         bossAI.animator.Play("ShootingDown");
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.25f, Vector2.down, 30, playerLayer);
 
@@ -43,7 +48,7 @@ public class EreboTeleportLaser : EreboAttackBase
         }
         laser.Play();
         yield return new WaitForSeconds(healthDelayScale(sleepTime));
-
+        teleportParticles.Play();
         transform.position = (bossAI.minAreaVertex.position.x + bossAI.maxAreaVertex.position.x) * 0.5f * Vector2.right + 2 * Vector2.up;
 
         GetComponent<Rigidbody2D>().gravityScale = 1;

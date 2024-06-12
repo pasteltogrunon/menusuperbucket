@@ -30,6 +30,9 @@ public class EreboSuperLaser : EreboAttackBase
         bossAI.animator.Play("PreShooting");
         preLaser.Play();
         yield return new WaitForSeconds(delay);
+
+        CameraManager.cameraShake(duration, 5, 4);
+
         bossAI.animator.Play("Shooting");
         laser.Play();
         for(float t = 0; t < duration; t+=Time.deltaTime)
