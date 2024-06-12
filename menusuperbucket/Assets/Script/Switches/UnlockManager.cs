@@ -21,6 +21,23 @@ public class UnlockManager : MonoBehaviour
             case Unlockable.Grapple:
                 Instance.Prometheus.CanGrapple = true;
                 break;
+            case Unlockable.Platform:
+                Instance.Prometheus.CanPlatform = true;
+                break;
+            case Unlockable.PrometeoHealth:
+                Instance.Prometheus.GetComponent<HealthManager>().MaxHealth += 5;
+                Instance.Prometheus.GetComponent<HealthManager>().Health += 5;
+                break;
+            case Unlockable.AstralisHealth:
+                Instance.Astralis.GetComponent<HealthManager>().MaxHealth += 5;
+                Instance.Astralis.GetComponent<HealthManager>().Health += 5;
+                break;
+            case Unlockable.DoubleJump:
+                Instance.Astralis.GetComponent<PlayerMovement>().canDoubleJump = true;
+                break;
+            case Unlockable.WallJump:
+                Instance.Astralis.GetComponent<PlayerMovement>().canWallJump = true;
+                break;
             default:
                 break;
         }
@@ -28,6 +45,11 @@ public class UnlockManager : MonoBehaviour
 
     public enum Unlockable
     {
-        Grapple
+        Grapple,
+        Platform,
+        PrometeoHealth,
+        AstralisHealth,
+        DoubleJump,
+        WallJump
     }
 }

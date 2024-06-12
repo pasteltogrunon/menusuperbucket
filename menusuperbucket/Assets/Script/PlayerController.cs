@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
 
     [Header("Platform")]
-    [SerializeField] bool canPlatform = false;
+    public bool CanPlatform = false;
     [SerializeField] float platformCooldown = 3f;
     [SerializeField] GameObject platform;
 
@@ -292,7 +292,7 @@ public class PlayerController : MonoBehaviour
     #region Platform
     void tryPlatform()
     {
-        if(InputManager.Platform && canPlatform)
+        if(InputManager.Platform && CanPlatform)
         {
             createPlatform();
         }

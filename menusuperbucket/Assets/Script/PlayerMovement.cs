@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
 
 	[Header("Double Jump")]
 
-	[SerializeField] [Tooltip("A ver si el penco no va a poder doblesaltar.")] bool canDoubleJump = true;
+	[Tooltip("A ver si el penco no va a poder doblesaltar.")] public bool canDoubleJump = true;
 	[SerializeField] [Tooltip("Altura del doble salto.")] float doubleJumpHeight;
 	[SerializeField] [Tooltip("Tiempo desde que se aplica la fuerza del doble salto hasta que se alcanza la altura deseada.")] float doubleJumpTimeToApex;
 	[HideInInspector] public float doubleJumpForce; //Fuerza vertical aplicada al jugador.
@@ -90,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
     [Space(5)]
 
 	[Header("Wall Jump")]
-	[SerializeField] [Tooltip("Murosaltar o no Murosaltar, ésa es la cuestión.")] bool canWallJump = true;
+	[Tooltip("Murosaltar o no Murosaltar, ésa es la cuestión.")] public bool canWallJump = true;
     [SerializeField] [Tooltip("Fuerza aplicada al jugador cuando murosalta.")] Vector2 wallJumpForce;
 	[Space(5)]
 	[Range(0f, 1f)] [SerializeField] [Tooltip("Disminuye la influencia del movimiento del jugador mientras murosalteeaa, jalaaa, cabrón ya no te quedan baalaa'. Jajaja. Qué solo estoy, jo.")] float wallJumpRunLerp;
@@ -716,7 +716,7 @@ public class PlayerMovement : MonoBehaviour
 
 	private bool CanDoubleJump()
     {
-		return LastOnGroundTime <= 0 && LastOnWallTime <= 0 && !IsDoubleJumping;
+		return LastOnGroundTime <= 0 && LastOnWallTime <= 0 && !IsDoubleJumping && canDoubleJump;
     }
 
 	private bool CanWallJump()
