@@ -20,15 +20,21 @@ public class PlayerHealthManager : HealthManager
     IEnumerator respawn()
     {
         GetComponent<Renderer>().enabled = false;
+        GetComponent<PlayerHurt>().enabled = false;
         GetComponent<PlayerController>().enabled = false;
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         DialogueManager.Instance.unLoadScene();
 
-        yield return new WaitForSeconds(3);
+        MusicManager.Instance.deathMusic();
 
+        yield return new WaitForSeconds(7);
+
+        GetComponent<HealthManager>().Health = GetComponent<HealthManager>().MaxHealth;
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         GetComponent<PlayerController>().enabled = true;
+        GetComponent<PlayerHurt>().enabled = true;
         GetComponent<Renderer>().enabled = true;
+
         switch (character)
         {
             case Character.Astralis:
