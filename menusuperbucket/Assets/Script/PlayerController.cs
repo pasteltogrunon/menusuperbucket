@@ -259,10 +259,11 @@ public class PlayerController : MonoBehaviour
                 {
                     //We check the non obstructed grapple points with a bias in position given by the velocity
                     RaycastHit2D h = Physics2D.Raycast(grapplePosition, candidates[i].ClosestPoint(grapplePosition) - grapplePosition, maxGrappleDistance, groundLayer);
+                    float disti = Vector2.Distance(grapplePosition, candidates[i].ClosestPoint(grapplePosition));
                     if (h.collider == candidates[i])
                     {
-                        float disti = Vector2.Distance(grapplePosition, candidates[i].ClosestPoint(grapplePosition));
-                        if (disti < dist)
+                        //Only take the grapples higher than the player
+                        if (disti < dist && transform.position.y < candidates[i].ClosestPoint(grapplePosition).y)
                         {
                             index = i;
                             dist = disti;
@@ -270,11 +271,10 @@ public class PlayerController : MonoBehaviour
                     }
 
                     // If none is non-obstructed, we just get the closest one
-                    float distipos = Vector2.Distance(grapplePosition, candidates[i].ClosestPoint(grapplePosition));
-                    if (distipos < distpos)
+                    if (disti < distpos && transform.position.y < candidates[i].ClosestPoint(grapplePosition).y)
                     {
                         indexpos = i;
-                        distpos = distipos;
+                        distpos = disti;
                     }
                 }
                 if(index != -1)
