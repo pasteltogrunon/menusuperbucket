@@ -7,22 +7,25 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] float radius = 2;
     [SerializeField] LayerMask interactLayer;
 
+    [SerializeField] ParticleSystem interactableParticles;
+
     void Update()
     {
-        if(InputManager.Interact)
-        {
-            interact();
-        }
-    }
-
-    void interact()
-    {
-        //Computing it 3D so it can be in the background
         Collider[] hit = Physics.OverlapSphere(transform.position, radius, interactLayer);
 
-        if(hit.Length != 0 && hit[0].TryGetComponent(out IInteractable interactable))
+        if (hit.Length != 0 && hit[0].TryGetComponent(out IInteractable interactable))
         {
-            interactable.interact();
+            interactableParticles.transform.position = hit[0].transform.position;
+            if (!interactableParticles.isPlaying)
+                interactableParticles.Play();
+
+            if (InputManager.Interact)
+                interactable.interact();
+        }
+        else
+        {
+            interactableParticles.Stop();
         }
     }
+        
 }

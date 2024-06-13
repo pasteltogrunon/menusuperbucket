@@ -30,6 +30,8 @@ public class DimensionSwap : MonoBehaviour
     [HideInInspector] public Vector2 AstralisSpawnPos;
     [HideInInspector] public Vector2 PrometeusSpawnPos;
 
+    [SerializeField] AudioSource dimensionSwapSound;
+
     void Awake()
     {
         Instance = this;
@@ -68,6 +70,8 @@ public class DimensionSwap : MonoBehaviour
 
     IEnumerator swapAnimation()
     {
+        dimensionSwapSound.Play();
+
         InputManager.CinematicInputsLocked = true;
         CinemachineComponentBase componentBase = activeCamera.GetCinemachineComponent(CinemachineCore.Stage.Body);
         if (activeCamera.GetCinemachineComponent(CinemachineCore.Stage.Body) is CinemachineFramingTransposer)
