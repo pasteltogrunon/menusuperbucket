@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   line: Some say that it is best to start second and end first.
+  image: {fileID: 0}
+  eventChildIndex: 0
+  waitTime: 0

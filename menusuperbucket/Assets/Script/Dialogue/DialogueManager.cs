@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
     [SerializeField] float timeBetweenCharacters = 0.1f; 
     [SerializeField] TMP_Text displayText;
+    [SerializeField] Image displayImage;
     public static DialogueManager Instance;
 
     DialogueScene activeScene;
@@ -18,6 +20,8 @@ public class DialogueManager : MonoBehaviour
     int characterCount;
     float timer = 0;
     bool finishedLine;
+
+    Transform dialogueSceneCaller;
 
     void Awake()
     {
@@ -31,9 +35,20 @@ public class DialogueManager : MonoBehaviour
         if(activeScene != null)
         {
             //Checkear el tipo de instruccion y actuar en consecuencia
-            if(activeInstruction.type == DialogueInstruction.InstructionType.Dialogue)
+            switch(activeInstruction.type)
             {
-                manageDialogueLine();
+                case DialogueInstruction.InstructionType.Dialogue:
+                    manageDialogueLine();
+                    break;
+                case DialogueInstruction.InstructionType.Wait:
+                    manageWaitInstruction();
+                    break;
+                case DialogueInstruction.InstructionType.ShowImage:
+                    manageImageLine();
+                    break;
+                case DialogueInstruction.InstructionType.Event:
+                    managueEventInstruction();
+                    break;
             }
         }
     }
@@ -57,24 +72,20 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    public void loadDialogueScene(DialogueScene scene, Transform caller)
+    {
+        //If the scene contains an event, it must be called from here
+        dialogueSceneCaller = caller;
+        loadDialogueScene(scene);
+    }
+
     void manageDialogueLine()
     {
         if (finishedLine)
         {
             if (InputManager.EnterLine)
             {
-                instructionCount++;
-                if(instructionCount < activeScene.instructionList.Length)
-                {
-                    //Next instruction
-                    activeInstruction = activeScene.instructionList[instructionCount];
-                    characterCount = 0;
-                }
-                else
-                {
-                    //Finish scene
-                    unLoadScene();
-                }
+                nextInstruction();
 
                 finishedLine = false;
             }
@@ -97,6 +108,50 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    void manageWaitInstruction()
+    {
+        timer += Time.deltaTime;
+        if(timer >= activeInstruction.waitTime)
+        {
+            nextInstruction();
+        }
+    }
+
+    void manageImageLine()
+    {
+        if(displayImage.sprite != activeInstruction.image)
+        {
+            displayImage.sprite = activeInstruction.image;
+            displayImage.gameObject.SetActive(true);
+        }
+
+        manageDialogueLine();
+    }
+
+    void managueEventInstruction()
+    {
+        dialogueSceneCaller.GetChild(activeInstruction.eventChildIndex).GetComponent<EventHolder>().unityEvent?.Invoke();
+
+        nextInstruction();
+    }
+
+    void nextInstruction()
+    {
+        timer = 0;
+        characterCount = 0;
+        displayImage.gameObject.SetActive(false);
+
+        instructionCount++;
+        if(instructionCount < activeScene.instructionList.Length)
+        {
+            activeInstruction = activeScene.instructionList[instructionCount];
+        }
+        else
+        {
+            unLoadScene();
+        }
+    }
+
     public void unLoadScene()
     {
         InputManager.CinematicInputsLocked = false;
@@ -108,5 +163,6 @@ public class DialogueManager : MonoBehaviour
 
         displayText.text = null;
         activeScene = null;
+        dialogueSceneCaller = null;
     }
 }
