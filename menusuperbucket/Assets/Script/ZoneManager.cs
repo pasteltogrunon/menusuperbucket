@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ZoneManager : MonoBehaviour
@@ -13,9 +14,8 @@ public class ZoneManager : MonoBehaviour
     AudioSource targetAudioSource;
 
     [SerializeField] string[] zoneNames = { "Temple", "Forest", "Lake", "Cave" };
-    [SerializeField] LayerMask enemyLayer;
-    [SerializeField] float musicRadius = 7;
-
+    [SerializeField] TMP_Text zoneShower;
+    [SerializeField] float fadeOutTime = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +41,10 @@ public class ZoneManager : MonoBehaviour
             targetAudioSource.volume = Mathf.Clamp01(targetAudioSource.volume + Time.deltaTime / crossFadeTime);
         }
 
+        if(zoneShower.color.a > 0)
+        {
+            setAlpha(zoneShower.color.a - Time.deltaTime / fadeOutTime);
+        }
 
     }
 
@@ -53,6 +57,9 @@ public class ZoneManager : MonoBehaviour
         previousAudioSource = targetAudioSource;
         targetAudioSource = ambients[id];
         targetAudioSource.Play();
+
+        zoneShower.text = zoneNames[id];
+        zoneShower.color = new Color(1, 1, 1, 1);
     }
 
 
@@ -74,5 +81,10 @@ public class ZoneManager : MonoBehaviour
         {
             source.volume = Mathf.Clamp01(volume);
         }
+    }
+
+    void setAlpha(float alpha)
+    {
+        zoneShower.color = new Color(1, 1, 1, Mathf.Clamp01(alpha));
     }
 }
