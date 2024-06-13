@@ -15,6 +15,8 @@ public class BossHealthManager : HealthManager
     [SerializeField] AudioSource music;
     [SerializeField] AudioSource scalingMusic;
 
+    [SerializeField] AudioSource transformationSound;
+
     // Update is called once per frame
     void Update()
     {
@@ -73,7 +75,9 @@ public class BossHealthManager : HealthManager
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         yield return new WaitForSeconds(6.324f);
         scalingMusic.Play();
-        yield return new WaitForSeconds(12.676f);
+        yield return new WaitForSeconds(2f);
+        transformationSound.Play();
+        yield return new WaitForSeconds(10.676f);
         CameraManager.cameraShake(1, 4, 3);
         yield return new WaitForSeconds(1f);
         nextPhaseGameobject.SetActive(true);

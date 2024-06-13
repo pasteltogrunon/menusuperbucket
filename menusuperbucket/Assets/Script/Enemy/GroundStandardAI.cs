@@ -174,8 +174,8 @@ public class GroundStandardAI : MonoBehaviour, IPushable
 
     protected virtual void attack()
     {
-        GetComponent<Rigidbody2D>().velocity = attackSpeed * enemyDirection.normalized + 2 * Vector2.up;
         pushTime = 1f;
+        GetComponent<Rigidbody2D>().velocity = attackSpeed * enemyDirection.normalized + 2 * Vector2.up;
     }
 
     bool canMoveForward

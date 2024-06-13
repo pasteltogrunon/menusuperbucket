@@ -13,6 +13,9 @@ public class Projectile : MonoBehaviour
     [SerializeField] ParticleSystem deathParticles;
     [SerializeField] ParticleSystem continuousParticles;
 
+    [SerializeField] AudioSource continuousSource;
+    [SerializeField] AudioSource deathSource;
+
     bool dead;
 
     private void Start()
@@ -59,6 +62,12 @@ public class Projectile : MonoBehaviour
     protected virtual void die()
     {
         dead = true;
+
+        continuousSource?.Stop();
+        deathSource?.Play();
+
+        if(deathSource != null)
+            Destroy(deathSource, 4f);
 
         deathParticles.transform.SetParent(null);
         deathParticles.Play();

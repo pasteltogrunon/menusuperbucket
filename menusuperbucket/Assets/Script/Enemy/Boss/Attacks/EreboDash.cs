@@ -11,6 +11,7 @@ public class EreboDash : EreboAttackBase
     [SerializeField] float sleepTime = 1;
 
     [SerializeField] ParticleSystem preattack;
+    [SerializeField] AudioSource dashSound;
 
     public override void StartAttack()
     {
@@ -29,6 +30,7 @@ public class EreboDash : EreboAttackBase
         bossAI.animator.Play("StartCharging");
         yield return new WaitForSeconds(healthDelayScale(delay));
         bossAI.animator.Play("Dashing");
+        dashSound.Play();
 
         for (float t = 0; t<dashTime; t+=Time.deltaTime)
         {

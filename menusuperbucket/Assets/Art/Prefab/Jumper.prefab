@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0906a93558382d4780a4f53b340a79b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  MaxHealth: 10
   health: 0
   deathParticles: {fileID: 4613113559489217463, guid: 6bb970a0c01e2b94caf93bd7ac3b622e,
     type: 3}
@@ -137,6 +137,7 @@ MonoBehaviour:
   attackCooldown: 3
   attackSpeed: 3
   attackDelay: 0.1
+  attackDuration: 0.5
 --- !u!50 &4376330875129011824
 Rigidbody2D:
   serializedVersion: 4

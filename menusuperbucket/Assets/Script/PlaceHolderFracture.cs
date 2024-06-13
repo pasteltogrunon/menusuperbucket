@@ -18,7 +18,9 @@ public class PlaceHolderFracture : MonoBehaviour
     public bool addHitToFracture()
     {
         if (index < sprites.Length)
+        {
             GetComponent<SpriteRenderer>().sprite = sprites[index];
+        }
         else
         {
             StartCoroutine(changeDimension());
@@ -31,6 +33,7 @@ public class PlaceHolderFracture : MonoBehaviour
     IEnumerator changeDimension()
     {
         yield return new WaitForSeconds(6);
+        GetComponent<AudioSource>().Play();
         GetComponent<SpriteRenderer>().sprite = null;
         float duration = 1;
         for(float t= 0; t< duration; t+=Time.deltaTime)
