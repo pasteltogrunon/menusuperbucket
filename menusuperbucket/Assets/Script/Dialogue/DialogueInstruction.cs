@@ -6,11 +6,18 @@ using UnityEngine;
 public class DialogueInstruction : ScriptableObject
 {
     public InstructionType type;
-    [TextArea(100, 10)] public string line;
+
+    [TextArea(3, 10)] public string line;
+    public Sprite image;
+    public int eventChildIndex;
+    public float waitTime;
 
     public enum InstructionType
     {
         Dialogue,
-        ShowImage
+        ShowImage,
+        Wait,
+        Event,
+        SwapDimension
     }
 }

@@ -57,6 +57,8 @@ public class MusicManager : MonoBehaviour
                 {
                     enemyMusicSource.volume = Mathf.Clamp01(enemyMusicSource.volume - Time.deltaTime / crossFadeTime);
                 }
+
+                enemyMusicSource.timeSamples = targetAudioSource.timeSamples;
             }
 
         }

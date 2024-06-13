@@ -8,6 +8,6 @@ public class Talker : MonoBehaviour, IInteractable
 
     public void interact()
     {
-        DialogueManager.Instance.loadDialogueScene(scene);
+        DialogueManager.Instance.loadDialogueScene(scene, transform);
     }
 }
