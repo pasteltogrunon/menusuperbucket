@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject HitVFX;
     [SerializeField] AudioSource attackSource;
     [SerializeField] AudioClip[] attackSounds = new AudioClip[4];
+    [SerializeField] AudioSource hitSource;
+    [SerializeField] AudioClip[] enemyHitSounds = new AudioClip[10];
 
     [Header("Dash")]
     [SerializeField] ParticleSystem dashparticles;
@@ -462,12 +464,9 @@ public class PlayerController : MonoBehaviour
         {
             if (attackCount == 0 || (attackCount == 1 && attackTimer > player.secondAttackDelay))
             {
-                Collider2D[] hit = Physics2D.OverlapBoxAll(player.attackHitbox.transform.position, player.attackHitbox.size, 0);
 
-                foreach (Collider2D h in hit)
-                {
-                    hurt(h, player.weakDamage);
-                }
+                hurtAll(Physics2D.OverlapBoxAll(player.attackHitbox.transform.position, player.attackHitbox.size, 0), player.weakDamage);
+
 
                 if (attackCount == 0)
                 {
@@ -497,33 +496,44 @@ public class PlayerController : MonoBehaviour
         {
             if(attackCount == 0)
             {
-                Collider2D[] hit = Physics2D.OverlapBoxAll(player.strongAttackHitbox.transform.position, player.strongAttackHitbox.size, 0);
-
-                foreach (Collider2D h in hit)
-                {
-                    hurt(h, player.strongDamage);
-                }
+                hurtAll(Physics2D.OverlapBoxAll(player.strongAttackHitbox.transform.position, player.strongAttackHitbox.size, 0), player.strongDamage);
 
                 player.StartCoroutine(player.slideForward());
                 attackCount++;
             }
         }
 
-        void hurt(Collider2D h, int damage)
+        void hurtAll(Collider2D[] hit, int damage)
         {
-            if (h.transform == player.transform) return;
+            bool enemyHit = false;
+            foreach (Collider2D h in hit)
+            {
+                if (hurt(h, damage)) enemyHit = true;
+            }
+
+            if(enemyHit)
+            {
+                player.playRandomSound(player.hitSource, player.enemyHitSounds);
+            }
+        }
+
+        bool hurt(Collider2D h, int damage)
+        {
+            if (h.transform == player.transform) return false;
+
+            if (h.TryGetComponent(out IPushable pushable))
+            {
+                pushable.push(Mathf.Sign(h.transform.position.x - player.transform.position.x) * Vector2.right);
+            }
 
             if (h.TryGetComponent(out HealthManager healthManager))
             {
                 Vector3 spawnPos = h.ClosestPoint(player.transform.position);
                 Instantiate(player.HitVFX, spawnPos, Quaternion.LookRotation(player.transform.position - spawnPos));
                 healthManager.Health -= damage;
+                return true;
             }
-
-            if (h.TryGetComponent(out IPushable pushable))
-            {
-                pushable.push(Mathf.Sign(h.transform.position.x - player.transform.position.x) * Vector2.right);
-            }
+            return false;
         }
 
         public enum AttackType
@@ -673,4 +683,9 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #endregion
+
+    void playRandomSound(AudioSource source, AudioClip[] clips)
+    {
+        source.PlayOneShot(clips[Random.Range(0, clips.Length)]);
+    }
 }

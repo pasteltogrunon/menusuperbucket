@@ -21,7 +21,6 @@ public class PlaceHolderFracture : MonoBehaviour
             GetComponent<SpriteRenderer>().sprite = sprites[index];
         else
         {
-            GetComponent<SpriteRenderer>().sprite = null;
             StartCoroutine(changeDimension());
         }
 
@@ -31,6 +30,8 @@ public class PlaceHolderFracture : MonoBehaviour
 
     IEnumerator changeDimension()
     {
+        yield return new WaitForSeconds(6);
+        GetComponent<SpriteRenderer>().sprite = null;
         float duration = 1;
         for(float t= 0; t< duration; t+=Time.deltaTime)
         {
