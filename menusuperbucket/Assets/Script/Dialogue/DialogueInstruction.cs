@@ -17,6 +17,7 @@ public class DialogueInstruction : ScriptableObject
         Dialogue,
         ShowImage,
         Wait,
-        Event
+        Event,
+        SwapDimension
     }
 }

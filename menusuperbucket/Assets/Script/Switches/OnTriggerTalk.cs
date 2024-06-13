@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class OnTriggerTalk : MonoBehaviour
 {
-    DialogueScene dialogueScene;
+    [SerializeField] DialogueScene dialogueScene;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.transform.TryGetComponent(out PlayerController player))
         {

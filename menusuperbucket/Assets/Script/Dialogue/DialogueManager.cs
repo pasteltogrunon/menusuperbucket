@@ -10,6 +10,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] float timeBetweenCharacters = 0.1f; 
     [SerializeField] TMP_Text displayText;
     [SerializeField] Image displayImage;
+    [SerializeField] AudioSource dialogueSound;
     public static DialogueManager Instance;
 
     DialogueScene activeScene;
@@ -49,6 +50,9 @@ public class DialogueManager : MonoBehaviour
                 case DialogueInstruction.InstructionType.Event:
                     managueEventInstruction();
                     break;
+                case DialogueInstruction.InstructionType.SwapDimension:
+                    manageSwapDimension();
+                    break;
             }
         }
     }
@@ -67,6 +71,11 @@ public class DialogueManager : MonoBehaviour
 
             instructionCount = 0;
             activeInstruction = activeScene.instructionList[instructionCount];
+
+            if (activeInstruction.type == DialogueInstruction.InstructionType.Dialogue)
+            {
+                dialogueSound.Play();
+            }
 
             characterCount = 0;
         }
@@ -92,6 +101,14 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
+            if (InputManager.EnterLine)
+            {
+                characterCount = activeInstruction.line.Length;
+                displayText.text = activeInstruction.line.Substring(0, Mathf.Min(characterCount, activeInstruction.line.Length));
+                finishedLine = true;
+                dialogueSound.Stop();
+            }
+
             timer += Time.deltaTime;
             if (timer >= timeBetweenCharacters)
             {
@@ -102,8 +119,10 @@ public class DialogueManager : MonoBehaviour
                 if (characterCount == activeInstruction.line.Length)
                 {
                     finishedLine = true;
+                    dialogueSound.Stop();
                 }
             }
+
 
         }
     }
@@ -135,6 +154,13 @@ public class DialogueManager : MonoBehaviour
         nextInstruction();
     }
 
+    void manageSwapDimension()
+    {
+        DimensionSwap.Instance.swapDimension(dialogueSceneCaller);
+
+        nextInstruction();
+    }
+
     void nextInstruction()
     {
         timer = 0;
@@ -145,6 +171,10 @@ public class DialogueManager : MonoBehaviour
         if(instructionCount < activeScene.instructionList.Length)
         {
             activeInstruction = activeScene.instructionList[instructionCount];
+            if(activeInstruction.type == DialogueInstruction.InstructionType.Dialogue)
+            {
+                dialogueSound.Play();
+            }
         }
         else
         {
