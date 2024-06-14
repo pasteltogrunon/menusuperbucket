@@ -595,6 +595,9 @@ public class PlayerController : MonoBehaviour
 
             grappleLine.gameObject.SetActive(true);
 
+            grappleLine.SetPosition(0, player.transform.position);
+            grappleLine.SetPosition(1, new Vector3(target.x, target.y));
+
             distance = Vector3.Distance(target, (Vector2)player.transform.position);
             initialDistance = distance;
 
