@@ -22,7 +22,7 @@ public class PlayerProjectile : MonoBehaviour
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         GetComponent<Renderer>().enabled = false;
         destroyParticles.transform.parent = null;
-        destroyParticles.Play();
+        destroyParticles.gameObject.SetActive(true);
         continuousParticles.Stop();
         yield return new WaitForSeconds(5f);
         Destroy(gameObject);

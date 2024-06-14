@@ -10,6 +10,7 @@ public class MusicManager : MonoBehaviour
     [SerializeField] AudioSource[] enemyMusics = new AudioSource[2];
     [SerializeField] AudioSource deathSource;
     [SerializeField] float crossFadeTime;
+    [SerializeField] float enemyCrossFadeTime;
     bool dead = false;
 
     AudioSource previousAudioSource;
@@ -51,11 +52,11 @@ public class MusicManager : MonoBehaviour
             {
                 if(Physics2D.OverlapCircle(Astralis.position, musicRadius, enemyLayer))
                 {
-                    enemyMusicSource.volume = Mathf.Clamp01(enemyMusicSource.volume + Time.deltaTime / crossFadeTime);
+                    enemyMusicSource.volume = Mathf.Clamp01(enemyMusicSource.volume + Time.deltaTime / enemyCrossFadeTime);
                 }
                 else
                 {
-                    enemyMusicSource.volume = Mathf.Clamp01(enemyMusicSource.volume - Time.deltaTime / crossFadeTime);
+                    enemyMusicSource.volume = Mathf.Clamp01(enemyMusicSource.volume - Time.deltaTime / enemyCrossFadeTime);
                 }
 
                 enemyMusicSource.timeSamples = targetAudioSource.timeSamples;

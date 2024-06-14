@@ -51,6 +51,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LineRenderer grappleLine;
     [SerializeField] LayerMask groundLayer;
 
+    [SerializeField] AudioSource grappleSource;
+    [SerializeField] AudioClip[] grappleSounds = new AudioClip[3];
+
     [Header("Platform")]
     public bool CanPlatform = false;
     [SerializeField] float platformCooldown = 3f;
@@ -597,6 +600,7 @@ public class PlayerController : MonoBehaviour
 
             player.rb.velocity = (target - (Vector2)player.transform.position).normalized * player.grappleSpeed;
 
+            player.grappleSource.PlayOneShot(player.grappleSounds[0]);
         }
 
         public override void onUpdate()
@@ -605,6 +609,7 @@ public class PlayerController : MonoBehaviour
             {
                 recogiendoCable = true;
                 player.rb.velocity = (target - (Vector2)player.transform.position).normalized * player.grappleSpeed;
+                player.grappleSource.PlayOneShot(player.grappleSounds[1]);
             }
             else if(InputManager.JumpPressed)
             {
@@ -612,9 +617,10 @@ public class PlayerController : MonoBehaviour
                 player.rb.velocity *= player.speedBoost;
                 player.rb.gravityScale = player.gravityMultiplier;
                 grappleLine.gameObject.SetActive(false);
+                player.grappleSource.PlayOneShot(player.grappleSounds[2]);
             }
 
-            if(firstApproach)
+            if (firstApproach)
             {
                 //Nada m�s empezar se acerca un poco
                 distance -= Time.deltaTime * 10;

@@ -16,7 +16,8 @@ public class DarknessController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        darkness.SetVector("_Player_World_Position", DimensionSwap.Instance.Astralis.transform.position);
+        if(hasCandil)
+            darkness.SetVector("_Player_World_Position", DimensionSwap.Instance.Astralis.transform.position);
     }
 
     public void unlockCandil()
