@@ -180,6 +180,8 @@ public class DialogueManager : MonoBehaviour
                 displaySquare.SetActive(true);
                 dialogueSound.Play();
             }
+            displayText.text = null;
+
         }
         else
         {

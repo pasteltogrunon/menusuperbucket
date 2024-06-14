@@ -13,5 +13,11 @@ MonoBehaviour:
   m_Name: Tutorial1
   m_EditorClassIdentifier: 
   instructionList:
+  - {fileID: 11400000, guid: d288685d9c36d6743bc63fcf22599f5f, type: 2}
+  - {fileID: 11400000, guid: 60cf112f925dce647ac49fd9b9fe849c, type: 2}
+  - {fileID: 11400000, guid: 63f564477be3a1341a663a1907006806, type: 2}
+  - {fileID: 11400000, guid: ade53075491054c4b9e1dfff2292097f, type: 2}
   - {fileID: 11400000, guid: 4912230bf10f3d648b9dccbf32a4566e, type: 2}
+  - {fileID: 11400000, guid: 3b303c4aaee60ee449d7bd377befe030, type: 2}
+  - {fileID: 11400000, guid: 2211a282e05d6f549a290620c015ca50, type: 2}
   - {fileID: 11400000, guid: 41bcd1fd966113c4bb49aae41aaf4287, type: 2}

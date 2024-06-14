@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GrappleLine
   m_EditorClassIdentifier: 
   type: 1
-  line: Prometeo can now use his whip.
+  line: Prometheus can now use his whip.
   textColor: {r: 1, g: 1, b: 1, a: 1}
   image: {fileID: 21300000, guid: 15f3b1cf8f7579047b9eef79b0d0d532, type: 3}
   eventChildIndex: 0
