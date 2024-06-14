@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Line 2
   m_EditorClassIdentifier: 
   type: 0
-  line: 'I remember my first '
+  line: I have remembered that before the fifth was the first and before this the
+    fourth. I think that will be enough.
   textColor: {r: 1, g: 1, b: 1, a: 1}
   image: {fileID: 0}
   eventChildIndex: 0
