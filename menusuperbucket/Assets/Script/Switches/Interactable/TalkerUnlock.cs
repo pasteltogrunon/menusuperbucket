@@ -12,7 +12,7 @@ public class TalkerUnlock : MonoBehaviour, IInteractable
     public void interact()
     {
         UnlockManager.unlock(unlockable);
-        DialogueManager.Instance.loadDialogueScene(scene);
+        DialogueManager.Instance.loadDialogueScene(scene, transform);
         Destroy(gameObject);
     }
 }
