@@ -9,6 +9,7 @@ public class DialogueManager : MonoBehaviour
 {
     [SerializeField] float timeBetweenCharacters = 0.1f; 
     [SerializeField] TMP_Text displayText;
+    [SerializeField] GameObject displaySquare;
     [SerializeField] Image displayImage;
     [SerializeField] AudioSource dialogueSound;
     public static DialogueManager Instance;
@@ -75,6 +76,7 @@ public class DialogueManager : MonoBehaviour
             displayText.color = activeInstruction.textColor;
             if (activeInstruction.type == DialogueInstruction.InstructionType.Dialogue)
             {
+                displaySquare.SetActive(true);
                 dialogueSound.Play();
             }
 
@@ -175,6 +177,7 @@ public class DialogueManager : MonoBehaviour
             displayText.color = activeInstruction.textColor;
             if(activeInstruction.type == DialogueInstruction.InstructionType.Dialogue)
             {
+                displaySquare.SetActive(true);
                 dialogueSound.Play();
             }
         }
@@ -192,6 +195,8 @@ public class DialogueManager : MonoBehaviour
         {
             framingTransposer.m_CameraDistance = 10;
         }
+
+        displaySquare.SetActive(false);
 
         displayText.text = null;
         activeScene = null;
