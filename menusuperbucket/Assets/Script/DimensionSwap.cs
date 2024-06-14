@@ -16,6 +16,9 @@ public class DimensionSwap : MonoBehaviour
     [SerializeField] GameObject Past;
     [SerializeField] GameObject Future;
 
+    [SerializeField] GameObject pastHealth;
+    [SerializeField] GameObject futureHealth;
+
     [SerializeField] CinemachineVirtualCamera AstralisCam;
     [SerializeField] CinemachineVirtualCamera PrometeusCam;
 
@@ -103,6 +106,8 @@ public class DimensionSwap : MonoBehaviour
         Past.SetActive(!past);
         Astralis.SetActive(past);
         Future.SetActive(past);
+        futureHealth.SetActive(past);
+        pastHealth.SetActive(!past);
         past = !past;
 
         if (past)
