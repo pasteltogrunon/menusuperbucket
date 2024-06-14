@@ -15,10 +15,11 @@ MonoBehaviour:
   type: 1
   line: 'Pouch of Demeter
 
-    
+
 
     It seems to contain oak seeds blessed by Demeter
     herself, and some weird dried leaves.'
+  textColor: {r: 1, g: 1, b: 1, a: 1}
   image: {fileID: 21300000, guid: 55993c96419347d409ab5693b3b971dc, type: 3}
   eventChildIndex: 0
   waitTime: 0

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   line: Combine jumping and dashing to get even farther and reach distant platforms.
+  textColor: {r: 1, g: 1, b: 1, a: 1}
   image: {fileID: 0}
   eventChildIndex: 0
   waitTime: 0

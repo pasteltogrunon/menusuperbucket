@@ -15,6 +15,7 @@ MonoBehaviour:
   type: 0
   line: '(?): We don''t have time for this now, help me quickly. Look for the whip
     through the temple galleries!'
+  textColor: {r: 1, g: 0.67058825, b: 0.37254903, a: 1}
   image: {fileID: 0}
   eventChildIndex: 0
   waitTime: 0

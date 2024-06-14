@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   line: Maybe some kind of seed could be planted here.
+  textColor: {r: 1, g: 1, b: 1, a: 1}
+  image: {fileID: 0}
+  eventChildIndex: 0
+  waitTime: 0

@@ -15,6 +15,7 @@ MonoBehaviour:
   type: 0
   line: "Prometheus: Again, we don't have time for this! I'll tell you everything
     in time... and I\u2019m happy to meet you, Astralis."
+  textColor: {r: 1, g: 0.67058825, b: 0.37254903, a: 1}
   image: {fileID: 0}
   eventChildIndex: 0
   waitTime: 0

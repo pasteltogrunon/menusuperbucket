@@ -72,6 +72,7 @@ public class DialogueManager : MonoBehaviour
             instructionCount = 0;
             activeInstruction = activeScene.instructionList[instructionCount];
 
+            displayText.color = activeInstruction.textColor;
             if (activeInstruction.type == DialogueInstruction.InstructionType.Dialogue)
             {
                 dialogueSound.Play();
@@ -171,6 +172,7 @@ public class DialogueManager : MonoBehaviour
         if(instructionCount < activeScene.instructionList.Length)
         {
             activeInstruction = activeScene.instructionList[instructionCount];
+            displayText.color = activeInstruction.textColor;
             if(activeInstruction.type == DialogueInstruction.InstructionType.Dialogue)
             {
                 dialogueSound.Play();

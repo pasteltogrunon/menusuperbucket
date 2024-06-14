@@ -15,6 +15,7 @@ MonoBehaviour:
   type: 0
   line: 'Astralis: I''m Astralis. Who are you? I know it sounds strange but I think
     you''re from the past.'
+  textColor: {r: 0.60296327, g: 0.43867922, b: 1, a: 1}
   image: {fileID: 0}
   eventChildIndex: 0
   waitTime: 0

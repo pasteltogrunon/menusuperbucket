@@ -15,6 +15,7 @@ MonoBehaviour:
   type: 0
   line: '(?): Hey, you! Yeah, you! Could you give me a hand? I need my whip to move
     forward.'
+  textColor: {r: 1, g: 0.67082036, b: 0.3726415, a: 1}
   image: {fileID: 0}
   eventChildIndex: 0
   waitTime: 0

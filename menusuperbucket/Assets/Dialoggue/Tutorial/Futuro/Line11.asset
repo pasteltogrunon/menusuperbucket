@@ -15,6 +15,7 @@ MonoBehaviour:
   type: 0
   line: 'Astralis: Now I understand. You must be Prometheus! How can it be? I am
     the daughter of Epimetheus. I''m your niece.'
+  textColor: {r: 0.6039216, g: 0.4392157, b: 1, a: 1}
   image: {fileID: 0}
   eventChildIndex: 0
   waitTime: 0

@@ -15,3 +15,7 @@ MonoBehaviour:
   type: 0
   line: The heroic titan Prometheus, champion of humankind, angered Zeus himself
     after tricking him during the sacrifice of a bull.
+  textColor: {r: 1, g: 1, b: 1, a: 1}
+  image: {fileID: 0}
+  eventChildIndex: 0
+  waitTime: 0

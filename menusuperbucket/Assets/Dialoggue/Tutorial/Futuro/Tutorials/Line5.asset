@@ -15,6 +15,7 @@ MonoBehaviour:
   type: 0
   line: Shrines will allow you to connect both Prometheus and Astralis. In addition
     to changing character, using a shrine will refill your life completely.
+  textColor: {r: 1, g: 1, b: 1, a: 1}
   image: {fileID: 0}
   eventChildIndex: 0
   waitTime: 0

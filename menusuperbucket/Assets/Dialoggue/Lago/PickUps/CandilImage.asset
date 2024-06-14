@@ -15,6 +15,7 @@ MonoBehaviour:
   type: 1
   line: "Candle of Helios \r\n\r\nProvides light in the deepest darkness and does
     not need batteries, whatever those are."
+  textColor: {r: 1, g: 1, b: 1, a: 1}
   image: {fileID: 21300000, guid: 519014c019b3bff45a8848bcfaf95b13, type: 3}
   eventChildIndex: 0
   waitTime: 0

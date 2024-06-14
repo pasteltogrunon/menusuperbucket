@@ -15,3 +15,7 @@ MonoBehaviour:
   type: 0
   line: Nyx is the goddess of the night and sister to Erebus. Her offspring is said
     to be a manifestation of the negative forces in the universe.
+  textColor: {r: 1, g: 1, b: 1, a: 1}
+  image: {fileID: 0}
+  eventChildIndex: 0
+  waitTime: 0
