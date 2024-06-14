@@ -9,11 +9,14 @@ public class HealthManager : MonoBehaviour
 
     [SerializeField] protected GameObject deathParticles;
 
+    public OnHealthChanged onHealthChanged;
+
     public int Health
     {
         get => health;
         set
         {
+
             if(value < health)
             {
                 health = Mathf.Clamp(value, 0, MaxHealth);
@@ -24,6 +27,8 @@ public class HealthManager : MonoBehaviour
             {
                 health = Mathf.Clamp(value, 0, MaxHealth);
             }
+
+            onHealthChanged?.Invoke();
 
             if (health == 0)
             {
@@ -65,4 +70,6 @@ public class HealthManager : MonoBehaviour
     {
         
     }
+
+    public delegate void OnHealthChanged();
 }
