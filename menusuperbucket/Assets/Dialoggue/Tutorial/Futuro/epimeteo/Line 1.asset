@@ -15,6 +15,7 @@ MonoBehaviour:
   type: 0
   line: 'Epimetheus: Brother, what happened? Humanity still has no fire and chaos
     is beginning to reign in some areas.'
+  textColor: {r: 0.8679245, g: 0.32050043, b: 0.28248486, a: 1}
   image: {fileID: 0}
   eventChildIndex: 0
   waitTime: 0

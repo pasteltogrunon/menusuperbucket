@@ -15,6 +15,7 @@ MonoBehaviour:
   type: 0
   line: 'Prometheus: I have failed brother. I must go, there is no place for me here.
     I am sorry... truly.'
+  textColor: {r: 1, g: 0.67058825, b: 0.37254903, a: 1}
   image: {fileID: 0}
   eventChildIndex: 0
   waitTime: 0

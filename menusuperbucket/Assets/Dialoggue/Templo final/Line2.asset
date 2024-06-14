@@ -15,7 +15,7 @@ MonoBehaviour:
   type: 0
   line: 'Prometheus: It is true that I am not alone. So what? We have come to take
     the fire and give it to mankind. For good.'
-  textColor: {r: 1, g: 1, b: 1, a: 1}
+  textColor: {r: 1, g: 0.67058825, b: 0.37254903, a: 1}
   image: {fileID: 0}
   eventChildIndex: 0
   waitTime: 0
