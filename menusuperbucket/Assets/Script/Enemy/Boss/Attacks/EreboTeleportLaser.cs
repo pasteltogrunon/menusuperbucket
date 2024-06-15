@@ -35,7 +35,7 @@ public class EreboTeleportLaser : EreboAttackBase
         preLaser.Play();
         teleportParticles.Play();
         source.Play();
-        yield return new WaitForSeconds(healthDelayScale(delay));
+        yield return new WaitForSeconds(delay);
 
         CameraManager.cameraShake(0.3f, 5, 3);
 
