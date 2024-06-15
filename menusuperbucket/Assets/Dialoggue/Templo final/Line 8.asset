@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   line: 'And we shall defeat him and one. (color combinado?) '
-  textColor: {r: 0.9056604, g: 0.5397857, b: 0.32894266, a: 1}
+  textColor: {r: 0.9245283, g: 0.6713518, b: 0.38812745, a: 1}
   image: {fileID: 0}
   eventChildIndex: 0
   waitTime: 0
