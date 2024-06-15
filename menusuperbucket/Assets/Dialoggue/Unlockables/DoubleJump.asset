@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4cd794e38900354cb3c90e3f5d2cc99, type: 3}
   m_Name: DoubleJump
   m_EditorClassIdentifier: 
-  type: 0
+  type: 1
   line: Astralis can now jump again in the air.
   textColor: {r: 1, g: 1, b: 1, a: 1}
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 24f7bd9eaf69150429350d204d8d79d5, type: 3}
   eventChildIndex: 0
   waitTime: 0
