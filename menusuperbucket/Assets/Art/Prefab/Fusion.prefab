@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6873907404034006224}
   - component: {fileID: 5961879418305936614}
   - component: {fileID: 3348090349611204141}
-  - component: {fileID: 2898177641790250392}
+  - component: {fileID: 6953445782336727632}
   - component: {fileID: 6556878343965734713}
   - component: {fileID: 4935292292658914555}
   - component: {fileID: 3587529888848146642}
@@ -171,6 +171,11 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  grappleSource: {fileID: 0}
+  grappleSounds:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   CanPlatform: 0
   platformCooldown: 3
   platform: {fileID: 8936636652532218295, guid: 8de20a777e6d6984099ede6340fd012c,
@@ -201,15 +206,15 @@ MonoBehaviour:
   dashSpeed: 25
   dashSleepTime: 0.05
   dashAttackTime: 0.12
-  dashEndTime: 0.14
+  dashEndTime: 0.04
   dashEndSpeed: {x: 10, y: 8}
   dashEndRunLerp: 0.5
   dashRefillTime: 0.08
   dashInputBufferTime: 0.1
   gravityStrength: -88.888885
   gravityScale: 9.0610485
-  gravityStrengthDJ: NaN
-  gravityScaleDJ: NaN
+  gravityStrengthDJ: -50
+  gravityScaleDJ: 5.09684
   fallGravityMult: 1.25
   maxFallSpeed: 24
   fastFallGravityMult: 1.65
@@ -218,10 +223,10 @@ MonoBehaviour:
   jumpTimeToApex: 0.3
   jumpForce: 26.666666
   canDoubleJump: 1
-  doubleJumpHeight: 0
-  doubleJumpTimeToApex: 0
-  doubleJumpForce: NaN
-  jumpCutGravityMult: 2
+  doubleJumpHeight: 4
+  doubleJumpTimeToApex: 0.4
+  doubleJumpForce: 20
+  jumpCutGravityMult: 1.6
   jumpHangGravityMult: 0.5
   jumpHangTimeThreshold: 1
   jumpHangAccelerationMult: 1.1
@@ -241,7 +246,7 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 520
---- !u!114 &2898177641790250392
+--- !u!114 &6953445782336727632
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -250,13 +255,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 686920477237125129}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0906a93558382d4780a4f53b340a79b, type: 3}
+  m_Script: {fileID: 11500000, guid: 17771d16009ba3b4498c6179cc1bb396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 1000000
+  MaxHealth: 10
   health: 0
   deathParticles: {fileID: 4413544063190339218, guid: 52f6c1c24ee54154daff5ed0eae61332,
     type: 3}
+  AstralisHealth: {fileID: 0}
+  PrometeoHealth: {fileID: 0}
+  EreboHealths:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6556878343965734713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,6 +287,7 @@ MonoBehaviour:
   interactLayer:
     serializedVersion: 2
     m_Bits: 64
+  interactableParticles: {fileID: 0}
 --- !u!114 &4935292292658914555
 MonoBehaviour:
   m_ObjectHideFlags: 0
