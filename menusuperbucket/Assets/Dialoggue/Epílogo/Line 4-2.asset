@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4cd794e38900354cb3c90e3f5d2cc99, type: 3}
-  m_Name: Line 4
+  m_Name: Line 4-2
   m_EditorClassIdentifier: 
   type: 0
-  line: "\rZeus: Prometheus! Damn you! You have committed not one sin but two. In
-    the name of Olympus, I condemn you to a fate worse than your own torture or death.\r\n"
+  line: "\rZeus: It will be your brother who suffers the punishment.\r\n"
   textColor: {r: 1, g: 0.99212414, b: 0.41037738, a: 1}
   image: {fileID: 0}
   eventChildIndex: 0
