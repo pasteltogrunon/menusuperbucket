@@ -15,7 +15,7 @@ MonoBehaviour:
   type: 0
   line: 'Erebus: Is that so? And who did you come with? All I see is a failed hero
     who would not defeat me in a million years.'
-  textColor: {r: 0.17007832, g: 0.19879554, b: 0.3962264, a: 1}
+  textColor: {r: 0.34100214, g: 0.42062077, b: 0.9150943, a: 1}
   image: {fileID: 0}
   eventChildIndex: 0
   waitTime: 0

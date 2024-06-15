@@ -15,7 +15,7 @@ MonoBehaviour:
   type: 0
   line: 'Erebus: I didn''t expect to see you here, Prometheus. Especially considering
     you''re a coward. You must not have come alone, hahahahaha.'
-  textColor: {r: 0.17007832, g: 0.19879554, b: 0.3962264, a: 1}
+  textColor: {r: 0.34100214, g: 0.42062077, b: 0.9150943, a: 1}
   image: {fileID: 0}
   eventChildIndex: 0
   waitTime: 0
