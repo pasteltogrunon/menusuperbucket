@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   line: 'Epimetheus: Enough, Brother! What are you going to do? '
-  textColor: {r: 0.7058824, g: 0.23974356, b: 0.21626917, a: 1}
+  textColor: {r: 0.6320754, g: 0.18645033, b: 0.16398184, a: 1}
   image: {fileID: 0}
   eventChildIndex: 0
   waitTime: 0
