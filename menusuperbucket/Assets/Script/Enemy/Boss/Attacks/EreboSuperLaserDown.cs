@@ -18,6 +18,9 @@ public class EreboSuperLaserDown : EreboAttackBase
 
     [SerializeField] LayerMask playerLayer;
 
+    [SerializeField] AudioSource source;
+
+
 
     public override void StartAttack()
     {
@@ -36,7 +39,7 @@ public class EreboSuperLaserDown : EreboAttackBase
         bossAI.animator.Play("PreShootingUp");
         preLaser.Play();
         preLaser.transform.position = spawnPoint;
-
+        source.Play();
         yield return new WaitForSeconds(delay);
 
         CameraManager.cameraShake(duration, 5, 4);

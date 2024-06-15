@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class BossHealthManager : HealthManager
@@ -16,6 +17,9 @@ public class BossHealthManager : HealthManager
     [SerializeField] AudioSource scalingMusic;
 
     [SerializeField] AudioSource transformationSound;
+
+    [SerializeField] UnityEvent deathEvent;
+    [SerializeField] ParticleSystem deathParticles2;
 
     // Update is called once per frame
     void Update()
@@ -83,6 +87,33 @@ public class BossHealthManager : HealthManager
         nextPhaseGameobject.SetActive(true);
         nextPhaseGameobject.transform.position = transform.position;
         gameObject.SetActive(false);
+    }
+
+    protected override void die()
+    {
+        if(phase == 3)
+        {
+            StartCoroutine(phase3End());
+        }
+    }
+
+    IEnumerator phase3End()
+    {
+        deathParticles.GetComponent<ParticleSystem>().Stop();
+        deathParticles.GetComponent<ParticleSystem>().Play();
+        GetComponent<EreboAI>().endAttack();
+        GetComponent<EreboAI>().enabled = false;
+        StartCoroutine(fadeOutMusic(0.5f));
+        GetComponent<Animator>().Play("Phase3End");
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        CameraManager.cameraShake(5, 3, 3);
+        yield return new WaitForSeconds(5f);
+        CameraManager.cameraShake(0.5f, 6, 6);
+        deathParticles2.transform.SetParent(null);
+        deathParticles2.Play();
+        deathEvent?.Invoke();
+        Destroy(gameObject);
     }
 
     IEnumerator fadeOutMusic(float fadeOutDuration)

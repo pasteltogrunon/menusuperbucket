@@ -15,6 +15,8 @@ public class EreboTeleportLaser : EreboAttackBase
 
     [SerializeField] LayerMask playerLayer;
 
+    [SerializeField] AudioSource source;
+
     public override void StartAttack()
     {
         StartCoroutine(Teleport());
@@ -32,6 +34,7 @@ public class EreboTeleportLaser : EreboAttackBase
         bossAI.animator.Play("PreShootingDown");
         preLaser.Play();
         teleportParticles.Play();
+        source.Play();
         yield return new WaitForSeconds(healthDelayScale(delay));
 
         CameraManager.cameraShake(0.3f, 5, 3);

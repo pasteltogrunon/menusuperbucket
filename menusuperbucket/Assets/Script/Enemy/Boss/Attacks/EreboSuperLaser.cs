@@ -14,6 +14,9 @@ public class EreboSuperLaser : EreboAttackBase
 
     [SerializeField] LayerMask playerLayer;
 
+    [SerializeField] AudioSource source;
+
+
     public override void StartAttack()
     {
         StartCoroutine(Laser());
@@ -29,6 +32,7 @@ public class EreboSuperLaser : EreboAttackBase
         Vector2 direction = horizontalTargetDirection;
         bossAI.animator.Play("PreShooting");
         preLaser.Play();
+        source.Play();
         yield return new WaitForSeconds(delay);
 
         CameraManager.cameraShake(duration, 5, 4);

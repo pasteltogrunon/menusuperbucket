@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4cd794e38900354cb3c90e3f5d2cc99, type: 3}
   m_Name: Line 13
   m_EditorClassIdentifier: 
-  type: 0
-  line: "\u2026arg\n"
+  type: 2
+  line: 
   textColor: {r: 1, g: 1, b: 1, a: 1}
   image: {fileID: 0}
   eventChildIndex: 0
-  waitTime: 0
+  waitTime: 2

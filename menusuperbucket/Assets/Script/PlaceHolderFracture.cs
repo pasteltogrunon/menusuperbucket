@@ -44,4 +44,21 @@ public class PlaceHolderFracture : MonoBehaviour
         dimension4mat.SetFloat("_Phase", 1);
 
     }
+
+    public void resetDimension()
+    {
+        StartCoroutine(changeDimensionBack());
+    }
+
+    IEnumerator changeDimensionBack()
+    {
+        float duration = 1;
+        for(float t= 0; t< duration; t+=Time.deltaTime)
+        {
+            dimension4mat.SetFloat("_Phase", 1 - t / duration);
+            yield return null;
+        }
+        dimension4mat.SetFloat("_Phase", 0);
+
+    }
 }
