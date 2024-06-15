@@ -17,6 +17,7 @@ public class BossHealthManager : HealthManager
     [SerializeField] AudioSource scalingMusic;
 
     [SerializeField] AudioSource transformationSound;
+    [SerializeField] AudioSource transformationSound2;
 
     [SerializeField] UnityEvent deathEvent;
     [SerializeField] ParticleSystem deathParticles2;
@@ -63,6 +64,7 @@ public class BossHealthManager : HealthManager
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         yield return new WaitForSeconds(4f);
         CameraManager.cameraShake(1, 4, 3);
+        transformationSound.Play();
         yield return new WaitForSeconds(1f);
         nextPhaseGameobject.SetActive(true);
         nextPhaseGameobject.transform.position = transform.position;
@@ -88,6 +90,7 @@ public class BossHealthManager : HealthManager
         transformationSound.Play();
         yield return new WaitForSeconds(10.676f);
         CameraManager.cameraShake(1, 4, 3);
+        transformationSound2.Play();
         yield return new WaitForSeconds(1f);
         nextPhaseGameobject.SetActive(true);
         nextPhaseGameobject.transform.position = transform.position;
@@ -118,6 +121,7 @@ public class BossHealthManager : HealthManager
         CameraManager.cameraShake(5, 3, 3);
         yield return new WaitForSeconds(5f);
         CameraManager.cameraShake(0.5f, 6, 6);
+        transformationSound.Play();
         deathParticles2.transform.SetParent(null);
         deathParticles2.Play();
         deathEvent?.Invoke();
