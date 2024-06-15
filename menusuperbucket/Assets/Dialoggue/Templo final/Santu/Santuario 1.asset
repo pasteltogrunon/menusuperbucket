@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b853ff630227c641b934592ab723764, type: 3}
+  m_Name: Santuario 1
+  m_EditorClassIdentifier: 
+  instructionList:
+  - {fileID: 11400000, guid: 38a9b108520b35641901d329399ecc2a, type: 2}
+  - {fileID: 11400000, guid: 1daeea516ab85954eb02852b36e7f909, type: 2}
+  - {fileID: 11400000, guid: e822c92842abc2f4994dfe0e835d53ec, type: 2}
+  - {fileID: 11400000, guid: 48f4f3b37d44fb04d8353470f2471023, type: 2}
+  - {fileID: 11400000, guid: f0a44f071b34c8446999f5564fe4230a, type: 2}
+  - {fileID: 11400000, guid: 8e679c4f7ac6f004390d0b36a544d694, type: 2}
+  - {fileID: 11400000, guid: b617e7128f05b2c4699995d162529395, type: 2}
