@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4cd794e38900354cb3c90e3f5d2cc99, type: 3}
-  m_Name: StartFight
+  m_Script: {fileID: 11500000, guid: 1b853ff630227c641b934592ab723764, type: 3}
+  m_Name: SceneAwa 2
   m_EditorClassIdentifier: 
-  type: 3
-  line: 
-  textColor: {r: 1, g: 1, b: 1, a: 1}
-  image: {fileID: 0}
-  eventChildIndex: 6
-  waitTime: 0
+  instructionList:
+  - {fileID: 11400000, guid: 4912230bf10f3d648b9dccbf32a4566e, type: 2}
+  - {fileID: 11400000, guid: 083830b0a86233740aa811fc797b95c8, type: 2}
