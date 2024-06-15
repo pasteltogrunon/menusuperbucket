@@ -18,7 +18,7 @@ public class PlayerHurt : MonoBehaviour
     bool _isInvulnerable = false;
 
     //Sets the stun also
-    bool IsInvulnerable
+    public bool IsInvulnerable
     {
         get => _isInvulnerable;
         set

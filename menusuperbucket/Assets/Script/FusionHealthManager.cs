@@ -47,6 +47,8 @@ public class FusionHealthManager : HealthManager
         GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         GetComponent<PlayerController>().enabled = true;
 
+        GetComponent<PlayerHurt>().IsInvulnerable = false;
+
         onDeathEvent?.Invoke();
     }
 }
