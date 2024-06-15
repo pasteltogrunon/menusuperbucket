@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b853ff630227c641b934592ab723764, type: 3}
+  m_Name: FinalBossDeathScene
+  m_EditorClassIdentifier: 
+  instructionList:
+  - {fileID: 11400000, guid: 6948e1d74b02de6468994d8ab35eccae, type: 2}
+  - {fileID: 11400000, guid: 61fc909a72e82384a9426eb7e8672cb2, type: 2}
+  - {fileID: 11400000, guid: ee204333cc95d0a43aa478a76c437c2a, type: 2}
+  - {fileID: 11400000, guid: 45b21ac32d43d694abd67f816a8bc3ec, type: 2}
+  - {fileID: 11400000, guid: bc28de40f98ba184cbf04a112358232d, type: 2}
+  - {fileID: 11400000, guid: 6948e1d74b02de6468994d8ab35eccae, type: 2}
+  - {fileID: 11400000, guid: 26b60cce76bd8ce479442f309fc46e7b, type: 2}
+  - {fileID: 11400000, guid: 45b21ac32d43d694abd67f816a8bc3ec, type: 2}
+  - {fileID: 11400000, guid: f715e1a466e92c84d9dac5e1b80013f7, type: 2}
+  - {fileID: 11400000, guid: 56bc822c3416f994f8d675ccd66f57ff, type: 2}
+  - {fileID: 11400000, guid: e6bc50abc3114664dabda804f11d0066, type: 2}
