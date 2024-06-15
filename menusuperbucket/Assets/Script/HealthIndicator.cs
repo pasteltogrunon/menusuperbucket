@@ -28,7 +28,8 @@ public class HealthIndicator : MonoBehaviour
         int lifes = playerHealth.MaxHealth / 5;
         for(int i = lifeObjects.Count; i <lifes; i++)
         {
-            lifeObjects.Add(Instantiate(lifeImage, startPos + i * displacement + Random.Range(-0.5f, 0.5f) * randomDisplacement, Quaternion.identity, transform));
+            lifeObjects.Add(Instantiate(lifeImage, transform));
+            lifeObjects[i].transform.localPosition = startPos + i * displacement + Random.Range(-0.5f, 0.5f) * randomDisplacement;
         }
     }
 
