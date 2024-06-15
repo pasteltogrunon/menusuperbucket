@@ -66,7 +66,12 @@ public class BossHealthManager : HealthManager
         yield return new WaitForSeconds(1f);
         nextPhaseGameobject.SetActive(true);
         nextPhaseGameobject.transform.position = transform.position;
+        GetComponent<EreboAI>().enabled = true;
+        GetComponent<Collider2D>().enabled = true;
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         gameObject.SetActive(false);
+
+
     }
 
     IEnumerator phase2End()
@@ -86,6 +91,9 @@ public class BossHealthManager : HealthManager
         yield return new WaitForSeconds(1f);
         nextPhaseGameobject.SetActive(true);
         nextPhaseGameobject.transform.position = transform.position;
+        GetComponent<EreboAI>().enabled = true;
+        GetComponent<Collider2D>().enabled = true;
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         gameObject.SetActive(false);
     }
 

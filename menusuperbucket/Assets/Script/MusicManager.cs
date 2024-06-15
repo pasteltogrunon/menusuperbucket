@@ -74,7 +74,7 @@ public class MusicManager : MonoBehaviour
         previousAudioSource = targetAudioSource;
         targetAudioSource = musics[id];
         enemyMusicSource?.Stop();
-        targetAudioSource.Play();
+        targetAudioSource?.Play();
 
         if(id % 2 == 0)
         {

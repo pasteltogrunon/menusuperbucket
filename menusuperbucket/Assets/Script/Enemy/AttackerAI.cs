@@ -14,6 +14,7 @@ public class AttackerAI : GroundStandardAI
 
     IEnumerator dashAttack()
     {
+        GetComponent<Animator>().Play("attack");
         pushTime = attackDelay + attackDuration;
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         yield return new WaitForSeconds(attackDelay);

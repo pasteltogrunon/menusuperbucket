@@ -28,9 +28,4 @@ public class PressureButton : MonoBehaviour
         activeForm.SetActive(true);
         pressedForm.SetActive(false);
     }
-
-    private void OnDestroy()
-    {
-        transform.GetComponentInParent<CombinationLock>().resetCombination -= resetCombination;
-    }
 }

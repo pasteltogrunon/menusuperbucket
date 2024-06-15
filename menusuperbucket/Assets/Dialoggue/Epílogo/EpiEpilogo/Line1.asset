@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Line1
   m_EditorClassIdentifier: 
   type: 0
-  line: 'Epimetheus: You did it! I knew you could. Now take the fire and safe mankind.'
+  line: 'Epimetheus: You did it! I knew you could. Now take the fire and save mankind.'
   textColor: {r: 0.90588236, g: 0.38039216, b: 0.3529412, a: 1}
   image: {fileID: 0}
   eventChildIndex: 0

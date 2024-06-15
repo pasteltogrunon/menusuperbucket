@@ -35,7 +35,6 @@ public class EreboAI : MonoBehaviour
         //possibleAttacks.Add(GetComponent<EreboSpawnBombs>());
 
         // Iniciar el primer ataque
-        StartNextAttack();
     }
 
     void Update()
@@ -44,10 +43,14 @@ public class EreboAI : MonoBehaviour
         {
             currentAttack.Execute();
         }
+        else
+        {
+            StartNextAttack();
+        }
 
     }
 
-    void StartNextAttack()
+    public void StartNextAttack()
     {
         transform.localScale = new Vector3(direction, 1, 1);
 
@@ -59,12 +62,19 @@ public class EreboAI : MonoBehaviour
     public void OnAttackFinished()
     {
         // Elegir el siguiente ataque
-        StartNextAttack();
+        currentAttack = null;
+        //StartNextAttack();
     }
 
     public void endAttack()
     {
         currentAttack.StopAllCoroutines();
+        currentAttack = null;
+    }
+
+    private void OnDisable()
+    {
+        currentAttack = null;
     }
 
 }
