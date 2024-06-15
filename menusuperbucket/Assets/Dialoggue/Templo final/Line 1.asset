@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4cd794e38900354cb3c90e3f5d2cc99, type: 3}
-  m_Name: Line2
+  m_Name: Line 1
   m_EditorClassIdentifier: 
   type: 0
-  line: 'Prometheus: It is true that I am not alone. So what? We have come to take
-    the fire and give it to mankind. For good.'
-  textColor: {r: 1, g: 0.67058825, b: 0.37254903, a: 1}
+  line: 'Erebus: I didn''t expect to see you here, Prometheus. Especially considering
+    you''re a coward. You must not have come alone, hahahahaha.'
+  textColor: {r: 0.34100214, g: 0.42062077, b: 0.9150943, a: 1}
   image: {fileID: 0}
   eventChildIndex: 0
   waitTime: 0

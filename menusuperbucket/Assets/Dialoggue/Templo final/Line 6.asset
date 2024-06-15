@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4cd794e38900354cb3c90e3f5d2cc99, type: 3}
-  m_Name: Line3
+  m_Name: Line 6
   m_EditorClassIdentifier: 
   type: 0
-  line: 'Erebus: Is that so? And who did you come with? All I see is a failed hero
-    who would not defeat me in a million years.'
-  textColor: {r: 0.34100214, g: 0.42062077, b: 0.9150943, a: 1}
+  line: 'Prometheus: What is happening?'
+  textColor: {r: 1, g: 0.67058825, b: 0.37254903, a: 1}
   image: {fileID: 0}
   eventChildIndex: 0
   waitTime: 0

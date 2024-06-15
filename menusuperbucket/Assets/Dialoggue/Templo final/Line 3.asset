@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4cd794e38900354cb3c90e3f5d2cc99, type: 3}
-  m_Name: Line4
+  m_Name: Line 3
   m_EditorClassIdentifier: 
   type: 0
-  line: 'Astralis: I am with him!'
-  textColor: {r: 0.6039216, g: 0.4392157, b: 1, a: 1}
+  line: 'Erebus: Is that so? And who did you come with? All I see is a failed hero
+    who would not defeat me in a million years.'
+  textColor: {r: 0.34100214, g: 0.42062077, b: 0.9150943, a: 1}
   image: {fileID: 0}
   eventChildIndex: 0
   waitTime: 0
