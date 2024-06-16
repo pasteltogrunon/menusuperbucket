@@ -78,6 +78,10 @@ public class MainMenu : MonoBehaviour
             MainMenuMusic.volume = 1-(t * 0.5f);
             yield return null;
         }
+        MainMenuMusic.volume = 0;
+        blackScreen.color = new Color(0, 0, 0, 1);
+
+        yield return new WaitForSeconds(0.2f);
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(1);
 

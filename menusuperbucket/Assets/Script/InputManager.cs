@@ -21,7 +21,7 @@ public class InputManager : MonoBehaviour
     public static bool Interact { get => (Input.GetKeyDown(Instance.InteractKey) || Input.GetKeyDown(Instance.InteractButton)) && !CinematicInputsLocked; }
     public static bool Platform { get => (Input.GetKeyDown(Instance.PlatformKey) || Input.GetKeyDown(Instance.PlatformButton)) && !CinematicInputsLocked; }
     public static bool EnterLine { get => Input.GetKeyDown(Instance.EnterLineKey) || Input.GetKeyDown(Instance.EnterLineButton); }
-    public static bool Pause { get => Input.GetKeyDown(Instance.PauseMenuKey); }
+    public static bool Pause { get => Input.GetKeyDown(Instance.PauseMenuKey);}
 
     public static float Deadzone { get => Instance.DeadzoneValue; }
     public static float HorizontalAxis { get => CinematicInputsLocked || Mathf.Abs(Input.GetAxisRaw("Horizontal")) < Deadzone ? 0 : Input.GetAxisRaw("Horizontal"); }
